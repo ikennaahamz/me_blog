@@ -5,74 +5,136 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
-      content="Personal blog of Ikenna Ahamz: notes on technology, learning, projects, and building useful things."
+      content="Personal blog of Ikenna Ahamz: thoughtful notes on technology, learning, projects, and building useful things."
     />
     <meta name="author" content="Ikenna Ahamz" />
+    <meta name="theme-color" content="#f6f1e8" />
     <meta property="og:title" content="Ikenna Ahamz | Blog" />
     <meta
       property="og:description"
-      content="Notes on technology, learning, projects, and building useful things."
+      content="Thoughtful notes on technology, learning, projects, and building useful things."
     />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://ikennaahamz.site/" />
     <meta name="twitter:card" content="summary" />
     <title>Ikenna Ahamz | Blog</title>
     <link rel="canonical" href="https://ikennaahamz.site/" />
-    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%2314213d'/%3E%3Ctext x='50%25' y='56%25' text-anchor='middle' font-family='Arial, sans-serif' font-size='28' font-weight='700' fill='white'%3EIA%3C/text%3E%3C/svg%3E" />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%2314213d'/%3E%3Ctext x='50%25' y='56%25' text-anchor='middle' font-family='Arial, sans-serif' font-size='28' font-weight='700' fill='white'%3EIA%3C/text%3E%3C/svg%3E"
+    />
     <link rel="stylesheet" href="styles.css" />
+    <script>
+      const savedTheme = localStorage.getItem("theme");
+      const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+      document.documentElement.dataset.theme = savedTheme || (prefersDark ? "dark" : "light");
+    </script>
   </head>
   <body>
     <header class="site-header">
-      <a class="brand" href="/">Ikenna Ahamz</a>
-      <nav aria-label="Primary navigation">
-        <a href="#posts">Posts</a>
-        <a href="#about">About</a>
+      <a class="brand" href="/" aria-label="Ikenna Ahamz home">
+        <span class="brand-mark" aria-hidden="true">IA</span>
+        <span>Ikenna Ahamz</span>
+      </a>
+
+      <button class="menu-toggle" type="button" aria-controls="site-nav" aria-expanded="false">
+        <span class="menu-toggle-line" aria-hidden="true"></span>
+        <span class="sr-only">Toggle navigation</span>
+      </button>
+
+      <nav id="site-nav" class="site-nav" aria-label="Primary navigation">
+        <a href="#posts" data-section-link="posts">Posts</a>
+        <a href="#about" data-section-link="about">About</a>
         <a href="mailto:hello@ikennaahamz.site">Contact</a>
+        <button class="theme-toggle" type="button" aria-label="Switch to dark theme">
+          <span class="theme-toggle-icon" aria-hidden="true"></span>
+          <span class="theme-toggle-text">Dark</span>
+        </button>
       </nav>
     </header>
 
     <main>
       <section class="hero" aria-labelledby="intro-title">
-        <p class="eyebrow">Personal blog</p>
-        <h1 id="intro-title">Notes on technology, learning, and building useful things.</h1>
-        <p class="intro">
-          I write about what I am learning, projects I am working on, and practical ideas worth keeping.
-        </p>
-        <div class="hero-actions">
-          <a class="button primary" href="#posts">Read posts</a>
-          <a class="button secondary" href="#about">About me</a>
+        <div class="hero-copy">
+          <p class="eyebrow">Personal blog</p>
+          <h1 id="intro-title">Notes from learning, shipping, and thinking in public.</h1>
+          <p class="intro">
+            Ikenna Ahamz writes about technology, practical projects, and the lessons that
+            become clearer when they are written down.
+          </p>
+          <div class="hero-actions" aria-label="Primary actions">
+            <a class="button primary" href="#posts">Read the latest</a>
+            <a class="button secondary" href="#about">About the writer</a>
+          </div>
         </div>
+
+        <aside class="hero-panel" aria-label="Current site focus">
+          <img
+            src="assets/editorial-desk.webp"
+            alt="A notebook and laptop on a writing desk"
+            width="900"
+            height="600"
+          />
+          <div class="focus-card">
+            <p class="post-meta">Now drafting</p>
+            <h2>Making ideas easier to return to.</h2>
+            <p>
+              Short essays, project notes, and learning logs collected into one durable home.
+            </p>
+          </div>
+        </aside>
       </section>
 
       <section id="posts" class="section" aria-labelledby="posts-title">
         <div class="section-heading">
-          <p class="eyebrow">Recent writing</p>
-          <h2 id="posts-title">Start here</h2>
+          <div>
+            <p class="eyebrow">Recent writing</p>
+            <h2 id="posts-title">Start here</h2>
+          </div>
+          <p>
+            Placeholder entries are structured like real posts so the site is ready when the first
+            essays are published.
+          </p>
         </div>
+
         <div class="post-list">
-          <article class="post-card">
-            <p class="post-meta">Coming soon</p>
-            <h3>First post</h3>
-            <p>
-              Use this space for your newest essay, project note, or learning journal entry.
-            </p>
+          <article class="post-card featured-post">
+            <div>
+              <p class="post-meta">Coming soon / Essay</p>
+              <h3>What I want this blog to remember</h3>
+              <p>
+                A first note on the problems, questions, and useful references worth keeping in
+                public.
+              </p>
+            </div>
             <a href="mailto:hello@ikennaahamz.site">Suggest a topic</a>
           </article>
+
           <article class="post-card">
             <p class="post-meta">Project notes</p>
-            <h3>What I am building</h3>
+            <h3>Decisions from the workbench</h3>
             <p>
-              Share progress updates, technical decisions, and lessons from the projects you care about.
+              Progress updates, technical tradeoffs, and small lessons from projects in motion.
             </p>
-            <a href="mailto:hello@ikennaahamz.site">Get in touch</a>
+            <a href="mailto:hello@ikennaahamz.site">Ask about a project</a>
           </article>
+
           <article class="post-card">
             <p class="post-meta">Learning log</p>
-            <h3>What I am studying</h3>
+            <h3>Study notes that survived the week</h3>
             <p>
-              Turn notes into useful references for yourself and readers following similar paths.
+              Practical summaries from courses, books, docs, experiments, and repeated mistakes.
             </p>
             <a href="mailto:hello@ikennaahamz.site">Follow along</a>
+          </article>
+
+          <article class="post-card">
+            <p class="post-meta">Field notes</p>
+            <h3>Useful things found while building</h3>
+            <p>
+              Links, patterns, and examples that are easier to use when they have a little context.
+            </p>
+            <a href="mailto:hello@ikennaahamz.site">Send a reference</a>
           </article>
         </div>
       </section>
@@ -80,18 +142,31 @@
       <section id="about" class="section about" aria-labelledby="about-title">
         <div>
           <p class="eyebrow">About</p>
-          <h2 id="about-title">A simple home for my ideas.</h2>
+          <h2 id="about-title">A lightweight home for steady writing.</h2>
         </div>
-        <p>
-          This site is the main place for my writing and public notes. It is intentionally lightweight,
-          fast, and easy to update as the blog grows.
-        </p>
+        <div class="about-copy">
+          <p>
+            This site is the main place for Ikenna's public notes: writing that turns ongoing
+            learning, technical decisions, and project work into something searchable and useful.
+          </p>
+          <p>
+            The design stays intentionally simple so publishing remains the hard part, not
+            maintaining the website.
+          </p>
+          <a class="text-link" href="mailto:hello@ikennaahamz.site">hello@ikennaahamz.site</a>
+        </div>
       </section>
     </main>
 
     <footer class="site-footer">
       <p>&copy; 2026 Ikenna Ahamz</p>
-      <a href="mailto:hello@ikennaahamz.site">hello@ikennaahamz.site</a>
+      <div>
+        <a href="#posts">Posts</a>
+        <a href="#about">About</a>
+        <a href="mailto:hello@ikennaahamz.site">Contact</a>
+      </div>
     </footer>
+
+    <script src="script.js"></script>
   </body>
 </html>
