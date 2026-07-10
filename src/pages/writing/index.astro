@@ -1,0 +1,27 @@
+---
+import PostList from "../../components/PostList.astro";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { getPublishedPosts } from "../../lib/posts";
+
+const posts = await getPublishedPosts();
+const years = Map.groupBy(posts, (post) => post.data.publishedAt.getUTCFullYear());
+---
+
+<BaseLayout title="Writing" description="Essays and notes by Ikenna Ahamz.">
+  <header class="page-header">
+    <p class="kicker">Archive</p>
+    <h1>Writing</h1>
+    <p>Essays, working notes, and ideas collected over time.</p>
+  </header>
+
+  <div class="year-groups">
+    {
+      [...years.entries()].map(([year, yearPosts]) => (
+        <section class="archive-group" aria-labelledby={`year-${year}`}>
+          <h2 id={`year-${year}`}>{year}</h2>
+          <PostList posts={yearPosts} />
+        </section>
+      ))
+    }
+  </div>
+</BaseLayout>

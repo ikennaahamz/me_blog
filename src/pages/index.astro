@@ -1,0 +1,67 @@
+---
+import PostList from "../components/PostList.astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { getPostTopics, getPublishedPosts, getTopicCounts } from "../lib/posts";
+
+const posts = await getPublishedPosts();
+const featured = posts.find((post) => post.data.featured) ?? posts[0];
+const recentPosts = posts.filter((post) => post.id !== featured?.id).slice(0, 8);
+const topics = [...getTopicCounts(posts).entries()];
+const featuredTopics = featured ? getPostTopics(featured).slice(0, 3) : [];
+---
+
+<BaseLayout>
+  <section class="home-intro" aria-labelledby="home-title">
+    <p class="kicker">Personal notes</p>
+    <h1 id="home-title">Ideas worth returning to.</h1>
+    <p class="home-deck">
+      I write about philosophy, books, technology, and the conversations that change how I see
+      things.
+    </p>
+  </section>
+
+  {
+    featured && (
+      <section class="featured-writing" aria-labelledby="featured-title">
+        <div class="section-label">Featured</div>
+        <article>
+          <p class="featured-meta">
+            <time datetime={featured.data.publishedAt.toISOString()}>
+              {featured.data.publishedAt.getUTCFullYear()}
+            </time>
+            <span aria-hidden="true">/</span>
+            {featured.data.category}
+          </p>
+          <h2 id="featured-title"><a href={`/writing/${featured.id}/`}>{featured.data.title}</a></h2>
+          <p>{featured.data.description}</p>
+          <div class="featured-footer">
+            <a class="continue-link" href={`/writing/${featured.id}/`}>Continue reading <span aria-hidden="true">&rarr;</span></a>
+            <ul class="plain-topics" aria-label="Featured article topics">
+              {featuredTopics.map((topic) => <li>{topic}</li>)}
+            </ul>
+          </div>
+        </article>
+      </section>
+    )
+  }
+
+  <section class="home-section" aria-labelledby="topics-title">
+    <div class="section-label"><h2 id="topics-title">Topics</h2></div>
+    <div>
+      <ul class="topic-index">
+        {topics.map(([topic, count]) => (
+          <li><a href={`/topics/${topic}/`}><span>{topic}</span><sup>{count}</sup></a></li>
+        ))}
+      </ul>
+      <a class="quiet-link" href="/topics/">Browse all topics <span aria-hidden="true">&rarr;</span></a>
+    </div>
+  </section>
+
+  <section class="home-section" aria-labelledby="recent-title">
+    <div class="section-label"><h2 id="recent-title">Recent writing</h2></div>
+    <div>
+      <PostList posts={recentPosts} />
+      <a class="quiet-link" href="/writing/">View the complete archive <span aria-hidden="true">&rarr;</span></a>
+    </div>
+  </section>
+</BaseLayout>

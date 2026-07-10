@@ -1,0 +1,29 @@
+---
+import type { Post } from "../lib/posts";
+import { formatDate } from "../lib/posts";
+
+interface Props {
+  posts: Post[];
+  emptyMessage?: string;
+}
+
+const { posts, emptyMessage = "No writing has been published here yet." } = Astro.props;
+---
+
+{
+  posts.length > 0 ? (
+    <ol class="post-list">
+      {posts.map((post) => (
+        <li>
+          <a class="post-row" href={`/writing/${post.id}/`}>
+            <time datetime={post.data.publishedAt.toISOString()}>{formatDate(post.data.publishedAt)}</time>
+            <span>{post.data.title}</span>
+            <span class="row-arrow" aria-hidden="true">&rarr;</span>
+          </a>
+        </li>
+      ))}
+    </ol>
+  ) : (
+    <p class="empty-state">{emptyMessage}</p>
+  )
+}

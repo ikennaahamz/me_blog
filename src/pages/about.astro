@@ -1,0 +1,34 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout title="About" description="About Ikenna Ahamz and this personal writing space.">
+  <article class="about-page">
+    <header class="page-header">
+      <p class="kicker">About</p>
+      <h1>Ikenna Ahamz</h1>
+    </header>
+    <div class="prose about-prose">
+      <p class="lead">
+        I am a developer and persistent learner interested in how ideas become useful systems.
+      </p>
+      <p>
+        This site is where I keep public notes on philosophy, books, technology, and podcasts.
+        Some pieces are finished essays. Others are records of questions that are still changing.
+      </p>
+      <p>
+        I write in Obsidian and publish in Markdown. Keeping the process simple leaves more room
+        for the part that matters: thinking clearly enough to put something into words.
+      </p>
+      <p><a href="mailto:hello@ikennaahamz.site">hello@ikennaahamz.site</a></p>
+    </div>
+    <img
+      class="about-image"
+      src="/assets/editorial-desk.webp"
+      alt="A notebook and laptop on a writing desk"
+      width="900"
+      height="600"
+      loading="lazy"
+    />
+  </article>
+</BaseLayout>

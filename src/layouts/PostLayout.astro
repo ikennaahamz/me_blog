@@ -1,0 +1,39 @@
+---
+import type { Post } from "../lib/posts";
+import { formatDate, getPostTopics, getReadingTime } from "../lib/posts";
+import BaseLayout from "./BaseLayout.astro";
+
+interface Props {
+  post: Post;
+}
+
+const { post } = Astro.props;
+const topics = getPostTopics(post);
+const readingTime = getReadingTime(post.body ?? "");
+---
+
+<BaseLayout
+  title={post.data.title}
+  description={post.data.description}
+  type="article"
+  publishedAt={post.data.publishedAt}
+>
+  <article class="article">
+    <header class="article-header">
+      <a class="back-link" href="/writing/">&larr; All writing</a>
+      <h1>{post.data.title}</h1>
+      <p class="article-description">{post.data.description}</p>
+      <div class="article-meta">
+        <time datetime={post.data.publishedAt.toISOString()}>{formatDate(post.data.publishedAt)}</time>
+        <span aria-hidden="true">/</span>
+        <span>{readingTime} min read</span>
+      </div>
+      <ul class="topic-links" aria-label="Article topics">
+        {topics.map((topic) => <li><a href={`/topics/${topic}/`}>{topic}</a></li>)}
+      </ul>
+    </header>
+    <div class="prose">
+      <slot />
+    </div>
+  </article>
+</BaseLayout>
