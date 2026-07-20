@@ -29,6 +29,23 @@ export function getReadingTime(body: string): number {
   return Math.max(1, Math.ceil(words / 220));
 }
 
+export function getRelatedPost(post: Post, posts: Post[]): Post | undefined {
+  const topics = new Set(getPostTopics(post));
+
+  return posts
+    .filter((candidate) => candidate.id !== post.id)
+    .map((candidate) => ({
+      post: candidate,
+      score: getPostTopics(candidate).filter((topic) => topics.has(topic)).length,
+    }))
+    .sort(
+      (left, right) =>
+        right.score - left.score ||
+        right.post.data.publishedAt.valueOf() - left.post.data.publishedAt.valueOf() ||
+        left.post.data.title.localeCompare(right.post.data.title),
+    )[0]?.post;
+}
+
 export function formatDate(date: Date): string {
   return new Intl.DateTimeFormat("en", {
     year: "numeric",

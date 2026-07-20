@@ -15,11 +15,26 @@ function buildSite() {
 
 let html;
 let homeHtml;
+let newestArticleHtml;
+let middleArticleHtml;
+let oldestArticleHtml;
 
 before(() => {
   buildSite();
   html = readFileSync("dist/books/index.html", "utf8");
   homeHtml = readFileSync("dist/index.html", "utf8");
+  newestArticleHtml = readFileSync(
+    "dist/writing/what-i-want-this-blog-to-remember/index.html",
+    "utf8",
+  );
+  middleArticleHtml = readFileSync(
+    "dist/writing/decisions-from-the-workbench/index.html",
+    "utf8",
+  );
+  oldestArticleHtml = readFileSync(
+    "dist/writing/study-notes-that-survived-the-week/index.html",
+    "utf8",
+  );
 });
 
 test("the homepage starts with one h1 and three curated destinations", () => {
@@ -64,4 +79,23 @@ test("each shelf entry has a summary and an accessible full-note disclosure", ()
 
 test("the primary navigation links to the current Books page", () => {
   assert.match(html, /<a href="\/books\/" aria-current="page">Books<\/a>/);
+});
+
+test("articles offer related, chronological, and archive continuation", () => {
+  assert.match(middleArticleHtml, /<h2>Keep reading<\/h2>/);
+  assert.match(middleArticleHtml, /Related writing/);
+  assert.match(
+    middleArticleHtml,
+    /href="\/writing\/what-i-want-this-blog-to-remember\/"[^>]*>[\s\S]*?What I want this blog to remember/,
+  );
+  assert.match(middleArticleHtml, /class="article-pagination-link newer"/);
+  assert.match(middleArticleHtml, /class="article-pagination-link older"/);
+  assert.match(middleArticleHtml, /class="all-writing-link" href="\/writing\/">View all writing/);
+});
+
+test("article boundaries omit unavailable chronological controls", () => {
+  assert.doesNotMatch(newestArticleHtml, /class="article-pagination-link newer"/);
+  assert.match(newestArticleHtml, /class="article-pagination-link older"/);
+  assert.match(oldestArticleHtml, /class="article-pagination-link newer"/);
+  assert.doesNotMatch(oldestArticleHtml, /class="article-pagination-link older"/);
 });

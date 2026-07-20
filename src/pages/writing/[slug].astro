@@ -1,16 +1,26 @@
 ---
-import { getCollection, render } from "astro:content";
+import { render } from "astro:content";
 import PostLayout from "../../layouts/PostLayout.astro";
+import { getPublishedPosts, getRelatedPost } from "../../lib/posts";
 
 export async function getStaticPaths() {
-  const posts = await getCollection("posts", ({ data }) => !data.draft);
-  return posts.map((post) => ({ params: { slug: post.id }, props: { post } }));
+  const posts = await getPublishedPosts();
+
+  return posts.map((post, index) => ({
+    params: { slug: post.id },
+    props: {
+      post,
+      relatedPost: getRelatedPost(post, posts),
+      newerPost: index > 0 ? posts[index - 1] : undefined,
+      olderPost: index < posts.length - 1 ? posts[index + 1] : undefined,
+    },
+  }));
 }
 
-const { post } = Astro.props;
+const { post, relatedPost, newerPost, olderPost } = Astro.props;
 const { Content } = await render(post);
 ---
 
-<PostLayout post={post}>
+<PostLayout {post} {relatedPost} {newerPost} {olderPost}>
   <Content />
 </PostLayout>
