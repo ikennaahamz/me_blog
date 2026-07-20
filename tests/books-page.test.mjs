@@ -14,10 +14,22 @@ function buildSite() {
 }
 
 let html;
+let homeHtml;
 
 before(() => {
   buildSite();
   html = readFileSync("dist/books/index.html", "utf8");
+  homeHtml = readFileSync("dist/index.html", "utf8");
+});
+
+test("the homepage starts with one h1 and three curated destinations", () => {
+  assert.equal((homeHtml.match(/<h1(?:\s[^>]*)?>/g) ?? []).length, 1);
+  assert.match(homeHtml, /<h1 id="home-title">I've Been thinking\.<\/h1>/);
+  assert.match(homeHtml, /id="start-here-title">Start here<\/h2>/);
+  assert.equal((homeHtml.match(/class="start-here-card"/g) ?? []).length, 3);
+  assert.match(homeHtml, /What I want this blog to remember/);
+  assert.match(homeHtml, /Decisions from the workbench/);
+  assert.match(homeHtml, /The Forever Shelf/);
 });
 
 test("the generated site includes The Forever Shelf page", () => {

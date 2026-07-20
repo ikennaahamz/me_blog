@@ -8,6 +8,7 @@ tags:
   - learning
 draft: false
 featured: false
+startHereOrder: 2
 ---
 
 Projects tend to preserve their code and lose their reasoning. Months later, the implementation remains, but the constraints that shaped it have disappeared.

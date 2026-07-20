@@ -8,6 +8,7 @@ tags:
   - learning
 draft: false
 featured: true
+startHereOrder: 1
 ---
 
 Most useful ideas do not arrive as finished arguments. They begin as a sentence in the margin, a question that survives a walk, or a decision made while building something that did not work the first time.

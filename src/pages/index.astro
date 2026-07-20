@@ -1,13 +1,21 @@
 ---
 import PostList from "../components/PostList.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
-import { getPostTopics, getPublishedPosts, getTopicCounts } from "../lib/posts";
+import { getPublishedPosts, getTopicCounts } from "../lib/posts";
 
 const posts = await getPublishedPosts();
-const featured = posts.find((post) => post.data.featured) ?? posts[0];
-const recentPosts = posts.filter((post) => post.id !== featured?.id).slice(0, 8);
+const markedStartHerePosts = posts
+  .filter((post) => post.data.startHereOrder !== undefined)
+  .sort((left, right) => left.data.startHereOrder! - right.data.startHereOrder!);
+const fallbackStartHerePosts = posts.filter(
+  (post) => !markedStartHerePosts.some((markedPost) => markedPost.id === post.id),
+);
+const startHerePosts = [...markedStartHerePosts, ...fallbackStartHerePosts].slice(0, 2);
+const recentPosts = posts
+  .filter((post) => !startHerePosts.some((startHerePost) => startHerePost.id === post.id))
+  .slice(0, 8);
 const topics = [...getTopicCounts(posts).entries()];
-const featuredTopics = featured ? getPostTopics(featured).slice(0, 3) : [];
+const startHereLabels = ["Begin with the idea", "See how I work"];
 ---
 
 <BaseLayout>
@@ -20,30 +28,35 @@ const featuredTopics = featured ? getPostTopics(featured).slice(0, 3) : [];
     </p>
   </section>
 
-  {
-    featured && (
-      <section class="featured-writing" aria-labelledby="featured-title">
-        <div class="section-label">Featured</div>
-        <article>
-          <p class="featured-meta">
-            <time datetime={featured.data.publishedAt.toISOString()}>
-              {featured.data.publishedAt.getUTCFullYear()}
-            </time>
-            <span aria-hidden="true">/</span>
-            {featured.data.category}
-          </p>
-          <h2 id="featured-title"><a href={`/writing/${featured.id}/`}>{featured.data.title}</a></h2>
-          <p>{featured.data.description}</p>
-          <div class="featured-footer">
-            <a class="continue-link" href={`/writing/${featured.id}/`}>Continue reading <span aria-hidden="true">&rarr;</span></a>
-            <ul class="plain-topics" aria-label="Featured article topics">
-              {featuredTopics.map((topic) => <li>{topic}</li>)}
-            </ul>
-          </div>
+  <section class="home-section start-here" aria-labelledby="start-here-title">
+    <div class="section-label"><h2 id="start-here-title">Start here</h2></div>
+    <ol class="start-here-grid">
+      {
+        startHerePosts.map((post, index) => (
+          <li>
+            <article class="start-here-card">
+              <p class="start-here-label">{startHereLabels[index]}</p>
+              <h3><a href={`/writing/${post.id}/`}>{post.data.title}</a></h3>
+              <p>{post.data.description}</p>
+              <a class="continue-link" href={`/writing/${post.id}/`}>
+                Read this piece <span aria-hidden="true">&rarr;</span>
+              </a>
+            </article>
+          </li>
+        ))
+      }
+      <li>
+        <article class="start-here-card">
+          <p class="start-here-label">Browse the shelf</p>
+          <h3><a href="/books/">The Forever Shelf</a></h3>
+          <p>An unranked collection of books that continue to change how I think and see the world.</p>
+          <a class="continue-link" href="/books/">
+            Explore the shelf <span aria-hidden="true">&rarr;</span>
+          </a>
         </article>
-      </section>
-    )
-  }
+      </li>
+    </ol>
+  </section>
 
   <section class="home-section" aria-labelledby="topics-title">
     <div class="section-label"><h2 id="topics-title">Topics</h2></div>
