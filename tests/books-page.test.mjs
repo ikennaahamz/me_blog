@@ -18,6 +18,7 @@ let homeHtml;
 let newestArticleHtml;
 let middleArticleHtml;
 let oldestArticleHtml;
+let aboutHtml;
 
 before(() => {
   buildSite();
@@ -35,6 +36,7 @@ before(() => {
     "dist/writing/study-notes-that-survived-the-week/index.html",
     "utf8",
   );
+  aboutHtml = readFileSync("dist/about/index.html", "utf8");
 });
 
 test("the homepage starts with one h1 and three curated destinations", () => {
@@ -98,4 +100,12 @@ test("article boundaries omit unavailable chronological controls", () => {
   assert.match(newestArticleHtml, /class="article-pagination-link older"/);
   assert.match(oldestArticleHtml, /class="article-pagination-link newer"/);
   assert.doesNotMatch(oldestArticleHtml, /class="article-pagination-link older"/);
+});
+
+test("the About page presents the current work as a semantic list", () => {
+  assert.match(aboutHtml, /<section class="about-currently" aria-labelledby="currently-title">/);
+  assert.match(aboutHtml, /<h2 id="currently-title">Currently<\/h2>/);
+  assert.match(aboutHtml, /<dt>Building<\/dt><dd>This blog and UniBlood<\/dd>/);
+  assert.match(aboutHtml, /<dt>Learning<\/dt><dd>Astro and frontend development<\/dd>/);
+  assert.match(aboutHtml, /<dt>Curating<\/dt><dd><a href="\/books\/">The Forever Shelf<\/a><\/dd>/);
 });

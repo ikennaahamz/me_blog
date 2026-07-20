@@ -685,10 +685,49 @@ main {
   line-height: 1.55;
 }
 
+.about-currently {
+  width: min(var(--reading-width), 100%);
+  margin: var(--space-6) auto 0;
+  padding-top: var(--space-5);
+  border-top: 1px solid var(--rule);
+}
+
+.about-currently h2 {
+  margin: 0 0 var(--space-4);
+  color: var(--muted);
+  font-size: 0.75rem;
+  font-weight: 750;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.about-currently dl {
+  margin: 0;
+}
+
+.about-currently dl > div {
+  display: grid;
+  grid-template-columns: 100px minmax(0, 1fr);
+  gap: var(--space-4);
+  padding: var(--space-2) 0;
+}
+
+.about-currently dt {
+  color: var(--faint);
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.about-currently dd {
+  margin: 0;
+  font-family: Georgia, "Times New Roman", serif;
+}
+
 .about-image {
   width: min(900px, 100%);
   aspect-ratio: 3 / 2;
-  margin: var(--space-7) auto 0;
+  margin: var(--space-6) auto 0;
   border: 1px solid var(--rule);
   object-fit: cover;
   filter: saturate(0.7) contrast(1.04);
@@ -993,6 +1032,11 @@ main {
 
   .book-note {
     font-size: 0.94rem;
+  }
+
+  .about-currently dl > div {
+    grid-template-columns: 1fr;
+    gap: 0;
   }
 }
 
