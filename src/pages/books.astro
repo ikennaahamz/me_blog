@@ -13,6 +13,7 @@ books.sort(
 const shelf = await Promise.all(
   books.map(async (book) => ({
     book,
+    hasFullNote: (book.body ?? "").trim().length > 0,
     Content: (await render(book)).Content,
   })),
 );
@@ -32,11 +33,16 @@ const shelf = await Promise.all(
 
   <ul class="book-grid" aria-label="Books on The Forever Shelf">
     {
-      shelf.map(({ book, Content }) => (
+      shelf.map(({ book, hasFullNote, Content }) => (
         <li class="book-card">
           <div class="book-cover-frame">
             {
-              typeof book.data.cover === "string" ? (
+              !book.data.cover ? (
+                <div class="book-cover-placeholder" aria-hidden="true">
+                  <span>{book.data.title}</span>
+                  <small>{book.data.author}</small>
+                </div>
+              ) : typeof book.data.cover === "string" ? (
                 <img
                   class="book-cover"
                   src={book.data.cover}
@@ -61,13 +67,17 @@ const shelf = await Promise.all(
           <article class="book-entry">
             <h2>{book.data.title}</h2>
             <p class="book-author">{book.data.author}</p>
-            <p class="book-summary">{book.data.summary}</p>
-            <details class="book-details">
-              <summary>Read full note</summary>
-              <div class="book-note">
-                <Content />
-              </div>
-            </details>
+            {book.data.summary && <p class="book-summary">{book.data.summary}</p>}
+            {
+              hasFullNote && (
+                <details class="book-details">
+                  <summary>Read full note</summary>
+                  <div class="book-note">
+                    <Content />
+                  </div>
+                </details>
+              )
+            }
           </article>
         </li>
       ))

@@ -51,6 +51,8 @@ test("the homepage starts with one h1 and three curated destinations", () => {
 
 test("the generated site includes The Forever Shelf page", () => {
   assert.match(html, /<h1>The Forever Shelf<\/h1>/);
+  assert.equal((html.match(/class="book-card"/g) ?? []).length, 15);
+  assert.equal((html.match(/class="book-cover-placeholder"/g) ?? []).length, 12);
 });
 
 test("the shelf renders the three recommendations in author-surname order", () => {
@@ -70,7 +72,7 @@ test("the shelf renders the three recommendations in author-surname order", () =
   assert.match(html, /AI as a purely technical subject/);
 });
 
-test("each shelf entry has a summary and an accessible full-note disclosure", () => {
+test("completed shelf notes have summaries and accessible disclosures", () => {
   assert.equal((html.match(/class="book-summary"/g) ?? []).length, 3);
   assert.equal((html.match(/<details class="book-details">/g) ?? []).length, 3);
   assert.equal((html.match(/<summary>Read full note<\/summary>/g) ?? []).length, 3);
