@@ -1,0 +1,56 @@
+---
+import { getCollection, render } from "astro:content";
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const books = await getCollection("books", ({ data }) => !data.draft);
+books.sort(
+  (left, right) =>
+    left.data.authorSort.localeCompare(right.data.authorSort) ||
+    left.data.title.localeCompare(right.data.title),
+);
+
+const shelf = await Promise.all(
+  books.map(async (book) => ({
+    book,
+    Content: (await render(book)).Content,
+  })),
+);
+---
+
+<BaseLayout
+  title="The Forever Shelf"
+  description="An unranked collection of the books Ikenna returns to."
+>
+  <header class="page-header forever-shelf-header">
+    <p class="kicker">Books I return to</p>
+    <h1>The Forever Shelf</h1>
+    <p>
+      An unranked collection of books that continue to change how I think, feel, and see the world.
+    </p>
+  </header>
+
+  <ul class="book-grid" aria-label="Books on The Forever Shelf">
+    {
+      shelf.map(({ book, Content }) => (
+        <li class="book-card">
+          <img
+            class="book-cover"
+            src={typeof book.data.cover === "string" ? book.data.cover : book.data.cover.src}
+            alt={`Cover of ${book.data.title} by ${book.data.author}`}
+            width="300"
+            height="450"
+            loading="lazy"
+            decoding="async"
+          />
+          <article class="book-entry">
+            <h2>{book.data.title}</h2>
+            <p class="book-author">{book.data.author}</p>
+            <div class="book-note">
+              <Content />
+            </div>
+          </article>
+        </li>
+      ))
+    }
+  </ul>
+</BaseLayout>

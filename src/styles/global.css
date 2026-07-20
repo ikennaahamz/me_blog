@@ -564,6 +564,62 @@ main {
   filter: saturate(0.7) contrast(1.04);
 }
 
+.forever-shelf-header {
+  padding-bottom: var(--space-6);
+}
+
+.book-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0 var(--space-6);
+  margin: 0;
+  padding: 0 0 var(--space-8);
+  list-style: none;
+}
+
+.book-card {
+  display: grid;
+  grid-template-columns: 140px minmax(0, 1fr);
+  gap: var(--space-4);
+  align-items: start;
+  padding: var(--space-5) 0 var(--space-6);
+  border-top: 1px solid var(--rule);
+}
+
+.book-cover {
+  width: 100%;
+  aspect-ratio: 2 / 3;
+  border: 1px solid var(--rule);
+  background: var(--paper-raised);
+  object-fit: cover;
+}
+
+.book-entry h2 {
+  margin: 0;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.6rem;
+  font-weight: 500;
+  line-height: 1.12;
+}
+
+.book-author {
+  margin: var(--space-1) 0 var(--space-3);
+  color: var(--muted);
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+.book-note {
+  color: var(--muted);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 0.98rem;
+  line-height: 1.65;
+}
+
+.book-note p {
+  margin: 0;
+}
+
 .site-footer {
   min-height: 88px;
   display: flex;
@@ -613,6 +669,10 @@ main {
 
   .article-header h1 {
     font-size: 3.6rem;
+  }
+
+  .book-grid {
+    grid-template-columns: 1fr;
   }
 }
 
@@ -744,6 +804,19 @@ main {
 
   .topic-directory a span:first-child {
     font-size: 1.25rem;
+  }
+
+  .book-card {
+    grid-template-columns: 92px minmax(0, 1fr);
+    gap: var(--space-3);
+  }
+
+  .book-entry h2 {
+    font-size: 1.35rem;
+  }
+
+  .book-note {
+    font-size: 0.94rem;
   }
 }
 

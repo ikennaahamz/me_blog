@@ -1,0 +1,406 @@
+# Google Play Books Inventory
+
+- **The Dream Machine** — Mitchell Waldrop
+- **She Who Remains** — Rene Karabash
+- **Writers and Lovers** — Lily King
+- **Red Rising** — David McCullough
+- **The Remians of the Day** — Kazuo Ishiguro
+- **Fooled By Randomness** — Nassim Nicholas Taleb
+- **Kin** — Tayari Jones
+- **Capital in the Twenty-First Century** — Thomas Piketty
+- **Marx: A Very Short Introduction (Very Short Introductions)** — Peter Singer
+- **People Who Live Alone Talk Too Much** — Sofi Stambo
+- **In This Economy?** — Kyla Scanlon
+- **The Science of Rapid Skill Acquisition: Advanced Methods to Learn, Remember, and Master New Skills and Information [Second Edition]** — Peter Hollins
+- **Joan Didion** — MELVILLE HOUSE
+- **Let Me Tell You What I Mean** — Joan Didion
+- **Slouching Towards Bethlehem** — Joan Didion
+- **Attensity!** — The Friends of Attention;
+- **Grokking Software Architecture** — Matt Erman
+- **A Companion to Marx's Capital** — David Harvey
+- **Marx's Concept of Man** — Erich Fromm
+- **Things in Nature Merely Grow** — Yiyun Li
+- **Learn PowerShell in a Month of Lunches, Fourth Edition** — James Petty
+- **Gilles Deleuze** — Claire Colebrook
+- **The Age of Magical Overthinking** — Amanda Montell
+- **Yesteryear** — Caro Claire Burke
+- **Phantom of the Opera** — Gaston Leroux
+- **The Year of Magical Thinking** — Joan Didion
+- **Blue Nights** — Joan Didion
+- **Good People** — Patmeena Sabit
+- **How to Rule the World: An Education in Power at Stanford University** — Theo Baker
+- **Lost Lambs: A Novel** — Madeline Cash
+- **The Emperor of Gladness** — Ocean Vuong
+- **Portnoy's Complaint** — Philip Roth
+- **Boy Parts** — Eliza Clark
+- **Thinking in Systems** — Donella H. Meadows
+- **Gilles Deleuze** — Stivale, Charles J.;
+- **Trust** — Hernan Diaz
+- **Whidbey** — Madden,T Kira
+- **High-Performance Browser Networking** — Ilya Grigorik
+- **Programming TypeScript** — Boris Cherny
+- **Functional-Light JavaScript: Balanced, Pragmatic FP in JavaScript** — Kyle Simpson
+- **The Mystery of Capital** — Soto, Hernando De
+- **Why Machines Learn** — Anil Ananthaswamy
+- **One-Dimensional Man** — Herbert Marcuse
+- **Flashlight** — Susan Choi
+- **My Dark Vanessa** — Kate Elizabeth Russell
+- **Americanah** — Chimamanda Ngozi Adichie
+- **Purple Hibiscus** — Chimamanda Ngozi Adichie
+- **Half of a Yellow Sun, Americanah, Purple Hibiscus: Chimamanda Ngozi Adichie Three-Book Collection** — Chimamanda Ngozi Adichie
+- **Caste** — Isabel Wilkerson
+- **One Day, Everyone Will Have Always Been Against This** — Omar El Akkad
+- **AI Agents and Applications** — Roberto Infante;
+- **The Correspondent** — Virginia Evans
+- **Strangers** — Belle Burden
+- **This Story Might Save Your Life** — Tiffany Crum
+- **Dominion** — Addie E. Citchens
+- **The Benefactors: the moving and utterly enthralling debut novel about class, power and what being a parent means.** — Wendy Erskine
+- **A Beast Slinks Towards Beijing** — Alice Evelyn Yang
+- **Moderation: 'If you liked Tomorrow, and Tomorrow, and Tomorrow you'll like this' PANDORA SYKES** — Elaine Castillo
+- **Kingfisher** — Rozie Kelly
+- **The Battle for Your Brain** — Nita A. Farahany
+- **Every Screen on the Planet** — Emily Baker-White
+- **The Righteous Mind: Why Good People Are Divided by Politics and Religion** — Jonathan Haidt
+- **Games** — C. Thi Nguyen
+- **Algospeak** — Adam Aleksic
+- **Seascraper** — Benjamin Wood
+- **The Presentation of Self in Everyday Life** — Erving Goffman
+- **The Technological Republic** — Alexander C. Karp
+- **The Right to Sex** — Amia Srinivasan
+- **A Simple Guide to Retrieval Augmented Generation** — Abhinav Kimothi
+- **Works 2015-2024** — Byung-Chul Han
+- **Social Media** — Christian Fuchs
+- **Don't Talk about Politics** — Lubrano, Sarah Stein;
+- **Nova Scotia House** — Charlie Porter
+- **Open Water** — Caleb Azumah Nelson
+- **The AI Engineer Interview Bible: Master AI Engineering, Machine Learning, System Design & Crack the Code to FAANG & Big Tech AI Interviews** — Nguyen, Jeffree
+- **The Palm House** — Gwendoline Riley
+- **No Longer Human** — Osamu Dazai
+- **The Score** — C. Thi Nguyen;
+- **Project Maven: A Marine Colonel, His Team, and the Dawn of AI Warfare** — Katrina Manson
+- **For God, Country, and Coca-Cola** — Pendergrast, Mark
+- **Everybody Lies: Big Data, New Data, and What the Internet Can Tell Us About Who We Really Are** — Seth Stephens-Davidowitz
+- **Jerusalem** — Jez Butterworth
+- **Bad Feminist** — Roxane Gay
+- **Homo Academicus** — By Pierre Bourdieu
+- **Distinction: A Social Critique of the Judgement of Taste (Routledge Classics)** — Pierre Bourdieu
+- **Outline of a Theory of Practice (Cambridge Studies in Social and Cultural Anthropology)** — Pierre Bourdieu
+- **Cleopatra and Frankenstein** — Mellors, Coco;
+- **Perfection** — Vincenzo Latronico and Sophie Hughes
+- **Pierre Bourdieu** — Richard Jenkins
+- **The Scaling Era: An Oral History of AI, 2019–2025** — Dwarkesh Patel, Gavin Leech
+- **Half His Age** — Jennette McCurdy
+- **Martyr!** — Akbar Kaveh
+- **The Beginning Comes After the End** — Rebecca Solnit;
+- **Sextinction** — Debra Soh
+- **The Ethics of Authenticity** — Charles Taylor
+- **The ADHD Field Guide for Adults** — Cate Osborn;Erik Gude;Rennie Dyball;
+- **The Infinity Machine: Demis Hassabis, DeepMind, and the Quest for Superintelligence** — Sebastian Mallaby;
+- **The Right to Be Wrong** — Ray Robertson
+- **It's Not All About Me, Revised and Updated Edition** — Robin Dreeke
+- **Beyond Belief: The Science-Backed Way to Stop Limiting Yourself and Achieve Breakthrough Results** — Julie Li
+- **A History of Philosophy** — Copleston, Frederick
+- **Your Data Will Be Used Against You** — Andrew Guthrie Ferguson
+- **Mastering Logical Fallacies: The Definitive Guide to Flawless Rhetoric and Bulletproof Logic** — Michael Withey
+- **Logically Fallacious: The Ultimate Collection of Over 300 Logical Fallacies (Academic Edition) (Dr. Bo's Critical Thinking Series)** — Bennett, Bo
+- **An Illustrated Book of Bad Arguments** — Ali Almossawi
+- **Informal Logical Fallacies** — Vleet, Van Jacob E.; Vleet, Jacob E;
+- **How to Win Every Argument** — Pirie, Madsen;
+- **The Bell Jar** — Sylvia Plath
+- **Empire of AI** — Karen Hao
+- **Steve Jobs** — Isaacson, Walter
+- **You and Your Profile** — Hans-Georg Moeller
+- **Build an AI Agent (From Scratch)** — Jungjun Hur and Younghee Song
+- **What Is Philosophy?** — Gilles Deleuze
+- **Nietzsche For Beginners** — Marc Sautet
+- **Heart the Lover** — Lily King
+- **Ways of Seeing** — John Berger
+- **Anti-Oedipus** — Gilles Deleuze
+- **Invisible Women: Exposing Data Bias in a World Designed for Men** — Caroline Criado Perez
+- **The Let Them Theory** — Mel Robbins
+- **Elon Musk** — Walter Isaacson
+- **Superintelligence: Paths, Dangers, Strategies** — Nick Bostrom
+- **A Thousand Plateaus** — Gilles Deleuze
+- **Vladimir** — Julia May Jonas
+- **Never** — Ken Follett
+- **Want Me** — Tracy Clark-Flory
+- **Sula** — Toni Morrison
+- **Beloved** — Toni Morrison
+- **Small Things Like These** — Claire Keegan
+- **Hope In The Dark** — Rebecca Solnit
+- **No Straight Road Takes You There** — Rebecca Solnit
+- **Not Too Late** — Rebecca Solnit
+- **Whose Story Is This?** — Rebecca Solnit
+- **The Best American Essays 2019** — Rebecca Solnit
+- **Work Like a Monk** — Shoukei Matsumoto;
+- **The Evolution of Cooperation** — Robert Axelrod
+- **Call Them by Their True Names** — Rebecca Solnit
+- **The Strategy of Conflict** — Thomas C. Schelling
+- **Web Scraping with Python** — Ryan Mitchell
+- **The Gulag Archipelago** — Alexander Solzhenitsyn
+- **Flesh** — David Szalay
+- **The New China Playbook** — Keyu Jin
+- **The Hamlet Doctrine: Knowing Too Much, Doing Nothing** — Simon Critchley
+- **Big Swiss** — Jen Beagin
+- **SYSTEMANTICS. THE SYSTEMS BIBLE** — John Gall
+- **It's Not Her** — Mary Kubica
+- **The Passion According to G.H.** — Clarice Lispector
+- **Near to the Wild Heart** — Lispector, Clarice
+- **A Breath of Life** — Clarice Lispector
+- **This is Water** — David Foster Wallace
+- **First Time Caller** — B. K. Borison
+- **Just Kids** — Patti Smith
+- **Sex and Rage** — Eve Babitz
+- **Agua Viva** — Clarice Lispector
+- **Nietzsche: A Very Short Introduction** — Michael Tanner
+- **Careless People** — Sarah Wynn-Williams
+- **The Society of the Spectacle** — Debord, Guy
+- **Georges Bataille** — Hewson, Mark; Coelen, Marcus;
+- **The Science of Storytelling** — Will Storr
+- **A Story is a Deal: How to use the science of storytelling to lead, motivate and persuade** — Storr, Will
+- **The Status Game: On Social Position and How We Use It** — Will Storr
+- **Simulacra and Simulation - Jean Baudrillard** — Jean Baudlrillard
+- **The Dream Hotel** — Laila Lalami
+- **Smitten** — Dr. Tom Bellamy
+- **If Anyone Builds It, Everyone Dies** — Eliezer Yudkowsky
+- **King of Ashes** — S. A. Cosby
+- **Dataclysm: Who We Are (When We Think No One's Looking)** — Christian Rudder
+- **The Internet Con** — Cory Doctorow
+- **A Manual for Cleaning Women: Selected Stories** — Lucia Berlin
+- **Bunny** — Mona Awad
+- **Owning the Future: Power and Property in an Age of Crisis** — Adrienne Buller
+- **Fear and Trembling** — Søren Kierkegaard
+- **The Sickness Unto Death** — Søren Kierkegaard
+- **Buyology** — Martin Lindstrom
+- **I Who Have Never Known Men** — Jacqueline Harpman
+- **Anthem** — Ayn Rand
+- **Psychopolitics** — Byung-Chul Han
+- **Wild Dark Shore** — Charlotte McConaghy
+- **House of Huawei** — Eva Dou
+- **The Forever Transaction** — Robbie Kellman Baxter
+- **My Daily Bread** — Fr. Anthony J. Paone
+- **The Membership Economy** — Robbie Kellman Baxter
+- **Subscribed** — Tien Tzuo
+- **The End of Ownership: Personal Property in the Digital Economy (The Information Society Series)** — Aaron Perzanowski
+- **Breakneck** — Dan Wang
+- **AI Valley** — Gary Rivlin
+- **Anthology of Black Humour** — Breton, André; Polizotti, Mark Polizzotti is the author of Revolution of the;
+- **The Cautious Traveller's Guide to the Wastelands** — Sarah Brooks
+- **Badass Habits: Cultivate the Awareness, Boundaries, and Daily Upgrades You Need to Make Them Stick** — Jen Sincero
+- **The Politics of Friendship** — Jacques Derrida
+- **Make Epic Money** — Ankur Warikoo
+- **Philosopher of the Heart** — Clare Carlisle
+- **Organized Mind : Thinking Straight in the Age of Information Overload (9780698157224)** — Levitin, Daniel J.
+- **Never Split the Difference: Negotiating As If Your Life Depended On It** — Voss, Chris
+- **Writing to Learn** — William Zinsser
+- **The Feed** — Nick Clark Windo
+- **The Power of Now** — Eckhart Tolle
+- **Humour, Seriously** — Jennifer Aaker
+- **Be Not Afraid of Love** — Mimi Zhu
+- **Humour: A Very Short Introduction** — Noël Carroll
+- **Snow Crash** — Neal Stephenson
+- **The Wedding People** — Alison Espach
+- **Irony's Edge** — Hutcheon, Linda;
+- **How to Read Now** — Elaine Castillo
+- **James** — Percival Everett
+- **The Delights of Learning Turkish: A self-study course book for learners of Turkish** — Yasar Esendal Kuzucu
+- **All Fours** — Miranda July
+- **The Time Keeper** — Mitch Albom
+- **A Job to Love** — The School of Life
+- **Men Who Hate Women** — Laura Bates
+- **Everyone in This Room Will Someday Be Dead: A Novel** — Emily Austin
+- **Small Worlds** — Caleb Azumah Nelson
+- **On The Road** — Jack Kerouac
+- **The Book of Goose** — Yiyun Li
+- **A Thousand Ships** — Natalie Haynes
+- **Nightcrawling** — Leila Mottley
+- **Statistics in Plain English** — Urdan, Timothy C.;
+- **Happy All the Time** — Laurie Colwin
+- **The Rachel Incident** — Caroline O'Donoghue
+- **The Boy Who Was Raised as a Dog** — Bruce D. Perry
+- **Grips of Grief** — AYO DEFORGE
+- **Greta & Valdin** — Rebecca K Reilly
+- **Butter** — Asako Yuzuki
+- **The Hunger Games** — Suzanne Collins
+- **Things We Say in the Dark** — Kirsty Logan
+- **Hunger Games 2 - Catching Fire** — Suzanne Collins
+- **Priceless** — William Poundstone
+- **Baldwin** — Nicholas Boggs
+- **Transit** — Rachel Cusk
+- **The Best American Short Stories 2023** — Min Jin Lee
+- **Kiss of the Spider Woman** — Manuel Puig
+- **Out There Screaming** — Jordan Peele
+- **The Loneliness of Sonia and Sunny** — Kiran Desai
+- **Why Love Hurts: A Sociological Explanation** — Eva Illouz
+- **The Best American Mystery and Suspense 2023** — Lisa Unger
+- **Happy Hour** — Marlowe Granados
+- **The Best American Essays 2023** — Vivian Gornick
+- **Piranesi** — Susanna Clarke
+- **The Best American Science and Nature Writing 2023** — Carl Zimmer
+- **Influence** — Cialdini, Robert B.
+- **Hamnet** — Maggie O'Farrell
+- **Your Brain on Art** — Susan Magsamen
+- **Generation Me: Why Today's Young Americans Are More Confident, Assertive, Entitled--And More Miserable Than Ever Before** — Jean M. Twenge
+- **Stay, Illusion!: The Hamlet Doctrine** — Simon Critchley and Jamieson Webster
+- **Livewired** — David Eagleman
+- **The Nocturnal Brain** — Leschziner, Guy
+- **Superagency** — Reid Hoffman
+- **The Art of Doing Science and Engineering** — Richard W. Hamming
+- **To the Lighthouse (Oxford World’s Classics)** — Woolf, Virginia
+- **Men Explain Things to Me** — Rebecca Solnit
+- **Filterworld** — Kyle Chayka
+- **Dead and Alive** — Zadie Smith
+- **The Safekeep** — Yael van der Wouden
+- **Rejection** — Tony Tulathimutte
+- **Doppelganger** — Naomi Klein
+- **Of Mice and Men** — John Steinbeck
+- **The Brothers Karamazov** — Fyodor Dostoevsky
+- **On the Calculation of Volume (Book I)** — Solvej Balle
+- **On the Calculation of Volume III** — Solvej Balle, Sophia Hersi Smith and Jennifer Russell
+- **On the Calculation of Volume (Book II)** — Solvej Balle
+- **Glitch Feminism** — Legacy Russell
+- **Hello Beautiful** — Ann Napolitano
+- **A Brief History of Neoliberalism** — Harvey, David
+- **Atlas Shrugged** — Ayn Rand
+- **Ayn Rand Answers: The Best of Her Q & A** — Robert Mayhew
+- **Selected works (40+) of William Shakespeare** — William Shakespeare
+- **Audition** — Katie Kitamura
+- **The Philosopher in the Valley: Alex Karp, Palantir, and the Rise of the Surveillance State** — Michael Steinberger
+- **The Future Is History** — Masha Gessen
+- **Monsters** — Claire Dederer;
+- **The Anthropologists** — Aysegül Savas
+- **Consider the Lobster: And Other Essays** — David Foster Wallace
+- **Simple Passion** — Annie Ernaux
+- **Meditations for Mortals** — Oliver Burkeman
+- **East of Eden** — John Steinbeck
+- **The Savage, Noble Death of Babs Dionne** — Ron Currie
+- **Cleavage** — Jennifer Finney Boylan
+- **The Accursed Share 3 Vols** — Georges Bataille
+- **The Odyssey** — Homer
+- **Reinforcement Learning, second edition (Adaptive Computation and Machine Learning series)** — Richard S. Sutton
+- **Thirst** — Marina Yuszczuk
+- **Where Reasons End** — Yiyun Li
+- **Feeding the Monster** — Anna Bogutskaya
+- **Things That Disappear: Reflections and Memories** — Jenny Erpenbeck
+- **Uncommon Sense Teaching** — Barbara Oakley, PhD
+- **Stag Dance** — Torrey Peters
+- **Minor Black Figures** — Brandon Taylor
+- **The Will to Change: Men, Masculinity, and Love** — hooks, bell
+- **What We Can Know** — Ian McEwan
+- **Brightly Shining** — Ingvild Rishoi
+- **Sophie's World: A Novel About the History of Philosophy** — Jostein Gaarder
+- **To Have or To Be?** — Fromm, Erich
+- **Cécé** — Emmelie Prophète
+- **I Have No Mouth and I Must Scream** — Harlan Ellison
+- **Theft** — Abdulrazak Gurnah
+- **The Ten Year Affair** — Erin Somers
+- **The Mother of All Questions** — Rebecca Solnit
+- **Beautiful World, Where Are You** — Sally Rooney
+- **Lolita** — Vladimir Nabokov
+- **The Woman Destroyed** — Simone De Beauvoir
+- **You Are Not Special** — David McCullough, Jr.
+- **Deep Cuts** — Holly Brickley
+- **Philosophy** — Richard H. Popkin and Avrum Stroll
+- **The Life of the Mind** — Hannah Arendt
+- **On Violence** — Hannah Arendt
+- **On Photography** — Susan Sontag
+- **On Women** — Susan Sontag
+- **Against Interpretation** — Susan Sontag
+- **The Second Coming** — Carter Sherman
+- **Gilded Rage: Elon Musk and the Radicalization of Silicon Valley** — Jacob Silverman
+- **Cursed Daughters** — Oyinkan Braithwaite
+- **The Thinking Machine** — Stephen Witt
+- **The Optimist** — Keach Hagey
+- **Reshuffle: Who wins when AI restacks the knowledge economy** — Sangeet Paul Choudary
+- **Learning Python** — Mark Lutz
+- **I'm a Fan** — Sheena Patel
+- **Permafrost** — Eva Baltasar
+- **The Girls** — Emma Cline
+- **The Plague of Fantasies** — Slavoj Žižek
+- **Think Python (for True Epub)** — Allen B. Downey
+- **Enshittification** — Cory Doctorow
+- **Zizek's Jokes** — Slavoj Zizek
+- **The Sublime Object of Ideology** — Slavoj Zizek
+- **Madonna in a Fur Coat** — Sabahattin Ali
+- **Equality** — Thomas Piketty
+- **White Teeth** — Zadie Smith
+- **The Fraud** — Zadie Smith
+- **On Beauty** — Zadie Smith
+- **Enjoy Your Symptom!** — Slavoj Zizek
+- **Either/Or: A Fragment of Life (Penguin Classics)** — Soren Kierkegaard
+- **Satantango** — László Krasznahorkai
+- **Universality** — Natasha Brown
+- **Love Forms** — Claire Adam
+- **Evenings and Weekends** — Oisín McKenna
+- **The Coin** — Yasmin Zaher
+- **Lapvona** — Ottessa Moshfegh
+- **Homesick for Another World** — Ottessa Moshfegh
+- **Eileen** — Ottessa Moshfegh
+- **Death in Her Hands** — Ottessa Moshfegh
+- **McGlue** — Ottessa Moshfegh
+- **My Year of Rest and Relaxation** — Ottessa Moshfegh
+- **Technofeudalism - What Killed Capitalism** — Yanis Varoufakis
+- **At the Existentialist Café** — Sarah Bakewell
+- **The Rest of Our Lives** — Benjamin Markovits
+- **The Land in Winter: Winner of the Walter Scott Prize for Historical Fiction** — Andrew Miller
+- **Misinterpretation** — Ledia Xhoga
+- **Endling** — Maria Reva
+- **Story of Eye** — George Bataille
+- **Acts of Service** — Lillian Fishman
+- **The Poppy War Trilogy - The Complete Omnibus** — R. F. Kuang
+- **The South** — Tash Aw
+- **The Catch** — Yrsa Daley-Ward
+- **Katabasis - R F Kuang** — Kuang,R. F.
+- **A Court of Thorns and Roses** — Sarah J. Maas
+- **The Value of Others: Understanding the Economic Model of Relationships to Get (and Keep) More of What You Want in the Sexual Marketplace** — Taraban, Orion
+- **The Inheritance of Loss** — Kiran Desai
+- **Aflame** — Pico Iyer
+- **Manufacturing Consent** — Edward S. Herman
+- **The Survivors Club** — Lisa Gardner
+- **Soren Kierkegaard: A Selection of Writings From Fear and Trembling, Either Or, and the Present Moment** — Søren Kierkegaard
+- **The Nature of Code (for Raymond Rhine)** — Daniel Shiffman
+- **Node.js Design Patterns** — Mario Casciaro & Luciano Mammino
+- **Stages on Life’s Way** — Søren Kierkegaard
+- **The Alignment Problem** — Brian Christian
+- **Our Evenings** — Alan Hollinghurst
+- **One Boat** — Jonathan Buckley
+- **Not Quite Dead Yet** — Holly Jackson
+- **Color Index XL** — Jim Krause
+- **The Feminist Lie: It Was Never About Equality** — Bob Lewis
+- **The Prince** — Machiavelli, Niccolo
+- **The Creative Act** — Rick Rubin
+- **Infocracy** — Byung-Chul Han
+- **Topology of Violence** — Han, Byung-Chul; DeMarco, Amanda;
+- **Lady Chatterley's Lover** — David Herbert Lawrence
+- **Wetlands** — Charlotte Roche
+- **The Portrait of a Lady** — Henry James
+- **The Naked Roommate** — Harlan Cohen
+- **The Game** — Neil Strauss
+- **The Courage to Be Disliked** — Ichiro Kishimi
+- **The Apple II Age** — Laine Nooney;
+- **Tell Me Lies** — Carola Lovering
+- **Talking Pictures: How to Watch Movies** — Ann Hornaday
+- **Sovereignty Suspended** — Rebecca Bryant
+- **Palo Alto** — Malcolm Harris
+- **Ogadinma** — Ukamaka Olisakwe
+- **Of This Our Country** — The Borough Press
+- **My Brilliant Friend** — Elena Ferrante
+- **Inverting The Pyramid** — Jonathan Wilson
+- **How to Read a Book** — Doren, Charles Van;Mortimer J. Adler
+- **How to Learn Almost Anything in 48 Hours** — Tansel Ali
+- **Hooked** — Nir Eyal
+- **How to Blow Up a Pipeline** — Andreas Malm
+- **Hook Point: How to Stand Out in a 3-Second World** — Brendan Kane
+- **Everyone In My Family Has Killed Someone** — Benjamin Stevenson
+- **Demon Copperhead** — Barbara Kingsolver
+- **Death on the Nile** — Agatha Christie
+- **Dark Matter: A Novel** — Blake Crouch
+- **Orbital** — Samantha Harvey
+- **Boulder** — Eva Baltasar
+- **Sociopath: A Memoir** — Patric Gagne
+- **Wednesday’s Child** — Yiyun Li
+- **Dream Count** — Chimamanda Ngozi Adichie
+- **How to Read Lacan** — Slavoj Žižek
+- **A New Earth - Awakening to Your Life's Purpose** — Eckhart Tolle
+- **Non-Things: Upheaval in the Lifeworld** — Byung-Chul Han
