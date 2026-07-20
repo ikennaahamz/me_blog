@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Lesson 0002: Your Blog CDM Starting Model</title>
+    <link rel="stylesheet" href="../assets/lesson.css" />
+  </head>
+  <body>
+    <main class="page">
+      <header>
+        <p class="kicker">Lesson 0002</p>
+        <h1>Your Blog CDM Starting Model</h1>
+        <p class="lede">
+          Build the first content data model for this blog without changing the site architecture yet.
+        </p>
+      </header>
+
+      <section class="callout">
+        <h2>The core idea</h2>
+        <p>
+          A CDM describes what your content is before deciding how it looks. For this blog, the model should answer:
+          what is a post, what metadata does it need, how do posts connect to tags, and what does the homepage need to list them?
+        </p>
+      </section>
+
+      <section>
+        <h2>Start with four content types</h2>
+        <div class="grid">
+          <article>
+            <h3>Post</h3>
+            <p>The main repeatable content: essays, project notes, learning logs, and field notes.</p>
+          </article>
+          <article>
+            <h3>Tag</h3>
+            <p>A controlled label for topics like <code>ai</code>, <code>projects</code>, <code>learning</code>, or <code>web</code>.</p>
+          </article>
+          <article>
+            <h3>Author</h3>
+            <p>One reusable identity for now: name, bio, email, and optional social links.</p>
+          </article>
+          <article>
+            <h3>Asset</h3>
+            <p>Images or downloads with alt text, caption, credit, and file path.</p>
+          </article>
+        </div>
+      </section>
+
+      <section>
+        <h2>The first Post fields</h2>
+        <ol class="checklist">
+          <li><code>title</code>: the display title.</li>
+          <li><code>slug</code>: the stable URL-friendly identifier.</li>
+          <li><code>summary</code>: one or two sentences for cards and metadata.</li>
+          <li><code>publishedAt</code>: the publication date.</li>
+          <li><code>status</code>: <code>draft</code>, <code>published</code>, or <code>archived</code>.</li>
+          <li><code>type</code>: essay, project note, learning log, or field note.</li>
+          <li><code>tags</code>: topic references.</li>
+          <li><code>heroImage</code>: optional asset reference.</li>
+          <li><code>body</code>: the actual Markdown content.</li>
+        </ol>
+      </section>
+
+      <section>
+        <h2>What this looks like in Markdown</h2>
+        <pre><code>---
+title: "What I want this blog to remember"
+slug: "what-i-want-this-blog-to-remember"
+summary: "A first note on problems, questions, and useful references worth keeping in public."
+publishedAt: "2026-06-19"
+status: "draft"
+type: "essay"
+tags: ["learning", "projects"]
+heroImage: "assets/editorial-desk.webp"
+---
+
+Post body goes here.</code></pre>
+      </section>
+
+      <section class="exercise">
+        <h2>Practice: model one post</h2>
+        <p>For the next thing you might publish, write a title, type, two tags, and summary.</p>
+        <textarea id="answer" rows="6" placeholder="title:&#10;type:&#10;tags:&#10;summary:"></textarea>
+        <p><button id="check" type="button">Check</button></p>
+        <p id="feedback" class="feedback" aria-live="polite"></p>
+      </section>
+
+      <section>
+        <h2>Good starter answer</h2>
+        <p>
+          A strong answer separates the content's identity from how it appears on the homepage.
+          If you can list a post card, build a tag page, and generate metadata from the fields, the model is doing useful work.
+        </p>
+      </section>
+
+      <section>
+        <h2>Primary reading</h2>
+        <p>
+          Start with Contentful's
+          <a href="https://www.contentful.com/help/content-models/content-modelling-basics/">content modeling basics</a>.
+          Then compare with Astro's
+          <a href="https://docs.astro.build/en/guides/content-collections/">content collections</a>
+          if you want a future static-site implementation path.
+        </p>
+        <p>
+          Ask the agent follow-up questions if you want to turn this model into actual Markdown files, a schema, or a CMS setup.
+        </p>
+      </section>
+    </main>
+
+    <script>
+      document.getElementById("check").addEventListener("click", () => {
+        const answer = document.getElementById("answer").value.toLowerCase();
+        const expected = ["title", "type", "tag", "summary"];
+        const hits = expected.filter((term) => answer.includes(term)).length;
+        const feedback = document.getElementById("feedback");
+        if (hits >= 4) {
+          feedback.textContent = "Good model. You gave the post identity, classification, and reusable preview text.";
+        } else {
+          feedback.textContent = "Add title, type, tags, and summary. Those are the minimum fields for a useful post model.";
+        }
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>API Connection Pattern</title>
+    <link rel="stylesheet" href="../assets/lesson.css" />
+  </head>
+  <body>
+    <main class="page">
+      <header>
+        <p class="kicker">Reference</p>
+        <h1>API Connection Pattern</h1>
+        <p class="lede">Use this checklist when connecting a React page to a backend endpoint.</p>
+      </header>
+
+      <section>
+        <h2>Request checklist</h2>
+        <ol class="checklist">
+          <li>Know the endpoint URL and the shape of the JSON it returns.</li>
+          <li>Put request code in <code>src/api/</code>.</li>
+          <li>Use <code>fetch()</code> or the project's chosen HTTP client.</li>
+          <li>Check <code>response.ok</code> and throw an error for failed requests.</li>
+          <li>Parse with <code>response.json()</code>.</li>
+          <li>Track <code>loading</code>, <code>success</code>, and <code>error</code> UI states.</li>
+          <li>Render from state, not directly from the Promise.</li>
+        </ol>
+      </section>
+
+      <section>
+        <h2>Minimal shape</h2>
+        <pre><code>async function getThing() {
+  const response = await fetch("/api/thing/");
+  if (!response.ok) throw new Error("Request failed");
+  return response.json();
+}</code></pre>
+      </section>
+    </main>
+  </body>
+</html>

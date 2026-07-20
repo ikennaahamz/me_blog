@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Lesson 0004: Publish The Forever Shelf from Obsidian</title>
+    <link rel="stylesheet" href="../assets/lesson.css" />
+  </head>
+  <body>
+    <main class="page">
+      <header>
+        <p class="kicker">Lesson 0004</p>
+        <h1>From your Obsidian hub to The Forever Shelf</h1>
+        <p class="lede">
+          Use Obsidian for honest drafting, Astro for validated publishing, and GitHub for deployment.
+        </p>
+      </header>
+
+      <section class="callout">
+        <h2>The core idea</h2>
+        <p>
+          Your Obsidian note is the working hub, not the public website. A book appears on the blog only after its
+          finished entry is converted into the Astro book collection, passes validation, and is pushed to GitHub.
+          This is a content publishing workflow, not a customer relationship management system.
+        </p>
+      </section>
+
+      <section>
+        <h2>The five-step publishing loop</h2>
+        <ol class="checklist">
+          <li><strong>Draft:</strong> add a title, author, and rough personal reasons in the Forever Shelf Obsidian note.</li>
+          <li><strong>Declare readiness:</strong> finish the reason and remove the unfinished marker from that book.</li>
+          <li><strong>Edit:</strong> ask Codex to polish the entry without inventing opinions or changing your meaning.</li>
+          <li><strong>Publish:</strong> convert the ready entry into one Markdown file in the Astro books collection.</li>
+          <li><strong>Verify and push:</strong> run the production build, preview the page, commit, and push to GitHub.</li>
+        </ol>
+      </section>
+
+      <section>
+        <h2>What changes during publishing</h2>
+        <div class="grid">
+          <article>
+            <h3>Obsidian draft</h3>
+            <p>Prompts, rough language, unfinished markers, and internal links are welcome here.</p>
+          </article>
+          <article>
+            <h3>Astro entry</h3>
+            <p>Validated frontmatter holds the title, author, surname sort key, cover details, ISBN, and draft state.</p>
+          </article>
+          <article>
+            <h3>Published page</h3>
+            <p>The polished 60–100-word reason becomes the entry body, sorted by author surname on the shelf.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="exercise">
+        <h2>Practice: is this book ready?</h2>
+        <p>A book has a title and author, but its personal reason is still blank. What should happen next?</p>
+        <label for="answer">Write your answer:</label>
+        <textarea id="answer" rows="4" placeholder="The book should..."></textarea>
+        <p><button id="check" type="button">Check</button></p>
+        <p id="feedback" class="feedback" aria-live="polite"></p>
+      </section>
+
+      <section>
+        <h2>Primary reading</h2>
+        <p>
+          Astro's official guides explain
+          <a href="https://docs.astro.build/en/guides/content-collections/">content collections and schema validation</a>
+          and the choices for
+          <a href="https://docs.astro.build/en/guides/images/">local and remote images</a>.
+        </p>
+        <p>Ask the agent whenever you want to publish the next completed entry or any part of this loop is unclear.</p>
+      </section>
+    </main>
+
+    <script>
+      document.getElementById("check").addEventListener("click", () => {
+        const answer = document.getElementById("answer").value.toLowerCase();
+        const isReady = answer.includes("draft") || answer.includes("finish") || answer.includes("not ready");
+        document.getElementById("feedback").textContent = isReady
+          ? "Exactly. Keep it in the Obsidian draft until the personal reason is finished."
+          : "Keep it as a draft. Publishing an empty reason would weaken the purpose of the shelf.";
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Lesson 0003: Connect React to an API</title>
+    <link rel="stylesheet" href="../assets/lesson.css" />
+  </head>
+  <body>
+    <main class="page">
+      <header>
+        <p class="kicker">Lesson 0003</p>
+        <h1>Connect React to an API</h1>
+        <p class="lede">
+          Load blog posts from a backend endpoint and render them in a React component.
+        </p>
+      </header>
+
+      <section class="callout">
+        <h2>The core idea</h2>
+        <p>
+          An API connection is a small pipeline: choose an endpoint, send an HTTP request,
+          parse the JSON response, save it in component state, then render loading, success,
+          and error states.
+        </p>
+      </section>
+
+      <section>
+        <h2>The five-step pattern</h2>
+        <ol class="checklist">
+          <li>Start with the API URL, such as <code>/api/posts/</code>.</li>
+          <li>Call <code>fetch(url)</code> to ask the server for data.</li>
+          <li>Check <code>response.ok</code> before trusting the result.</li>
+          <li>Convert the response body with <code>response.json()</code>.</li>
+          <li>Put the data into React state so the screen updates.</li>
+        </ol>
+      </section>
+
+      <section>
+        <h2>A small API client</h2>
+        <p>
+          Keep request code outside the component so pages stay focused on display.
+        </p>
+        <pre><code>// frontend/src/api/posts.js
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL ?? "http://localhost:8000";
+
+export async function getPosts() {
+  const response = await fetch(`${API_BASE_URL}/api/posts/`);
+
+  if (!response.ok) {
+    throw new Error("Could not load posts");
+  }
+
+  return response.json();
+}</code></pre>
+      </section>
+
+      <section>
+        <h2>Use it in React</h2>
+        <pre><code>// frontend/src/pages/Home.jsx
+import { useEffect, useState } from "react";
+import { getPosts } from "../api/posts";
+
+export default function Home() {
+  const [posts, setPosts] = useState([]);
+  const [status, setStatus] = useState("loading");
+
+  useEffect(() => {
+    getPosts()
+      .then((data) => {
+        setPosts(data.results ?? data);
+        setStatus("success");
+      })
+      .catch(() => {
+        setStatus("error");
+      });
+  }, []);
+
+  if (status === "loading") return &lt;p&gt;Loading posts...&lt;/p&gt;;
+  if (status === "error") return &lt;p&gt;Could not load posts.&lt;/p&gt;;
+
+  return (
+    &lt;main&gt;
+      {posts.map((post) =&gt; (
+        &lt;article key={post.slug}&gt;
+          &lt;h2&gt;{post.title}&lt;/h2&gt;
+          &lt;p&gt;{post.summary}&lt;/p&gt;
+        &lt;/article&gt;
+      ))}
+    &lt;/main&gt;
+  );
+}</code></pre>
+      </section>
+
+      <section>
+        <h2>What each part means</h2>
+        <div class="grid">
+          <article>
+            <h3><code>fetch</code></h3>
+            <p>Sends the browser request to Django or another backend.</p>
+          </article>
+          <article>
+            <h3><code>await response.json()</code></h3>
+            <p>Turns the HTTP response body into JavaScript data.</p>
+          </article>
+          <article>
+            <h3><code>useState</code></h3>
+            <p>Stores posts and status so React can redraw the page.</p>
+          </article>
+          <article>
+            <h3><code>useEffect</code></h3>
+            <p>Runs the API call after the component first appears.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="exercise">
+        <h2>Practice: name the missing step</h2>
+        <p>
+          You called <code>fetch()</code>, got a response, and checked <code>response.ok</code>.
+          What must happen before React can render the posts?
+        </p>
+        <input id="answer" type="text" placeholder="Write the missing step" />
+        <p><button id="check" type="button">Check</button></p>
+        <p id="feedback" class="feedback" aria-live="polite"></p>
+      </section>
+
+      <section>
+        <h2>Primary reading</h2>
+        <p>
+          Read MDN's <a href="https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch">Using the Fetch API</a>
+          for the browser request flow, then React's
+          <a href="https://react.dev/reference/react/useEffect">useEffect reference</a>
+          for why this request belongs in an Effect in a basic Vite app.
+        </p>
+        <p>
+          Ask the agent follow-up questions if you want to wire this into the actual blog files.
+        </p>
+      </section>
+    </main>
+
+    <script>
+      document.getElementById("check").addEventListener("click", () => {
+        const answer = document.getElementById("answer").value.toLowerCase();
+        const feedback = document.getElementById("feedback");
+        if (answer.includes("json") || answer.includes("parse")) {
+          feedback.textContent = "Correct. Parse the response as JSON, then save the result in state.";
+        } else {
+          feedback.textContent = "Look for the step that converts the HTTP response body into JavaScript data.";
+        }
+      });
+    </script>
+  </body>
+</html>

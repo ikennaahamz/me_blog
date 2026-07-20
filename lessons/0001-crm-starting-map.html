@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Lesson 0001: Your Blog CRM Starting Map</title>
+    <link rel="stylesheet" href="../assets/lesson.css" />
+  </head>
+  <body>
+    <main class="page">
+      <header>
+        <p class="kicker">Lesson 0001</p>
+        <h1>Your Blog CRM Starting Map</h1>
+        <p class="lede">
+          In ten minutes, define the smallest CRM system that can support the blog without turning it into a software project.
+        </p>
+      </header>
+
+      <section class="callout">
+        <h2>The core idea</h2>
+        <p>
+          A CRM for this blog is not a sales dashboard. It is a memory system for people who raise their hand:
+          subscribers, readers who reply, topic suggesters, project askers, and possible collaborators.
+        </p>
+        <p>
+          Official docs from HubSpot and Mailchimp both point to the same beginner pattern: capture contacts with a form,
+          store useful fields, then organize contacts with tags or segments.
+        </p>
+      </section>
+
+      <section>
+        <h2>The first version</h2>
+        <ol class="checklist">
+          <li><strong>Capture:</strong> add one homepage signup path, probably "monthly notes from what I learned and shipped."</li>
+          <li><strong>Store:</strong> collect email, optional name, source, interest, and consent status.</li>
+          <li><strong>Organize:</strong> tag by interest: <code>ai</code>, <code>projects</code>, <code>learning-log</code>, <code>collaboration</code>.</li>
+          <li><strong>Follow up:</strong> send a welcome email asking one question: "What topic made you subscribe?"</li>
+          <li><strong>Respect:</strong> include accurate sender information and a clear unsubscribe path for marketing email.</li>
+        </ol>
+      </section>
+
+      <section>
+        <h2>Choose the shape</h2>
+        <div class="grid">
+          <article>
+            <h3>Newsletter-first</h3>
+            <p>Use Mailchimp, Kit, Beehiiv, or Buttondown. Best if the main relationship is publishing and replies.</p>
+          </article>
+          <article>
+            <h3>CRM-first</h3>
+            <p>Use HubSpot. Best if you want richer contact records, forms, and future project or client tracking.</p>
+          </article>
+          <article>
+            <h3>Manual-first</h3>
+            <p>Use a spreadsheet for the first 25 contacts. Best if you still need to learn what fields matter.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="exercise">
+        <h2>Practice: pick the first CRM fields</h2>
+        <p>Write the five fields you would track for a new blog subscriber. Then check your answer.</p>
+        <textarea id="answer" rows="5" placeholder="Example: email, source..."></textarea>
+        <p><button id="check" type="button">Check</button></p>
+        <p id="feedback" class="feedback" aria-live="polite"></p>
+      </section>
+
+      <section>
+        <h2>Good starter answer</h2>
+        <p>
+          <code>email</code>, <code>name</code>, <code>signup_source</code>, <code>interest</code>, and
+          <code>consent_status</code>. This is enough to personalize lightly, understand what writing attracts people,
+          and avoid sloppy emailing.
+        </p>
+      </section>
+
+      <section>
+        <h2>Primary reading</h2>
+        <p>
+          Read HubSpot's guide to <a href="https://knowledge.hubspot.com/forms/create-and-edit-forms">creating and embedding forms</a>
+          if you want CRM-first. Read Mailchimp's guide to
+          <a href="https://mailchimp.com/help/getting-started-audience/">getting started with your audience</a>
+          if you want newsletter-first.
+        </p>
+        <p>
+          For U.S. commercial email rules, review the FTC's
+          <a href="https://www.ftc.gov/business-guidance/resources/can-spam-act-compliance-guide-business">CAN-SPAM compliance guide</a>.
+        </p>
+        <p>
+          Ask the agent follow-up questions when any tool choice, field, form, or compliance detail is unclear.
+        </p>
+      </section>
+    </main>
+
+    <script>
+      document.getElementById("check").addEventListener("click", () => {
+        const answer = document.getElementById("answer").value.toLowerCase();
+        const expected = ["email", "source", "interest", "consent"];
+        const hits = expected.filter((term) => answer.includes(term)).length;
+        const feedback = document.getElementById("feedback");
+        if (hits >= 3) {
+          feedback.textContent = "Strong start. You are tracking identity, origin, intent, and permission.";
+        } else {
+          feedback.textContent = "Add source, interest, and consent. Those fields make the CRM useful later.";
+        }
+      });
+    </script>
+  </body>
+</html>
