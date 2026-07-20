@@ -3,7 +3,8 @@ title: "God, Human, Animal, Machine"
 author: "Meghan O'Gieblyn"
 authorSort: "O'Gieblyn, Meghan"
 isbn: "9780385543828"
-cover: "https://covers.openlibrary.org/b/isbn/9780385543828-L.jpg"
+summary: "O'Gieblyn connects artificial intelligence to much older debates about materialism, consciousness, belief, and meaning. I return to it because it prevents me from treating AI as a purely technical subject and reminds me that modern computing inherits philosophical questions about what a mind is and what it means to be human."
+cover: "../../assets/books/god-human-animal-machine.jpg"
 draft: false
 ---
 

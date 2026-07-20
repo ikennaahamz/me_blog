@@ -3,7 +3,8 @@ title: "Atlas of the Heart"
 author: "Brené Brown"
 authorSort: "Brown, Brené"
 isbn: "9781785043772"
-cover: "https://covers.openlibrary.org/b/id/12859914-L.jpg"
+summary: "Brown gave me a more precise vocabulary for emotions such as shame, fear, insecurity, and foreboding joy. I return to this book because naming those experiences helps me separate justified concern from reflexive pessimism, understand how they affect my relationships, and meet good news without immediately waiting for something to go wrong."
+cover: "../../assets/books/atlas-of-the-heart.jpg"
 draft: false
 ---
 

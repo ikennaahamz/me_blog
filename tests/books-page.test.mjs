@@ -44,12 +44,22 @@ test("the shelf renders the three recommendations in author-surname order", () =
   assert.ok(atlas >= 0, "Atlas of the Heart is missing");
   assert.ok(godHumanAnimalMachine > atlas, "O'Gieblyn should follow Brown");
   assert.ok(menExplainThings > godHumanAnimalMachine, "Solnit should follow O'Gieblyn");
-  assert.match(html, /covers\.openlibrary\.org\/b\/id\/12859914-L\.jpg/);
-  assert.match(html, /covers\.openlibrary\.org\/b\/isbn\/9780385543828-L\.jpg/);
-  assert.match(html, /covers\.openlibrary\.org\/b\/isbn\/9781608464661-L\.jpg/);
+  assert.doesNotMatch(html, /covers\.openlibrary\.org/);
+  assert.match(html, /_astro\/atlas-of-the-heart\.[^"\s]+\.webp/);
+  assert.match(html, /_astro\/god-human-animal-machine\.[^"\s]+\.webp/);
+  assert.match(html, /_astro\/men-explain-things-to-me\.[^"\s]+\.webp/);
   assert.match(html, /foreboding joy/);
   assert.match(html, /power shapes who gets heard/);
   assert.match(html, /AI as a purely technical subject/);
+});
+
+test("each shelf entry has a summary and an accessible full-note disclosure", () => {
+  assert.equal((html.match(/class="book-summary"/g) ?? []).length, 3);
+  assert.equal((html.match(/<details class="book-details">/g) ?? []).length, 3);
+  assert.equal((html.match(/<summary>Read full note<\/summary>/g) ?? []).length, 3);
+  assert.match(html, /naming these feelings makes it easier/);
+  assert.match(html, /resist treating AI as a purely technical subject/);
+  assert.match(html, /power shapes who gets heard/);
 });
 
 test("the primary navigation links to the current Books page", () => {

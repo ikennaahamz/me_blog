@@ -25,6 +25,7 @@ const books = defineCollection({
       author: z.string(),
       authorSort: z.string(),
       isbn: z.string().optional(),
+      summary: z.string().min(1),
       cover: z.union([image(), z.string().url()]),
       draft: z.boolean().default(false),
     }),

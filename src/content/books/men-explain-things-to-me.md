@@ -3,7 +3,8 @@ title: "Men Explain Things to Me"
 author: "Rebecca Solnit"
 authorSort: "Solnit, Rebecca"
 isbn: "9781608464661"
-cover: "https://covers.openlibrary.org/b/isbn/9781608464661-L.jpg"
+summary: "Solnit draws large arguments about gender and power from painfully human stories, beginning with the absurdity of a man explaining her own book to her. I return to this collection because its precision remains current and because it keeps asking who receives authority, who gets heard, and what happens when confidence replaces knowledge."
+cover: "../../assets/books/men-explain-things-to-me.jpg"
 draft: false
 ---
 
