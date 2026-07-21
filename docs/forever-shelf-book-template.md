@@ -8,12 +8,12 @@ title: "Book title"
 author: "Author name"
 authorSort: "Surname, Given name"
 isbn: "9780000000000"
-summary: "A 45–70-word introduction explaining the central reason this book belongs on the shelf. Keep it specific, personal, and easy to scan."
-cover: "../../assets/books/book-slug.jpg"
+summary: "Optional: a 45–70-word introduction explaining why this book belongs on the shelf."
+cover: "../../assets/books/book-slug.jpg" # Optional
 draft: true
 ---
 
-Write the complete personal note here. Explain what changed for you, the ideas you return to, and why the book continues to matter.
+Optionally write the complete personal note here. Explain what changed for you, the ideas you return to, and why the book continues to matter.
 ```
 
-Use a lowercase hyphenated filename such as `book-title.md`. Store a local cover of at least 600×900 pixels at `src/assets/books/book-title.jpg`, then set `draft: false` when the entry is ready to publish.
+Use a lowercase hyphenated filename such as `book-title.md`, then set `draft: false` when the entry is ready to publish. Remove `summary` or `cover` when either is not ready. Missing covers receive a typographic placeholder, and the “Read full note” disclosure appears automatically after body text is added. When adding a cover, store a local image of at least 600×900 pixels at `src/assets/books/book-title.jpg`.
