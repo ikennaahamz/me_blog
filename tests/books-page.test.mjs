@@ -25,7 +25,7 @@ before(() => {
   html = readFileSync("dist/books/index.html", "utf8");
   homeHtml = readFileSync("dist/index.html", "utf8");
   newestArticleHtml = readFileSync(
-    "dist/writing/what-i-want-this-blog-to-remember/index.html",
+    "dist/writing/the-social-media-mirror/index.html",
     "utf8",
   );
   middleArticleHtml = readFileSync(
@@ -52,7 +52,8 @@ test("the homepage starts with one h1 and three curated destinations", () => {
 test("the generated site includes The Forever Shelf page", () => {
   assert.match(html, /<h1>The Forever Shelf<\/h1>/);
   assert.equal((html.match(/class="book-card"/g) ?? []).length, 15);
-  assert.equal((html.match(/class="book-cover-placeholder"/g) ?? []).length, 12);
+  assert.equal((html.match(/class="book-cover"/g) ?? []).length, 15);
+  assert.doesNotMatch(html, /class="book-cover-placeholder"/);
 });
 
 test("the shelf renders the three recommendations in author-surname order", () => {
