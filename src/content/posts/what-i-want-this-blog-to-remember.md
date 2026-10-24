@@ -1,6 +1,6 @@
 ---
-title: "What I want this blog to remember"
-description: "A durable place for the questions, decisions, and references that deserve more than a passing thought."
+title: "Memory dot MD"
+description: ""
 publishedAt: 2026-07-11
 category: philosophy
 tags:

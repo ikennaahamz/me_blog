@@ -404,3 +404,200 @@
 - **How to Read Lacan** — Slavoj Žižek
 - **A New Earth - Awakening to Your Life's Purpose** — Eckhart Tolle
 - **Non-Things: Upheaval in the Lifeworld** — Byung-Chul Han
+
+## Additional books from Google Play
+
+- **Taipei Story (Deluxe Limited Edition)** — Kuang,R. F.
+- **How to Kill Your Family** — Bella Mackie
+- **Will and Attention** — Meghan O'Gieblyn
+- **From Third World to First The Singapore Story: 1965–2000** — Lee Kuan Yew
+- **The Hill** — Harriet Clark
+- **Trauma Industrial Complex** — Darren McGarvey
+- **The Volatility Machine: Emerging Economics and the Threat of Financial Collapse** — Michael Pettis
+- **The End of Everything** — M. John Harrison
+- **How to Win a Trade War** — Soumaya Keynes
+- **The Origin of Capitalism: A Longer View** — Ellen Meiksins Wood
+- **The Story of Capital** — David Harvey;
+- **Religion and the Rise of Capitalism** — R. H. Tawney
+- **Capital’s Grave: Neofeudalism and the New Class Struggle** — Jodi Dean
+- **Contagious** — Jonah Berger
+- **The AGI Chronicles** — Kevin Roose
+- **Living in the End Times** — Slavoj Zizek
+- **Life of M** — Rachel Cusk
+- **A Rulebook for Arguments** — Weston, Anthony;
+- **Exit Party** — Emily St John Mandel
+- **Victorious** — V. E. Schwab
+- **Fair Ones** — Lydia Millet
+- **The Red Dress** — Frank Huyler
+- **Blockers** — Michael Lewis
+- **Don't Be Evil** — Claire Stapleton
+- **The Master Mind of the Self-Actualizing Person** — Gelperin, Roman
+- **The Hour of the Wolf** — Fatima Bhutto
+- **A Theory of Human Motivation** — Abraham H. Maslow
+- **The Anxious Generation** — Jonathan Haidt
+- **The Rise and Fall of the Third Reich** — Shirer, William
+- **Prisoners of Geography** — Tim Marshall
+- **The End of the World is Just the Beginning** — Peter Zeihan
+- **Ungrateful Immigrant Daughter** — Katya Suvorova
+- **Principles for Dealing With the Changing World Ordee** — Ray Dalio
+- **The Power of Geography** — Tim Marshall
+- **World Order: Reflections on the Character of Nations and the Course of History** — Henry Kissinger
+- **Cyberselfish** — Paulina Borsook
+- **Motivation and Personality** — Abraham Harold Maslow
+- **American Hagwon** — Min Jin Lee
+- **Partita** — Kingsolver,Barbara
+- **The New Dark Ages** — James Marriott
+- **Switzy** — Cline,Emma
+- **Ply** — Hernan Diaz
+- **So Old, So Young** — Grant Ginder
+- **The Coddling of the American Mind** — Greg Lukianoff
+- **End Times Fascism: And The Fight For The Living World** — Naomi Klein
+- **Dept. of Speculation** — Jenny Offill
+- **The Kings of Cool: A Prequel to Savages** — Don Winslow
+- **Contrapposto** — Dave Eggers
+- **Savages: A Novel** — Don Winslow
+- **The Glass Hotel** — Emily St. John Mandel
+- **Little Eyes** — Samanta Schweblin
+- **Slaughterhouse-Five** — Kurt Vonnegut
+- **Stations** — Louise Kennedy
+- **Stoner** — John Williams
+- **Hollywood, Ending** — John Green
+- **The Origins of Political Order** — Francis Fukuyama
+- **Political Order and Political Decay** — Francis Fukuyama
+- **The Singularity Is Nearer** — Ray Kurzweil
+- **End of History and the Last Man** — Francis Fukuyama
+- **Liquid Times: Living in an Age of Uncertainty** — Zygmunt Bauman
+- **The Breakup** — Kurt Andersen
+- **The Right to Repair Reclaiming the T... (Z-Library).pdf** — author not listed
+- **Extremely Online** — Taylor Lorenz;
+- **Call It Evil** — Susan Neiman
+- **Seven Days in June** — Tia Williams
+- **1929** — Andrew Ross Sorkin
+- **One Leg on Earth** — 'Pemi Aguda
+- **Our Noble Selves** — Atkinson,Kate
+- **Fallow** — Sarah Anderson
+- **The Everywhere Millionaire** — Owen Zidar
+- **The Frenchmen** — Emily Eakin
+- **Mood Machine** — Liz Pelly
+- **The Corrections** — Jonathan Franzen
+- **Trespasses** — Louise Kennedy
+- **Just Watch Me** — Lior Torenberg
+- **Transcription** — Ben Lerner
+- **In the Swarm Digital Prospects (Byung... (Z-Library).pdf** — author not listed
+- **The Typing Lady** — Ruth Ozeki
+- **The Minimalist** — Kailee Pedersen
+- **Barons** — Austin Frerick
+- **Unprecedented Times** — Malavika Kannan
+- **Plant Lady** — Minyoung Kang
+- **Brutes** — Dizz Tate
+- **Capitalism Without Capital** — Haskel, Jonathan; Westlake, Stian;
+- **Fruit Fly** — Josh Silver
+- **Is This a Cry for Help** — Emily Austin
+- **Soccer Analytics with Machine Learning (for . .)** — Haipeng Gao, Ari Joury, Weining Shen, and Guanyu Hu
+- **Strange Pictures** — Uketsu
+- **We Could Be Rats** — Emily Austin
+- **Interesting Facts about Space** — Emily Austin
+- **Foster** — Claire Keegan
+- **The Infamous Gilberts** — Angela Tomaski
+- **The Lamb** — Lucy Rose
+- **Nymph** — Sofia Montrone
+- **World Without Mind** — Franklin Foer
+- **Poetics of Cinema** — David Bordwell
+- **A Sudden Flicker of Light** — David Thomson
+- **On Morrison** — Namwali Serpell
+- **Cinema II** — Gilles Deleuze
+- **A Dictionary of Film Studies** — Annette Kuhn
+- **Cinema I: The Movement-Image** — Gilles Deleuze
+- **How to Read a Film** — Monaco, James
+- **Eloquent Javascript, 4th Edition** — Marijn Haverbeke
+- **Bared to You: A Crossfire Novel** — Sylvia Day
+- **Beautiful Bastard** — Christina Lauren
+- **Hurricane Room** — Sherwood,Kim
+- **A Spy Like Me** — Kim Sherwood
+- **Double or Nothing** — Kim Sherwood
+- **Yolk** — Mary H. K. Choi
+- **You Won't Get Free of It** — Rachel Aviv
+- **Hunchback** — Ichikawa, Saou
+- **Parade** — Rachel Cusk
+- **A Life’s Work: On Becoming a Mother** — Rachel Cusk
+- **Kudos** — Rachel Cusk
+- **The Reactionary Mind: Conservatism From Edmund Burke to Donald Trump** — Corey Robin
+- **Bibliophobia** — Sarah Chihaya
+- **The Person and the Situation** — Gladwell, Malcolm, Nisbett, Richard, Ross, Lee
+- **Strangers To Ourselves** — Rachel Aviv
+- **Where Wizards Stay Up Late: The Origins of the Internet** — Katie Hafner
+- **A Physical Education: How I Escaped Diet Culture and Gained the Power of Lifting** — Casey Johnston
+- **INSPIRED** — Marty Cagan
+- **This Is Where the Serpent Lives** — Daniyal Mueenuddin
+- **The Entrepreneurial State** — Mariana Mazzucato
+- **The Transition** — Luke Kennard
+- **The Story of Your Life** — Kathryn Jezer-Morton
+- **Sisters in Yellow** — Mieko Kawakami
+- **Social Cognition: From Brains to Culture** — Susan T. (tufts). Taylor Fiske (shelley E.)
+- **The Shadow of the Object** — Chloe Aridjis
+- **The Ethics of Privacy and Surveillance** — Carissa Vliz;
+- **The Master Switch: The Rise and Fall of Information Empires** — Tim Wu
+- **System Error** — Rob Reich
+- **Helen of Nowhere** — Makenna Goodman
+- **The Vivisectors** — Missouri Williams
+- **The Things We Never Say** — Elizabeth Strout
+- **Black Bag** — Luke Kennard
+- **The Renovation** — Kenan Orhan
+- **All Them Dogs** — Djamel White
+- **John of John** — Douglas Stuart
+- **Pool House** — Mary H.K. Choi
+- **Genius Makers** — Cade Metz
+- **Written On The Body** — Jeanette Winterson
+- **THE ELEMENTS OF STYLE (UPDATED 2011 EDITION) The All-Time Bestselling Book on Writing English Newly Edited (Special 2011 Edition) The Elements of Style OVER 10 MILLION COPIES SOLD! [Revised]** — William Strunk
+- **TechGnosis** — Erik Davis
+- **The Bee Sting: a Novel** — Paul Murray
+- **Fanged Noumena: Collected Writings 1987 - 2007** — Nick Land
+- **Python Data Science Handbook** — Jake VanderPlas
+- **Days of Love and Rage: A Story of Ordinary People Forging a Revolution** — Anand Gopal
+- **Dangerous, Dirty, Violent, and Young** — Zayd Ayers Dohrn
+- **Fear and Fury** — Heather Ann Thompson;
+- **Nightshade** — Michael Connelly
+- **American Han** — Lisa Lee
+- **Ironwood** — Michael Connelly
+- **Python Data Science Handbook (for Ana Barrios)** — Jake VanderPlas
+- **Easy Learning Design Patterns Javascript: Build Better Coding and Design Patterns** — hu, yang
+- **The Shampoo Effect** — Jenny Jackson
+- **Python for Data Analysis** — Wes McKinney
+- **Love Machines: How Artificial Intelligence Is Transforming Our Relationships** — James Muldoon
+- **Go Gentle** — Maria Semple
+- **The Sovereignty of Good** — Murdoch, Iris;
+- **The sea, the sea** — Iris Murdoch
+- **The bell** — Iris Murdoch
+- **Slags** — Emma Jane Unsworth
+- **The Ethics of Attention; Engaging the Real with Iris Murdoch and Simone Weil** — Silvia Caprioglio Panizza
+- **Kant: The Metaphysics of Morals (Cambridge Texts in the History of Philosophy)** — Immanuel Kant
+- **Metaphysics as a Guide to Morals** — Iris Murdoch
+- **How to See Like a Machine** — Trevor Paglen;
+- **London Falling** — Patrick Radden Keefe
+- **God, Human, Animal, Machine** — Meghan O'Gieblyn
+- **Immediacy, or The Style of Too Late Capitalism** — Anna Kornbluh;
+- **Pixel Flesh** — Ellen Atlanta
+- **When We Cease to Understand the World** — Benjamín Labatut
+- **CULPABILITY** — BRUCE HOLSINGER
+- **Free : A Child and a Country at the End of History (9780393867749)** — Ypi, Lea
+- **The Rebel** — Camus, Albert
+- **Functional Programming in Scala, Second Edition** — Michael Pilquist, Rúnar Bjarnason
+- **What Am I, a Deer?** — Polly Barton
+- **Time for Socialism** — Thomas Piketty
+- **Pattern Recognition** — William Gibson
+- **The Simp** — Roshan Sethi
+- **As If** — Isabel Waidner
+- **Playing in the Dark** — Toni Morrison
+- **Public Opinion** — Walter Lippmann
+- **Orientalism** — Edward W. Said
+- **Hyperpolitics** — Anton Jäger
+- **Average at Best** — Astrid Jorgensen
+- **Theo of Golden** — Allen Levi
+- **Technopoly** — Neil Postman
+- **Tender Is the Flesh** — Agustina Bazterrica
+- **The Case Against the Sexual Revolution** — Louise Perry
+- **Artificial Intelligence (Melanie Mitc_. (Z-Library).pdf** — author not listed
+- **No_is_not_enough_resisting_Trump's_shock_politics_and_Klein,_Naomi;Trump.pdf** — author not listed
+- **Before the Coffee Gets Cold** — author not listed
+- **Tropic of Cancer (Henry Miller) (Z-Library).pdf** — author not listed
+- **The Social Skills Guidebook (Chris MacLeod) (Z-Library).pdf** — author not listed
