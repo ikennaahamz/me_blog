@@ -1,6 +1,6 @@
 ---
 import type { Post } from "../lib/posts";
-import { formatDate } from "../lib/posts";
+import { formatShortDate, getReadingTime } from "../lib/posts";
 
 interface Props {
   posts: Post[];
@@ -16,9 +16,14 @@ const { posts, emptyMessage = "No writing has been published here yet." } = Astr
       {posts.map((post) => (
         <li>
           <a class="post-row" href={`/writing/${post.id}/`}>
-            <time datetime={post.data.publishedAt.toISOString()}>{formatDate(post.data.publishedAt)}</time>
-            <span>{post.data.title}</span>
-            <span class="row-arrow" aria-hidden="true">&rarr;</span>
+            <time class="post-date" datetime={post.data.publishedAt.toISOString()}>
+              {formatShortDate(post.data.publishedAt)}
+            </time>
+            <span class="post-title">{post.data.title}</span>
+            <span class="post-meta">
+              <span>{post.data.category}</span>
+              <span>{getReadingTime(post.body ?? "")} min read</span>
+            </span>
           </a>
         </li>
       ))}

@@ -1,7 +1,15 @@
 ---
+import { getCollection } from "astro:content";
+import BookCover from "../components/BookCover.astro";
 import PostList from "../components/PostList.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
-import { getPublishedPosts, getTopicCounts } from "../lib/posts";
+import {
+  formatDate,
+  getPostExcerpt,
+  getPublishedPosts,
+  getReadingTime,
+  getTopicCounts,
+} from "../lib/posts";
 
 const posts = await getPublishedPosts();
 const markedStartHerePosts = posts
@@ -11,70 +19,156 @@ const fallbackStartHerePosts = posts.filter(
   (post) => !markedStartHerePosts.some((markedPost) => markedPost.id === post.id),
 );
 const startHerePosts = [...markedStartHerePosts, ...fallbackStartHerePosts].slice(0, 2);
-const recentPosts = posts
-  .filter((post) => !startHerePosts.some((startHerePost) => startHerePost.id === post.id))
-  .slice(0, 8);
+const [leadPost, nextStartPost] = startHerePosts;
 const topics = [...getTopicCounts(posts).entries()];
-const startHereLabels = ["Begin with the idea", "See how I work"];
+const latestPost = posts[0];
+
+const books = (await getCollection("books", ({ data }) => !data.draft)).sort((left, right) =>
+  left.data.authorSort.localeCompare(right.data.authorSort),
+);
+const notedBooks = books.filter((book) => (book.body ?? "").trim().length > 0);
+const shelfBooks = (notedBooks.length >= 3 ? notedBooks : books).slice(0, 3);
 ---
 
 <BaseLayout>
-  <section class="home-intro" aria-labelledby="home-title">
-    <p class="kicker">Personal notes</p>
-    <h1 id="home-title">I've Been thinking.</h1>
-    <p class="home-deck">
-      I write about philosophy, books, technology, and the conversations that change how I see
-      things.
-    </p>
-  </section>
+  <div class="page">
+    <section class="home-hero layout-grid" aria-labelledby="home-title">
+      <div class="home-margin">
+        <span>Personal notes</span>
+        <span>An occasional log</span>
+      </div>
+      <div>
+        <h1 id="home-title" class="home-title">I've been <br />thinking.</h1>
+        <p class="home-deck">
+          I write about philosophy, books, technology, and the conversations that change how I see
+          things.
+        </p>
+        {
+          latestPost && (
+            <p class="home-latest">
+              <span>Latest</span>
+              <a href={`/writing/${latestPost.id}/`}>{latestPost.data.title}</a>
+            </p>
+          )
+        }
+      </div>
+    </section>
 
-  <section class="home-section start-here" aria-labelledby="start-here-title">
-    <div class="section-label"><h2 id="start-here-title">Start here</h2></div>
-    <ol class="start-here-grid">
-      {
-        startHerePosts.map((post, index) => (
+    <section class="home-section" aria-labelledby="contents-title">
+      <h2 class="section-label" id="contents-title">Contents</h2>
+      <div class="section-body">
+        <ol class="contents">
           <li>
-            <article class="start-here-card">
-              <p class="start-here-label">{startHereLabels[index]}</p>
-              <h3><a href={`/writing/${post.id}/`}>{post.data.title}</a></h3>
-              <p>{post.data.description}</p>
-              <a class="continue-link" href={`/writing/${post.id}/`}>
-                Read this piece <span aria-hidden="true">&rarr;</span>
-              </a>
-            </article>
+            <a href="#start-here">
+              <span class="contents-number">01</span>
+              <span class="contents-name">Start here</span>
+              <span class="contents-count">{startHerePosts.length} essays</span>
+            </a>
           </li>
-        ))
-      }
-      <li>
-        <article class="start-here-card">
-          <p class="start-here-label">Browse the shelf</p>
-          <h3><a href="/books/">The Forever Shelf</a></h3>
-          <p>An unranked collection of books that continue to change how I think and see the world.</p>
-          <a class="continue-link" href="/books/">
-            Explore the shelf <span aria-hidden="true">&rarr;</span>
-          </a>
-        </article>
-      </li>
-    </ol>
-  </section>
+          <li>
+            <a href="/books/">
+              <span class="contents-number">02</span>
+              <span class="contents-name">The Forever Shelf</span>
+              <span class="contents-count">{books.length} books</span>
+            </a>
+          </li>
+          <li>
+            <a href="/topics/">
+              <span class="contents-number">03</span>
+              <span class="contents-name">Topics</span>
+              <span class="contents-count">{topics.length} subjects</span>
+            </a>
+          </li>
+          <li>
+            <a href="/writing/">
+              <span class="contents-number">04</span>
+              <span class="contents-name">Writing</span>
+              <span class="contents-count">{posts.length} entries</span>
+            </a>
+          </li>
+        </ol>
+      </div>
+    </section>
 
-  <section class="home-section" aria-labelledby="topics-title">
-    <div class="section-label"><h2 id="topics-title">Topics</h2></div>
-    <div>
-      <ul class="topic-index">
-        {topics.map(([topic, count]) => (
-          <li><a href={`/topics/${topic}/`}><span>{topic}</span><sup>{count}</sup></a></li>
-        ))}
-      </ul>
-      <a class="quiet-link" href="/topics/">Browse all topics <span aria-hidden="true">&rarr;</span></a>
-    </div>
-  </section>
+    <section id="start-here" class="home-section" aria-labelledby="start-here-title">
+      <h2 class="section-label" id="start-here-title">Start here</h2>
+      <div class="section-body">
+        {
+          leadPost && (
+            <div class="home-lead">
+              <div class="lead-copy">
+                <p class="lead-kicker">Begin with the idea</p>
+                <h3 class="lead-title">
+                  <a href={`/writing/${leadPost.id}/`}>{leadPost.data.title}</a>
+                </h3>
+                <p class="lead-description">{getPostExcerpt(leadPost)}</p>
+                <ul class="lead-meta">
+                  <li>
+                    <time datetime={leadPost.data.publishedAt.toISOString()}>
+                      {formatDate(leadPost.data.publishedAt)}
+                    </time>
+                  </li>
+                  <li>{getReadingTime(leadPost.body ?? "")} min read</li>
+                  <li>{leadPost.data.category}</li>
+                </ul>
+                {
+                  nextStartPost && (
+                    <a class="next-start" href={`/writing/${nextStartPost.id}/`}>
+                      <span>Next</span>
+                      {nextStartPost.data.title}
+                    </a>
+                  )
+                }
+              </div>
+              {
+                shelfBooks.length > 0 && (
+                  <figure class="shelf-mini">
+                    <a
+                      class="shelf-stack"
+                      href="/books/"
+                      aria-label="Browse The Forever Shelf"
+                    >
+                      {shelfBooks.map((book) => (
+                        <BookCover book={book} width={240} />
+                      ))}
+                    </a>
+                    <figcaption class="shelf-caption">
+                      <span>The Forever Shelf</span>
+                      <span>{books.length} books</span>
+                    </figcaption>
+                  </figure>
+                )
+              }
+            </div>
+          )
+        }
+      </div>
+    </section>
 
-  <section class="home-section" aria-labelledby="recent-title">
-    <div class="section-label"><h2 id="recent-title">Recent writing</h2></div>
-    <div>
-      <PostList posts={recentPosts} />
-      <a class="quiet-link" href="/writing/">View the complete archive <span aria-hidden="true">&rarr;</span></a>
-    </div>
-  </section>
+    <section class="home-section" aria-labelledby="recent-title">
+      <h2 class="section-label" id="recent-title">Recent writing</h2>
+      <div class="section-body">
+        <PostList posts={posts} />
+        <a class="more-link" href="/writing/">All writing</a>
+      </div>
+    </section>
+
+    <section class="home-section" aria-labelledby="topics-title">
+      <h2 class="section-label" id="topics-title">Topics</h2>
+      <div class="section-body">
+        <ul class="topic-strip">
+          {
+            topics.map(([topic, count]) => (
+              <li>
+                <a href={`/topics/${topic}/`}>
+                  {topic}
+                  <sup>{count}</sup>
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </section>
+  </div>
 </BaseLayout>

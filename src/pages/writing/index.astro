@@ -1,4 +1,5 @@
 ---
+import PageIntro from "../../components/PageIntro.astro";
 import PostList from "../../components/PostList.astro";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import { getPublishedPosts } from "../../lib/posts";
@@ -8,20 +9,25 @@ const years = Map.groupBy(posts, (post) => post.data.publishedAt.getUTCFullYear(
 ---
 
 <BaseLayout title="Writing" description="Essays and notes by Ikenna Ahamz.">
-  <header class="page-header">
-    <p class="kicker">Archive</p>
-    <h1>Writing</h1>
-    <p>Essays, working notes, and ideas collected over time.</p>
-  </header>
+  <div class="page">
+    <PageIntro
+      label="Archive"
+      title="Writing"
+      deck="Essays, working notes, and ideas collected over time."
+      note={`${posts.length} ${posts.length === 1 ? "entry" : "entries"}`}
+    />
 
-  <div class="year-groups">
-    {
-      [...years.entries()].map(([year, yearPosts]) => (
-        <section class="archive-group" aria-labelledby={`year-${year}`}>
-          <h2 id={`year-${year}`}>{year}</h2>
-          <PostList posts={yearPosts} />
-        </section>
-      ))
-    }
+    <div class="year-groups">
+      {
+        [...years.entries()].map(([year, yearPosts]) => (
+          <section class="year-group" aria-labelledby={`year-${year}`}>
+            <h2 id={`year-${year}`} class="year-label">
+              {year}
+            </h2>
+            <PostList posts={yearPosts} />
+          </section>
+        ))
+      }
+    </div>
   </div>
 </BaseLayout>

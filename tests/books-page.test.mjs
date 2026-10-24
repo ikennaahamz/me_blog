@@ -39,18 +39,25 @@ before(() => {
   aboutHtml = readFileSync("dist/about/index.html", "utf8");
 });
 
-test("the homepage starts with one h1 and three curated destinations", () => {
+test("the homepage opens with one h1, a contents index, and two starting points", () => {
   assert.equal((homeHtml.match(/<h1(?:\s[^>]*)?>/g) ?? []).length, 1);
-  assert.match(homeHtml, /<h1 id="home-title">I've Been thinking\.<\/h1>/);
-  assert.match(homeHtml, /id="start-here-title">Start here<\/h2>/);
-  assert.equal((homeHtml.match(/class="start-here-card"/g) ?? []).length, 3);
-  assert.match(homeHtml, /What I want this blog to remember/);
+  assert.match(homeHtml, /<h1 id="home-title" class="home-title">I've been <br>thinking\.<\/h1>/);
+  assert.match(homeHtml, /class="contents"/);
+  assert.match(homeHtml, /Start here<\/span>/);
+  assert.match(homeHtml, /The Forever Shelf<\/span>/);
+  assert.match(homeHtml, /Topics<\/span>/);
+  assert.match(homeHtml, /Writing<\/span>/);
+  assert.match(homeHtml, /class="shelf-mini"/);
+  assert.match(homeHtml, /Memory dot MD/);
   assert.match(homeHtml, /Decisions from the workbench/);
-  assert.match(homeHtml, /The Forever Shelf/);
+  assert.equal((homeHtml.match(/class="post-row"/g) ?? []).length, 4);
 });
 
 test("the generated site includes The Forever Shelf page", () => {
   assert.match(html, /<h1>The Forever Shelf<\/h1>/);
+  assert.match(html, /class="shelf-wall"/);
+  assert.equal((html.match(/class="shelf-row"/g) ?? []).length, 3);
+  assert.equal((html.match(/class="shelf-book"/g) ?? []).length, 15);
   assert.equal((html.match(/class="book-card"/g) ?? []).length, 15);
   assert.equal((html.match(/class="book-cover"/g) ?? []).length, 15);
   assert.doesNotMatch(html, /class="book-cover-placeholder"/);
@@ -91,7 +98,7 @@ test("articles offer related, chronological, and archive continuation", () => {
   assert.match(middleArticleHtml, /Related writing/);
   assert.match(
     middleArticleHtml,
-    /href="\/writing\/what-i-want-this-blog-to-remember\/"[^>]*>[\s\S]*?What I want this blog to remember/,
+    /href="\/writing\/what-i-want-this-blog-to-remember\/"[^>]*>[\s\S]*?Memory dot MD/,
   );
   assert.match(middleArticleHtml, /class="article-pagination-link newer"/);
   assert.match(middleArticleHtml, /class="article-pagination-link older"/);

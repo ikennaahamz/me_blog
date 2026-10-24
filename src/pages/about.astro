@@ -1,44 +1,39 @@
 ---
+import PageIntro from "../components/PageIntro.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
 ---
 
 <BaseLayout title="About" description="About Ikenna Ahamz and this personal writing space.">
-  <article class="about-page">
-    <header class="page-header">
-      <p class="kicker">About</p>
-      <h1>Ikenna Ahamz</h1>
-    </header>
-    <div class="prose about-prose">
-      <p class="lead">
-        I am a developer and persistent learner interested in how ideas become useful systems.
-      </p>
-      <p>
-        This site is where I keep public notes on philosophy, books, technology, and podcasts.
-        Some pieces are finished essays. Others are records of questions that are still changing.
-      </p>
-      <p>
-        I write in Obsidian and publish in Markdown. Keeping the process simple leaves more room
-        for the part that matters: thinking clearly enough to put something into words.
-      </p>
-      <p><a href="mailto:hello@ikennaahamz.site">hello@ikennaahamz.site</a></p>
+  <div class="page about-page">
+    <PageIntro
+      label="About"
+      title="Ikenna Ahamz"
+      deck="I am a developer and persistent learner interested in how ideas become useful systems."
+    />
+
+    <div class="about-body layout-grid">
+      <div class="prose about-prose">
+        <p>
+          This site is where I keep public notes on philosophy, books, technology, and podcasts.
+          Some pieces are finished essays. Others are records of questions that are still changing.
+        </p>
+        <p>
+          I write in Obsidian and publish in Markdown. Keeping the process simple leaves more room
+          for the part that matters: thinking clearly enough to put something into words.
+        </p>
+        <p><a class="about-email" href="mailto:hello@ikennaahamz.site">hello@ikennaahamz.site</a></p>
+      </div>
     </div>
+
     <section class="about-currently" aria-labelledby="currently-title">
       <h2 id="currently-title">Currently</h2>
       <dl>
-        <div>
-          <dt>Building</dt>
-          <dd>This blog</dd>
-        </div>
-        <div>
-          <dt>Learning</dt>
-          <dd>Astro and frontend development</dd>
-        </div>
-        <div>
-          <dt>Curating</dt>
-          <dd><a href="/books/">The Forever Shelf</a></dd>
-        </div>
+        <div><dt>Building</dt><dd>This blog and UniBlood</dd></div>
+        <div><dt>Learning</dt><dd>Astro and frontend development</dd></div>
+        <div><dt>Curating</dt><dd><a href="/books/">The Forever Shelf</a></dd></div>
       </dl>
     </section>
+
     <img
       class="about-image"
       src="/assets/editorial-desk.webp"
@@ -47,5 +42,5 @@ import BaseLayout from "../layouts/BaseLayout.astro";
       height="600"
       loading="lazy"
     />
-  </article>
+  </div>
 </BaseLayout>

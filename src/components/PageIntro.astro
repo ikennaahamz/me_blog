@@ -1,0 +1,23 @@
+---
+interface Props {
+  label: string;
+  title: string;
+  deck?: string;
+  note?: string;
+  titleId?: string;
+}
+
+const { label, title, deck, note, titleId } = Astro.props;
+---
+
+<header class="page-intro layout-grid">
+  <div class="page-intro-margin">
+    <p class="section-label">{label}</p>
+    {note && <p class="page-intro-note">{note}</p>}
+  </div>
+  <div class="page-intro-body">
+    <h1 id={titleId}>{title}</h1>
+    {deck && <p class="page-intro-deck">{deck}</p>}
+    <slot />
+  </div>
+</header>

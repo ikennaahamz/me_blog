@@ -1,6 +1,7 @@
 ---
 import { getCollection, render } from "astro:content";
-import { Image } from "astro:assets";
+import PageIntro from "../components/PageIntro.astro";
+import ShelfWall from "../components/ShelfWall.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
 
 const books = await getCollection("books", ({ data }) => !data.draft);
@@ -11,8 +12,9 @@ books.sort(
 );
 
 const shelf = await Promise.all(
-  books.map(async (book) => ({
+  books.map(async (book, index) => ({
     book,
+    index,
     hasFullNote: (book.body ?? "").trim().length > 0,
     Content: (await render(book)).Content,
   })),
@@ -20,67 +22,40 @@ const shelf = await Promise.all(
 ---
 
 <BaseLayout
-  title="The Shelf"
+  title="The Forever Shelf"
   description="An unranked collection of the books Ikenna returns to."
 >
-  <header class="page-header forever-shelf-header">
-    <p class="kicker">Books I return to</p>
-    <h1>The Forever Shelf</h1>
-    <p>
-      An unranked collection of books that continue to change how I think, feel, and see the world.
-    </p>
-  </header>
+  <div class="page">
+    <PageIntro
+      label="Library"
+      title="The Forever Shelf"
+      deck="An unranked collection of books that continue to change how I think, feel, and see the world."
+      note={`${books.length} books`}
+    />
 
-  <ul class="book-grid" aria-label="Books on The Forever Shelf">
-    {
-      shelf.map(({ book, hasFullNote, Content }) => (
-        <li class="book-card">
-          <div class="book-cover-frame">
-            {
-              !book.data.cover ? (
-                <div class="book-cover-placeholder" aria-hidden="true">
-                  <span>{book.data.title}</span>
-                  <small>{book.data.author}</small>
-                </div>
-              ) : typeof book.data.cover === "string" ? (
-                <img
-                  class="book-cover"
-                  src={book.data.cover}
-                  alt={`Cover of ${book.data.title} by ${book.data.author}`}
-                  width="300"
-                  height="450"
-                  loading="lazy"
-                  decoding="async"
-                />
-              ) : (
-                <Image
-                  class="book-cover"
-                  src={book.data.cover}
-                  alt={`Cover of ${book.data.title} by ${book.data.author}`}
-                  width={280}
-                  densities={[1, 2]}
-                  loading="lazy"
-                />
-              )
-            }
-          </div>
-          <article class="book-entry">
-            <h2>{book.data.title}</h2>
-            <p class="book-author">{book.data.author}</p>
-            {book.data.summary && <p class="book-summary">{book.data.summary}</p>}
-            {
-              hasFullNote && (
+    <ShelfWall books={books} />
+
+    <ol class="book-catalogue" aria-label="Book notes">
+      {
+        shelf.map(({ book, index, hasFullNote, Content }) => (
+          <li class="book-card" id={`book-${book.id}`}>
+            <p class="book-index">{String(index + 1).padStart(3, "0")}</p>
+            <article class="book-entry">
+              <h2>{book.data.title}</h2>
+              <p class="book-author">{book.data.author}</p>
+              {book.data.summary && <p class="book-summary">{book.data.summary}</p>}
+              {hasFullNote && (
                 <details class="book-details">
                   <summary>Read full note</summary>
                   <div class="book-note">
                     <Content />
                   </div>
                 </details>
-              )
-            }
-          </article>
-        </li>
-      ))
-    }
-  </ul>
+              )}
+            </article>
+          </li>
+        ))
+      }
+    </ol>
+  </div>
 </BaseLayout>

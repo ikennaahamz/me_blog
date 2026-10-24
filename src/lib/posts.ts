@@ -46,11 +46,39 @@ export function getRelatedPost(post: Post, posts: Post[]): Post | undefined {
     )[0]?.post;
 }
 
+export function getPostExcerpt(post: Post, maxLength = 220): string {
+  const description = post.data.description.trim();
+  if (description) return description;
+
+  const body = (post.body ?? "").replace(/^---[\s\S]*?---\s*/, "").trim();
+  const firstParagraph =
+    body
+      .split(/\n\s*\n/)
+      .find((paragraph) => paragraph.trim() && !paragraph.trim().startsWith("#")) ?? "";
+
+  const plain = firstParagraph
+    .replace(/!\[[^\]]*\]\([^)]*\)/g, "")
+    .replace(/\[([^\]]+)\]\([^)]*\)/g, "$1")
+    .replace(/[`*_>#]/g, "")
+    .replace(/\s+/g, " ")
+    .trim();
+
+  return plain.length > maxLength ? `${plain.slice(0, maxLength).trimEnd()}…` : plain;
+}
+
 export function formatDate(date: Date): string {
-  return new Intl.DateTimeFormat("en", {
+  return new Intl.DateTimeFormat("en-GB", {
     year: "numeric",
+    month: "long",
+    day: "numeric",
+    timeZone: "UTC",
+  }).format(date);
+}
+
+export function formatShortDate(date: Date): string {
+  return new Intl.DateTimeFormat("en-GB", {
     month: "short",
-    day: "2-digit",
+    day: "numeric",
     timeZone: "UTC",
   }).format(date);
 }

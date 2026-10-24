@@ -1,4 +1,5 @@
 ---
+import PageIntro from "../../components/PageIntro.astro";
 import PostList from "../../components/PostList.astro";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import { getPostTopics, getPublishedPosts, getTopicCounts } from "../../lib/posts";
@@ -13,10 +14,12 @@ const posts = (await getPublishedPosts()).filter((post) => getPostTopics(post).i
 ---
 
 <BaseLayout title={topic} description={`Writing by Ikenna Ahamz about ${topic}.`}>
-  <header class="page-header compact-header">
-    <p class="kicker">Topic</p>
-    <h1>{topic}</h1>
-    <p>{posts.length} {posts.length === 1 ? "entry" : "entries"} in the archive.</p>
-  </header>
-  <PostList posts={posts} />
+  <div class="page">
+    <PageIntro
+      label="Topic"
+      title={topic}
+      note={`${posts.length} ${posts.length === 1 ? "entry" : "entries"}`}
+    />
+    <PostList posts={posts} />
+  </div>
 </BaseLayout>

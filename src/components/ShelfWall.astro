@@ -1,0 +1,36 @@
+---
+import type { CollectionEntry } from "astro:content";
+import BookCover from "./BookCover.astro";
+
+interface Props {
+  books: CollectionEntry<"books">[];
+  columns?: number;
+}
+
+const { books, columns = 5 } = Astro.props;
+
+const rows: CollectionEntry<"books">[][] = [];
+for (let index = 0; index < books.length; index += columns) {
+  rows.push(books.slice(index, index + columns));
+}
+---
+
+<nav class="shelf-wall" aria-label="Browse the shelf">
+  {
+    rows.map((row, rowIndex) => (
+      <ol class="shelf-row" aria-label={`Shelf row ${rowIndex + 1}`}>
+        {row.map((book) => (
+          <li>
+            <a
+              class="shelf-book"
+              href={`#book-${book.id}`}
+              aria-label={`${book.data.title} by ${book.data.author}`}
+            >
+              <BookCover book={book} />
+            </a>
+          </li>
+        ))}
+      </ol>
+    ))
+  }
+</nav>

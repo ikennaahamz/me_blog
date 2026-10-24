@@ -1,4 +1,5 @@
 ---
+import PageIntro from "../../components/PageIntro.astro";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import { getPublishedPosts, getTopicCounts } from "../../lib/posts";
 
@@ -7,22 +8,27 @@ const topics = [...getTopicCounts(posts).entries()];
 ---
 
 <BaseLayout title="Topics" description="Browse Ikenna Ahamz's writing by topic.">
-  <header class="page-header">
-    <p class="kicker">Index</p>
-    <h1>Topics</h1>
-    <p>Recurring questions and subjects across the archive.</p>
-  </header>
+  <div class="page">
+    <PageIntro
+      label="Index"
+      title="Topics"
+      deck="Recurring questions and subjects across the archive."
+      note={`${topics.length} ${topics.length === 1 ? "subject" : "subjects"}`}
+    />
 
-  <ul class="topic-directory">
-    {
-      topics.map(([topic, count]) => (
-        <li>
-          <a href={`/topics/${topic}/`}>
-            <span>{topic}</span>
-            <span>{count} {count === 1 ? "entry" : "entries"}</span>
-          </a>
-        </li>
-      ))
-    }
-  </ul>
+    <ul class="topic-directory">
+      {
+        topics.map(([topic, count]) => (
+          <li>
+            <a href={`/topics/${topic}/`}>
+              <span class="topic-name">{topic}</span>
+              <span class="topic-count">
+                {count} {count === 1 ? "entry" : "entries"}
+              </span>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
 </BaseLayout>
