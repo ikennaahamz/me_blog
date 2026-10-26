@@ -1,0 +1,47 @@
+---
+import { Image } from "astro:assets";
+import type { CollectionEntry } from "astro:content";
+
+interface Props {
+  book: CollectionEntry<"books">;
+  alt?: string;
+  width?: number;
+  densities?: number[];
+  loading?: "eager" | "lazy";
+  class?: string;
+}
+
+const {
+  book,
+  alt = "",
+  width = 280,
+  densities = [1, 2],
+  loading = "lazy",
+  class: className = "book-cover",
+} = Astro.props;
+
+const cover = book.data.cover;
+---
+
+{
+  cover ? (
+    typeof cover === "string" ? (
+      <img
+        class={className}
+        src={cover}
+        alt={alt}
+        width={width}
+        height={Math.round(width * 1.5)}
+        loading={loading}
+        decoding="async"
+      />
+    ) : (
+      <Image class={className} src={cover} alt={alt} width={width} densities={densities} loading={loading} />
+    )
+  ) : (
+    <div class:list={[className, "book-cover-placeholder"]} aria-hidden="true">
+      <span>{book.data.title}</span>
+      <small>{book.data.author}</small>
+    </div>
+  )
+}

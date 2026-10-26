@@ -1,6 +1,6 @@
 ---
 import type { Post } from "../lib/posts";
-import { formatDate, getPostTopics, getReadingTime } from "../lib/posts";
+import { formatDate, getPostExcerpt, getPostTopics, getReadingTime } from "../lib/posts";
 import BaseLayout from "./BaseLayout.astro";
 
 interface Props {
@@ -13,61 +13,83 @@ interface Props {
 const { post, relatedPost, newerPost, olderPost } = Astro.props;
 const topics = getPostTopics(post);
 const readingTime = getReadingTime(post.body ?? "");
+const description = getPostExcerpt(post) || post.data.description;
 ---
 
 <BaseLayout
   title={post.data.title}
-  description={post.data.description}
+  description={description}
   type="article"
   publishedAt={post.data.publishedAt}
 >
   <article class="article">
-    <header class="article-header">
-      <a class="back-link" href="/writing/">&larr; All writing</a>
-      <h1>{post.data.title}</h1>
-      <p class="article-description">{post.data.description}</p>
-      <div class="article-meta">
-        <time datetime={post.data.publishedAt.toISOString()}>{formatDate(post.data.publishedAt)}</time>
-        <span aria-hidden="true">/</span>
-        <span>{readingTime} min read</span>
+    <div class="page">
+      <a class="back-link" href="/writing/">All writing</a>
+
+      <header class="article-header layout-grid">
+        <div class="article-margin">
+          <time class="article-date" datetime={post.data.publishedAt.toISOString()}>
+            {formatDate(post.data.publishedAt)}
+          </time>
+          <span class="article-reading-time">{readingTime} min read</span>
+          <ul class="article-topics" aria-label="Article topics">
+            {
+              topics.map((topic) => (
+                <li>
+                  <a href={`/topics/${topic}/`}>{topic}</a>
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+        <div class="article-heading">
+          <h1>{post.data.title}</h1>
+          <p class="article-description">{description}</p>
+        </div>
+      </header>
+
+      <div class="article-body layout-grid">
+        <div class="article-margin" aria-hidden="true"></div>
+        <div class="prose">
+          <slot />
+        </div>
       </div>
-      <ul class="topic-links" aria-label="Article topics">
-        {topics.map((topic) => <li><a href={`/topics/${topic}/`}>{topic}</a></li>)}
-      </ul>
-    </header>
-    <div class="prose">
-      <slot />
+
+      <footer class="article-continuation layout-grid">
+        <h2>Keep reading</h2>
+        <div class="continuation-content">
+          {
+            relatedPost && (
+              <article class="related-post">
+                <p class="section-label">Related writing</p>
+                <h3>
+                  <a href={`/writing/${relatedPost.id}/`}>{relatedPost.data.title}</a>
+                </h3>
+                <p>{getPostExcerpt(relatedPost)}</p>
+              </article>
+            )
+          }
+          <nav class="article-pagination" aria-label="Continue reading">
+            {
+              newerPost && (
+                <a class="article-pagination-link newer" href={`/writing/${newerPost.id}/`}>
+                  <span>Newer</span>
+                  <strong>{newerPost.data.title}</strong>
+                </a>
+              )
+            }
+            <a class="all-writing-link" href="/writing/">View all writing</a>
+            {
+              olderPost && (
+                <a class="article-pagination-link older" href={`/writing/${olderPost.id}/`}>
+                  <span>Older</span>
+                  <strong>{olderPost.data.title}</strong>
+                </a>
+              )
+            }
+          </nav>
+        </div>
+      </footer>
     </div>
-    <footer class="article-continuation">
-      <h2>Keep reading</h2>
-      {
-        relatedPost && (
-          <article class="related-post">
-            <p class="continuation-label">Related writing</p>
-            <h3><a href={`/writing/${relatedPost.id}/`}>{relatedPost.data.title}</a></h3>
-            <p>{relatedPost.data.description}</p>
-          </article>
-        )
-      }
-      <nav class="article-pagination" aria-label="Continue reading">
-        {
-          newerPost && (
-            <a class="article-pagination-link newer" href={`/writing/${newerPost.id}/`}>
-              <span>Newer</span>
-              <strong>{newerPost.data.title}</strong>
-            </a>
-          )
-        }
-        <a class="all-writing-link" href="/writing/">View all writing</a>
-        {
-          olderPost && (
-            <a class="article-pagination-link older" href={`/writing/${olderPost.id}/`}>
-              <span>Older</span>
-              <strong>{olderPost.data.title}</strong>
-            </a>
-          )
-        }
-      </nav>
-    </footer>
   </article>
 </BaseLayout>
