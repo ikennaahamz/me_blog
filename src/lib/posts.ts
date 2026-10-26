@@ -11,7 +11,23 @@ export async function getPublishedPosts(): Promise<Post[]> {
 }
 
 export function getPostTopics(post: Post): string[] {
-  return [...new Set([post.data.category, ...post.data.tags.map((tag) => tag.toLowerCase())])];
+  return [...new Set(post.data.tags.map((tag) => tag.toLowerCase()))];
+}
+
+export function getPostTypeLabel(post: Post): string {
+  return post.data.type === "essay" ? "Essay" : "Note";
+}
+
+export function getPostTypeSummary(posts: Post[]): string {
+  const essayCount = posts.filter((post) => post.data.type === "essay").length;
+  const noteCount = posts.filter((post) => post.data.type === "note").length;
+
+  return [
+    essayCount > 0 ? `${essayCount} ${essayCount === 1 ? "essay" : "essays"}` : "",
+    noteCount > 0 ? `${noteCount} ${noteCount === 1 ? "note" : "notes"}` : "",
+  ]
+    .filter(Boolean)
+    .join(" · ");
 }
 
 export function getTopicLabel(topic: string): string {

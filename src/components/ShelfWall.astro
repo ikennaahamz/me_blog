@@ -8,17 +8,22 @@ interface Props {
 }
 
 const { books, columns = 5 } = Astro.props;
+const rowSize = Math.max(1, columns);
 
 const rows: CollectionEntry<"books">[][] = [];
-for (let index = 0; index < books.length; index += columns) {
-  rows.push(books.slice(index, index + columns));
+for (let index = 0; index < books.length; index += rowSize) {
+  rows.push(books.slice(index, index + rowSize));
 }
 ---
 
 <nav class="shelf-wall" aria-label="Browse the shelf">
   {
     rows.map((row, rowIndex) => (
-      <ol class="shelf-row" aria-label={`Shelf row ${rowIndex + 1}`}>
+      <ol
+        class="shelf-row"
+        style={`--shelf-columns: ${rowSize}`}
+        aria-label={`Shelf row ${rowIndex + 1}`}
+      >
         {row.map((book) => (
           <li>
             <a

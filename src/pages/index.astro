@@ -1,11 +1,12 @@
 ---
 import { getCollection } from "astro:content";
 import BookCover from "../components/BookCover.astro";
-import PostList from "../components/PostList.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import {
   formatDate,
   getPostExcerpt,
+  getPostTypeLabel,
+  getPostTypeSummary,
   getPublishedPosts,
   getReadingTime,
   getTopicCounts,
@@ -13,14 +14,12 @@ import {
 } from "../lib/posts";
 
 const posts = await getPublishedPosts();
-const markedStartHerePosts = posts
+const startHerePosts = posts
   .filter((post) => post.data.startHereOrder !== undefined)
-  .sort((left, right) => left.data.startHereOrder! - right.data.startHereOrder!);
-const fallbackStartHerePosts = posts.filter(
-  (post) => !markedStartHerePosts.some((markedPost) => markedPost.id === post.id),
-);
-const startHerePosts = [...markedStartHerePosts, ...fallbackStartHerePosts].slice(0, 2);
+  .sort((left, right) => left.data.startHereOrder! - right.data.startHereOrder!)
+  .slice(0, 2);
 const [leadPost, nextStartPost] = startHerePosts;
+const startHereSummary = getPostTypeSummary(startHerePosts);
 const topics = [...getTopicCounts(posts).entries()];
 const latestPost = posts[0];
 
@@ -28,7 +27,7 @@ const books = (await getCollection("books", ({ data }) => !data.draft)).sort((le
   left.data.authorSort.localeCompare(right.data.authorSort),
 );
 const notedBooks = books.filter((book) => (book.body ?? "").trim().length > 0);
-const shelfBooks = (notedBooks.length >= 3 ? notedBooks : books).slice(0, 3);
+const shelfBooks = notedBooks.slice(0, 3);
 ---
 
 <BaseLayout>
@@ -41,8 +40,8 @@ const shelfBooks = (notedBooks.length >= 3 ? notedBooks : books).slice(0, 3);
       <div>
         <h1 id="home-title" class="home-title">I've been <br />thinking.</h1>
         <p class="home-deck">
-          I write about philosophy, books, technology, and the conversations that change how I see
-          things.
+          I write essays and notes about philosophy, technology, and the books and conversations
+          that change how I see things.
         </p>
         {
           latestPost && (
@@ -63,14 +62,14 @@ const shelfBooks = (notedBooks.length >= 3 ? notedBooks : books).slice(0, 3);
             <a href="#start-here">
               <span class="contents-number">01</span>
               <span class="contents-name">Start here</span>
-              <span class="contents-count">{startHerePosts.length} essays</span>
+              <span class="contents-count">{startHereSummary}</span>
             </a>
           </li>
           <li>
             <a href="/books/">
               <span class="contents-number">02</span>
               <span class="contents-name">The Forever Shelf</span>
-              <span class="contents-count">{books.length} books</span>
+              <span class="contents-count">{notedBooks.length} books</span>
             </a>
           </li>
           <li>
@@ -84,7 +83,7 @@ const shelfBooks = (notedBooks.length >= 3 ? notedBooks : books).slice(0, 3);
             <a href="/writing/">
               <span class="contents-number">04</span>
               <span class="contents-name">Writing</span>
-              <span class="contents-count">{posts.length} entries</span>
+              <span class="contents-count">{getPostTypeSummary(posts)}</span>
             </a>
           </li>
         </ol>
@@ -110,7 +109,7 @@ const shelfBooks = (notedBooks.length >= 3 ? notedBooks : books).slice(0, 3);
                     </time>
                   </li>
                   <li>{getReadingTime(leadPost.body ?? "")} min read</li>
-                  <li>{leadPost.data.category}</li>
+                  <li>{getPostTypeLabel(leadPost)}</li>
                 </ul>
                 {
                   nextStartPost && (
@@ -135,7 +134,7 @@ const shelfBooks = (notedBooks.length >= 3 ? notedBooks : books).slice(0, 3);
                     </a>
                     <figcaption class="shelf-caption">
                       <span>The Forever Shelf</span>
-                      <span>{books.length} books</span>
+                      <span>{notedBooks.length} books with notes</span>
                     </figcaption>
                   </figure>
                 )
@@ -143,14 +142,6 @@ const shelfBooks = (notedBooks.length >= 3 ? notedBooks : books).slice(0, 3);
             </div>
           )
         }
-      </div>
-    </section>
-
-    <section class="home-section" aria-labelledby="recent-title">
-      <h2 class="section-label" id="recent-title">Recent writing</h2>
-      <div class="section-body">
-        <PostList posts={posts} />
-        <a class="more-link" href="/writing/">All writing</a>
       </div>
     </section>
 

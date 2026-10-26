@@ -2,9 +2,10 @@
 import PageIntro from "../../components/PageIntro.astro";
 import PostList from "../../components/PostList.astro";
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import { getPublishedPosts } from "../../lib/posts";
+import { getPostTypeSummary, getPublishedPosts } from "../../lib/posts";
 
 const posts = await getPublishedPosts();
+const typeSummary = getPostTypeSummary(posts);
 const years = Map.groupBy(posts, (post) => post.data.publishedAt.getUTCFullYear());
 ---
 
@@ -13,9 +14,13 @@ const years = Map.groupBy(posts, (post) => post.data.publishedAt.getUTCFullYear(
     <PageIntro
       label="Archive"
       title="Writing"
-      deck="Essays, working notes, and ideas collected over time."
-      note={`${posts.length} ${posts.length === 1 ? "entry" : "entries"}`}
-    />
+      deck="Essays and working notes collected over time."
+      note={typeSummary}
+    >
+      <p class="archive-note">
+        Book notes live in <a href="/books/">The Forever Shelf</a>.
+      </p>
+    </PageIntro>
 
     <div class="year-groups">
       {

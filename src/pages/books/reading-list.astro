@@ -1,0 +1,44 @@
+---
+import { getCollection } from "astro:content";
+import PageIntro from "../../components/PageIntro.astro";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+const books = await getCollection("books", ({ data }) => !data.draft);
+books.sort(
+  (left, right) =>
+    left.data.authorSort.localeCompare(right.data.authorSort) ||
+    left.data.title.localeCompare(right.data.title),
+);
+
+const readingList = books.filter((book) => (book.body ?? "").trim().length === 0);
+---
+
+<BaseLayout
+  title="Reading list"
+  description="The books on Ikenna Ahamz's shelf that are waiting for a note."
+>
+  <div class="page">
+    <PageIntro
+      label="Library"
+      title="Reading list"
+      deck="Books I want to return to, before they earn a note."
+      note={`${readingList.length} books`}
+    >
+      <a class="more-link" href="/books/">The Forever Shelf</a>
+    </PageIntro>
+
+    <div class="layout-grid">
+      <ol class="reading-list body-column">
+        {
+          readingList.map((book, index) => (
+            <li class="reading-list-item">
+              <span class="reading-list-index">{String(index + 1).padStart(3, "0")}</span>
+              <span class="reading-list-title">{book.data.title}</span>
+              <span class="reading-list-author">{book.data.author}</span>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </div>
+</BaseLayout>

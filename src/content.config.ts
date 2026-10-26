@@ -9,10 +9,9 @@ const posts = defineCollection({
     description: z.string(),
     publishedAt: z.coerce.date(),
     updatedAt: z.coerce.date().optional(),
-    category: z.enum(["philosophy", "tech", "books", "podcasts"]),
+    type: z.enum(["essay", "note"]),
     tags: z.array(z.string()).default([]),
     draft: z.boolean().default(false),
-    featured: z.boolean().default(false),
     startHereOrder: z.number().int().positive().optional(),
   }),
 });

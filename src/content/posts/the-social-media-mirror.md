@@ -2,13 +2,13 @@
 title: "The Social Media Mirror"
 description: "On attention, identity, and the struggle to remain awake inside systems designed to shape what we desire."
 publishedAt: 2026-07-20
-category: philosophy
+type: essay
 tags:
-  - essay
+  - philosophy
   - social-media
   - attention
 draft: false
-featured: false
+startHereOrder: 1
 ---
 
 Social media presents itself as a place of limitless possibility: a world where we can speak, learn, connect, and construct an identity of our own choosing. I have built a whole life in this online space—books saved for later, ideas gathered from strangers, and enough content to keep me occupied almost forever. At its best, a status can reveal an inner corner without exposing an entire private life: a place to share what interests us, invite criticism, and resist the pressure of current trends. Yet beneath this abundance lies an uncomfortable question: how much of this world actually belongs to me?

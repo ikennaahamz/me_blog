@@ -1,6 +1,6 @@
 ---
 import type { Post } from "../lib/posts";
-import { formatShortDate, getReadingTime } from "../lib/posts";
+import { formatShortDate, getPostTypeLabel, getReadingTime } from "../lib/posts";
 
 interface Props {
   posts: Post[];
@@ -21,7 +21,7 @@ const { posts, emptyMessage = "No writing has been published here yet." } = Astr
             </time>
             <span class="post-title">{post.data.title}</span>
             <span class="post-meta">
-              <span>{post.data.category}</span>
+              <span>{getPostTypeLabel(post)}</span>
               <span>{getReadingTime(post.body ?? "")} min read</span>
             </span>
           </a>

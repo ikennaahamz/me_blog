@@ -11,11 +11,13 @@ books.sort(
     left.data.title.localeCompare(right.data.title),
 );
 
+const notedBooks = books.filter((book) => (book.body ?? "").trim().length > 0);
+const readingList = books.filter((book) => (book.body ?? "").trim().length === 0);
+
 const shelf = await Promise.all(
-  books.map(async (book, index) => ({
+  notedBooks.map(async (book, index) => ({
     book,
     index,
-    hasFullNote: (book.body ?? "").trim().length > 0,
     Content: (await render(book)).Content,
   })),
 );
@@ -23,35 +25,41 @@ const shelf = await Promise.all(
 
 <BaseLayout
   title="The Forever Shelf"
-  description="An unranked collection of the books Ikenna returns to."
+  description="An unranked collection of the books Ikenna returns to, with notes and a reading list."
 >
   <div class="page">
     <PageIntro
       label="Library"
       title="The Forever Shelf"
-      deck="An unranked collection of books that continue to change how I think, feel, and see the world."
-      note={`${books.length} books`}
-    />
+      deck={`An unranked collection of books I return to. ${notedBooks.length} have notes; the rest are on the reading list.`}
+      note={`${notedBooks.length} books with notes`}
+    >
+      <a class="more-link" href="/books/reading-list/">
+        Reading list · {readingList.length} books
+      </a>
+    </PageIntro>
 
-    <ShelfWall books={books} />
+    {
+      notedBooks.length > 0 && (
+        <ShelfWall books={notedBooks} columns={Math.min(notedBooks.length, 5)} />
+      )
+    }
 
     <ol class="book-catalogue" aria-label="Book notes">
       {
-        shelf.map(({ book, index, hasFullNote, Content }) => (
+        shelf.map(({ book, index, Content }) => (
           <li class="book-card" id={`book-${book.id}`}>
             <p class="book-index">{String(index + 1).padStart(3, "0")}</p>
             <article class="book-entry">
               <h2>{book.data.title}</h2>
               <p class="book-author">{book.data.author}</p>
               {book.data.summary && <p class="book-summary">{book.data.summary}</p>}
-              {hasFullNote && (
-                <details class="book-details">
-                  <summary>Read full note</summary>
-                  <div class="book-note">
-                    <Content />
-                  </div>
-                </details>
-              )}
+              <details class="book-details">
+                <summary>Read full note</summary>
+                <div class="book-note">
+                  <Content />
+                </div>
+              </details>
             </article>
           </li>
         ))
