@@ -1,25 +1,14 @@
 ---
 import { getCollection } from "astro:content";
-import BookCover from "../components/BookCover.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import {
-  formatDate,
-  getPostExcerpt,
-  getPostTypeLabel,
   getPostTypeSummary,
   getPublishedPosts,
-  getReadingTime,
   getTopicCounts,
   getTopicLabel,
 } from "../lib/posts";
 
 const posts = await getPublishedPosts();
-const startHerePosts = posts
-  .filter((post) => post.data.startHereOrder !== undefined)
-  .sort((left, right) => left.data.startHereOrder! - right.data.startHereOrder!)
-  .slice(0, 2);
-const [leadPost, nextStartPost] = startHerePosts;
-const startHereSummary = getPostTypeSummary(startHerePosts);
 const topics = [...getTopicCounts(posts).entries()];
 const latestPost = posts[0];
 
@@ -27,7 +16,6 @@ const books = (await getCollection("books", ({ data }) => !data.draft)).sort((le
   left.data.authorSort.localeCompare(right.data.authorSort),
 );
 const notedBooks = books.filter((book) => (book.body ?? "").trim().length > 0);
-const shelfBooks = notedBooks.slice(0, 3);
 ---
 
 <BaseLayout>
@@ -38,7 +26,7 @@ const shelfBooks = notedBooks.slice(0, 3);
         <span>An occasional log</span>
       </div>
       <div>
-        <h1 id="home-title" class="home-title">I've been <br />thinking.</h1>
+        <h1 id="home-title" class="home-title">I've been <br />thinking...</h1>
         <p class="home-deck">
           I write essays and notes about philosophy, technology, and the books and conversations
           that change how I see things.
@@ -59,10 +47,10 @@ const shelfBooks = notedBooks.slice(0, 3);
       <div class="section-body">
         <ol class="contents">
           <li>
-            <a href="#start-here">
+            <a href="/writing/">
               <span class="contents-number">01</span>
-              <span class="contents-name">Start here</span>
-              <span class="contents-count">{startHereSummary}</span>
+              <span class="contents-name">Writing</span>
+              <span class="contents-count">{getPostTypeSummary(posts)}</span>
             </a>
           </li>
           <li>
@@ -79,69 +67,7 @@ const shelfBooks = notedBooks.slice(0, 3);
               <span class="contents-count">{topics.length} subjects</span>
             </a>
           </li>
-          <li>
-            <a href="/writing/">
-              <span class="contents-number">04</span>
-              <span class="contents-name">Writing</span>
-              <span class="contents-count">{getPostTypeSummary(posts)}</span>
-            </a>
-          </li>
         </ol>
-      </div>
-    </section>
-
-    <section id="start-here" class="home-section" aria-labelledby="start-here-title">
-      <h2 class="section-label" id="start-here-title">Start here</h2>
-      <div class="section-body">
-        {
-          leadPost && (
-            <div class="home-lead">
-              <div class="lead-copy">
-                <p class="lead-kicker">Begin with the idea</p>
-                <h3 class="lead-title">
-                  <a href={`/writing/${leadPost.id}/`}>{leadPost.data.title}</a>
-                </h3>
-                <p class="lead-description">{getPostExcerpt(leadPost)}</p>
-                <ul class="lead-meta">
-                  <li>
-                    <time datetime={leadPost.data.publishedAt.toISOString()}>
-                      {formatDate(leadPost.data.publishedAt)}
-                    </time>
-                  </li>
-                  <li>{getReadingTime(leadPost.body ?? "")} min read</li>
-                  <li>{getPostTypeLabel(leadPost)}</li>
-                </ul>
-                {
-                  nextStartPost && (
-                    <a class="next-start" href={`/writing/${nextStartPost.id}/`}>
-                      <span>Next</span>
-                      {nextStartPost.data.title}
-                    </a>
-                  )
-                }
-              </div>
-              {
-                shelfBooks.length > 0 && (
-                  <figure class="shelf-mini">
-                    <a
-                      class="shelf-stack"
-                      href="/books/"
-                      aria-label="Browse The Forever Shelf"
-                    >
-                      {shelfBooks.map((book) => (
-                        <BookCover book={book} width={240} />
-                      ))}
-                    </a>
-                    <figcaption class="shelf-caption">
-                      <span>The Forever Shelf</span>
-                      <span>{notedBooks.length} books with notes</span>
-                    </figcaption>
-                  </figure>
-                )
-              }
-            </div>
-          )
-        }
       </div>
     </section>
 

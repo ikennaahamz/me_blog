@@ -12,7 +12,6 @@ const posts = defineCollection({
     type: z.enum(["essay", "note"]),
     tags: z.array(z.string()).default([]),
     draft: z.boolean().default(false),
-    startHereOrder: z.number().int().positive().optional(),
   }),
 });
 

@@ -37,7 +37,7 @@ package.json
 ## Content Model
 
 - `Post`: title, description, publishedAt, optional updatedAt, type
-  (`essay` or `note`), tags, draft, optional startHereOrder, and Markdown body
+  (`essay` or `note`), tags, draft, and Markdown body
 - `Book`: title, author, authorSort, optional isbn and summary, cover, draft,
   and optional Markdown note
 - Type: essay / note. This is the only format axis; there are no subject
@@ -47,7 +47,6 @@ package.json
   notes, essay, or projects.
 - Books with notes appear on the shelf; books without notes appear on the
   reading list.
-- Start here is curated with `startHereOrder`; there is no fallback.
 
 Keep the model intentionally small. Do not add comments, likes, newsletter
 signup, authentication, a database, or a CMS unless explicitly requested.
