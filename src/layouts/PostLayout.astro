@@ -1,6 +1,13 @@
 ---
 import type { Post } from "../lib/posts";
-import { formatDate, getPostExcerpt, getPostTopics, getReadingTime, getTopicLabel } from "../lib/posts";
+import {
+  formatDate,
+  getPostExcerpt,
+  getPostTopics,
+  getPostTypeLabel,
+  getReadingTime,
+  getTopicLabel,
+} from "../lib/posts";
 import BaseLayout from "./BaseLayout.astro";
 
 interface Props {
@@ -32,6 +39,7 @@ const deck = post.data.description.trim();
           <time class="article-date" datetime={post.data.publishedAt.toISOString()}>
             {formatDate(post.data.publishedAt)}
           </time>
+          <span class="article-type">{getPostTypeLabel(post)}</span>
           <span class="article-reading-time">{readingTime} min read</span>
           <ul class="article-topics" aria-label="Article topics">
             {

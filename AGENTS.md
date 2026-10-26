@@ -2,9 +2,9 @@
 
 ## Project Overview
 
-A personal blog for long-form writing on philosophy, books, tech, and podcasts.
-Built as a lightweight, writing-first static site. The primary purpose is a
-genuine personal writing space, not a SaaS product.
+A personal blog for essays and working notes on philosophy, books, tech, and
+podcasts. Built as a lightweight, writing-first static site. The primary purpose
+is a genuine personal writing space, not a SaaS product.
 
 **Owner:** Ikenna
 **Status:** Astro MVP
@@ -36,10 +36,18 @@ package.json
 
 ## Content Model
 
-- `Post`: title, description, publishedAt, optional updatedAt, category, tags,
-  draft, featured, and Markdown body
-- Categories: philosophy / tech / books / podcasts
-- Tags: free-form strings used to generate topic pages
+- `Post`: title, description, publishedAt, optional updatedAt, type
+  (`essay` or `note`), tags, draft, optional startHereOrder, and Markdown body
+- `Book`: title, author, authorSort, optional isbn and summary, cover, draft,
+  and optional Markdown note
+- Type: essay / note. This is the only format axis; there are no subject
+  categories.
+- Tags: subject tags used to generate topic pages (attention, philosophy,
+  social-media, tech). Do not use activity tags such as writing, learning,
+  notes, essay, or projects.
+- Books with notes appear on the shelf; books without notes appear on the
+  reading list.
+- Start here is curated with `startHereOrder`; there is no fallback.
 
 Keep the model intentionally small. Do not add comments, likes, newsletter
 signup, authentication, a database, or a CMS unless explicitly requested.
