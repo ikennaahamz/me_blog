@@ -2,7 +2,7 @@
 import PageIntro from "../../components/PageIntro.astro";
 import PostList from "../../components/PostList.astro";
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import { getPostTopics, getPublishedPosts, getTopicCounts } from "../../lib/posts";
+import { getPostTopics, getPublishedPosts, getTopicCounts, getTopicLabel } from "../../lib/posts";
 
 export async function getStaticPaths() {
   const posts = await getPublishedPosts();
@@ -10,16 +10,21 @@ export async function getStaticPaths() {
 }
 
 const { topic } = Astro.props;
+const label = getTopicLabel(topic);
 const posts = (await getPublishedPosts()).filter((post) => getPostTopics(post).includes(topic));
 ---
 
-<BaseLayout title={topic} description={`Writing by Ikenna Ahamz about ${topic}.`}>
+<BaseLayout title={label} description={`Writing by Ikenna Ahamz about ${label}.`}>
   <div class="page">
     <PageIntro
       label="Topic"
-      title={topic}
+      title={label}
       note={`${posts.length} ${posts.length === 1 ? "entry" : "entries"}`}
     />
-    <PostList posts={posts} />
+    <div class="layout-grid">
+      <div class="body-column">
+        <PostList posts={posts} />
+      </div>
+    </div>
   </div>
 </BaseLayout>

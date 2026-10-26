@@ -335,6 +335,10 @@ main {
   column-gap: var(--margin-gap);
 }
 
+.body-column {
+  min-width: 0;
+}
+
 .section-label {
   margin: 0;
   color: var(--muted);
@@ -889,9 +893,9 @@ main {
   max-width: 20ch;
   margin: 0;
   font-family: var(--font-ui);
-  font-size: clamp(3.4rem, 6.2vw, 6rem);
+  font-size: clamp(3.8rem, 7vw, 6.4rem);
   font-weight: 600;
-  line-height: 0.94;
+  line-height: 0.93;
   letter-spacing: -0.055em;
   text-wrap: balance;
 }
@@ -1200,8 +1204,8 @@ main {
 
 .book-card {
   display: grid;
-  grid-template-columns: 58px minmax(0, 1fr);
-  gap: 22px;
+  grid-template-columns: var(--margin-width) minmax(0, 1fr);
+  column-gap: var(--margin-gap);
   padding: 24px 0 30px;
   border-top: 1px solid var(--rule);
   scroll-margin-top: 30px;
@@ -1294,10 +1298,6 @@ main {
 }
 
 /* About */
-
-.about-page .page-intro {
-  padding-bottom: 38px;
-}
 
 .about-body {
   padding-top: 34px;
@@ -1421,6 +1421,12 @@ main {
   clip: rect(0, 0, 0, 0);
   white-space: nowrap;
   border: 0;
+}
+
+@media (min-width: 881px) {
+  .body-column {
+    grid-column: 2;
+  }
 }
 
 @media (max-width: 1080px) {
@@ -1660,7 +1666,7 @@ main {
   }
 
   .article-heading h1 {
-    font-size: clamp(2.9rem, 8vw, 4.4rem);
+    font-size: clamp(3rem, 9vw, 4.6rem);
   }
 
   .article-body {
@@ -1686,8 +1692,12 @@ main {
   }
 
   .book-card {
-    grid-template-columns: 38px minmax(0, 1fr);
-    gap: 14px;
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+
+  .book-index {
+    padding-top: 0;
   }
 
   .about-body {
@@ -1800,10 +1810,6 @@ main {
     margin-top: 24px;
   }
 
-  .article-heading h1 {
-    font-size: clamp(2.8rem, 11vw, 3.6rem);
-  }
-
   .article-description {
     font-size: 1.12rem;
   }
@@ -1865,15 +1871,6 @@ main {
 
   .shelf-stack .book-cover {
     width: 72px;
-  }
-
-  .book-card {
-    grid-template-columns: 1fr;
-    gap: 6px;
-  }
-
-  .book-index {
-    padding-top: 0;
   }
 
   .book-entry h2 {

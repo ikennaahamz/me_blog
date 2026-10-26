@@ -1,6 +1,6 @@
 ---
 import type { Post } from "../lib/posts";
-import { formatDate, getPostExcerpt, getPostTopics, getReadingTime } from "../lib/posts";
+import { formatDate, getPostExcerpt, getPostTopics, getReadingTime, getTopicLabel } from "../lib/posts";
 import BaseLayout from "./BaseLayout.astro";
 
 interface Props {
@@ -14,6 +14,7 @@ const { post, relatedPost, newerPost, olderPost } = Astro.props;
 const topics = getPostTopics(post);
 const readingTime = getReadingTime(post.body ?? "");
 const description = getPostExcerpt(post) || post.data.description;
+const deck = post.data.description.trim();
 ---
 
 <BaseLayout
@@ -36,7 +37,7 @@ const description = getPostExcerpt(post) || post.data.description;
             {
               topics.map((topic) => (
                 <li>
-                  <a href={`/topics/${topic}/`}>{topic}</a>
+                  <a href={`/topics/${topic}/`}>{getTopicLabel(topic)}</a>
                 </li>
               ))
             }
@@ -44,7 +45,7 @@ const description = getPostExcerpt(post) || post.data.description;
         </div>
         <div class="article-heading">
           <h1>{post.data.title}</h1>
-          <p class="article-description">{description}</p>
+          {deck && <p class="article-description">{deck}</p>}
         </div>
       </header>
 

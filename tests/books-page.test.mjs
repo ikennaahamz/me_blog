@@ -15,7 +15,10 @@ function buildSite() {
 
 let html;
 let homeHtml;
+let topicsHtml;
+let socialMediaTopicHtml;
 let newestArticleHtml;
+let memoryArticleHtml;
 let middleArticleHtml;
 let oldestArticleHtml;
 let aboutHtml;
@@ -24,8 +27,14 @@ before(() => {
   buildSite();
   html = readFileSync("dist/books/index.html", "utf8");
   homeHtml = readFileSync("dist/index.html", "utf8");
+  topicsHtml = readFileSync("dist/topics/index.html", "utf8");
+  socialMediaTopicHtml = readFileSync("dist/topics/social-media/index.html", "utf8");
   newestArticleHtml = readFileSync(
     "dist/writing/the-social-media-mirror/index.html",
+    "utf8",
+  );
+  memoryArticleHtml = readFileSync(
+    "dist/writing/what-i-want-this-blog-to-remember/index.html",
     "utf8",
   );
   middleArticleHtml = readFileSync(
@@ -118,4 +127,19 @@ test("the About page presents the current work as a semantic list", () => {
   assert.match(aboutHtml, /<dt>Building<\/dt><dd>This blog and UniBlood<\/dd>/);
   assert.match(aboutHtml, /<dt>Learning<\/dt><dd>Astro and frontend development<\/dd>/);
   assert.match(aboutHtml, /<dt>Curating<\/dt><dd><a href="\/books\/">The Forever Shelf<\/a><\/dd>/);
+});
+
+test("topic labels read as words while links keep their slugs", () => {
+  assert.match(topicsHtml, /<span class="topic-name">social media<\/span>/);
+  assert.match(socialMediaTopicHtml, /<h1>social media<\/h1>/);
+  assert.match(homeHtml, /href="\/topics\/social-media\/">social media<sup>/);
+  assert.match(
+    newestArticleHtml,
+    /<a href="\/topics\/social-media\/">social media<\/a>/,
+  );
+});
+
+test("article decks render only when a description is written", () => {
+  assert.doesNotMatch(memoryArticleHtml, /class="article-description"/);
+  assert.match(newestArticleHtml, /class="article-description"/);
 });

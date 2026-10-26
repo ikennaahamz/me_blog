@@ -1,7 +1,7 @@
 ---
 import PageIntro from "../../components/PageIntro.astro";
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import { getPublishedPosts, getTopicCounts } from "../../lib/posts";
+import { getPublishedPosts, getTopicCounts, getTopicLabel } from "../../lib/posts";
 
 const posts = await getPublishedPosts();
 const topics = [...getTopicCounts(posts).entries()];
@@ -16,19 +16,21 @@ const topics = [...getTopicCounts(posts).entries()];
       note={`${topics.length} ${topics.length === 1 ? "subject" : "subjects"}`}
     />
 
-    <ul class="topic-directory">
-      {
-        topics.map(([topic, count]) => (
-          <li>
-            <a href={`/topics/${topic}/`}>
-              <span class="topic-name">{topic}</span>
-              <span class="topic-count">
-                {count} {count === 1 ? "entry" : "entries"}
-              </span>
-            </a>
-          </li>
-        ))
-      }
-    </ul>
+    <div class="layout-grid">
+      <ul class="topic-directory body-column">
+        {
+          topics.map(([topic, count]) => (
+            <li>
+              <a href={`/topics/${topic}/`}>
+                <span class="topic-name">{getTopicLabel(topic)}</span>
+                <span class="topic-count">
+                  {count} {count === 1 ? "entry" : "entries"}
+                </span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
   </div>
 </BaseLayout>

@@ -9,6 +9,7 @@ import {
   getPublishedPosts,
   getReadingTime,
   getTopicCounts,
+  getTopicLabel,
 } from "../lib/posts";
 
 const posts = await getPublishedPosts();
@@ -161,7 +162,7 @@ const shelfBooks = (notedBooks.length >= 3 ? notedBooks : books).slice(0, 3);
             topics.map(([topic, count]) => (
               <li>
                 <a href={`/topics/${topic}/`}>
-                  {topic}
+                  {getTopicLabel(topic)}
                   <sup>{count}</sup>
                 </a>
               </li>

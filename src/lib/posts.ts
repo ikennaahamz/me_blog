@@ -14,6 +14,10 @@ export function getPostTopics(post: Post): string[] {
   return [...new Set([post.data.category, ...post.data.tags.map((tag) => tag.toLowerCase())])];
 }
 
+export function getTopicLabel(topic: string): string {
+  return topic.replace(/-/g, " ");
+}
+
 export function getTopicCounts(posts: Post[]): Map<string, number> {
   const counts = new Map<string, number>();
 
