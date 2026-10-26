@@ -42,27 +42,21 @@ before(() => {
   aboutHtml = readFileSync("dist/about/index.html", "utf8");
 });
 
-test("the homepage opens with one h1, a contents index, and two starting points", () => {
+test("the homepage opens with one h1 and a contents index", () => {
   assert.equal((homeHtml.match(/<h1(?:\s[^>]*)?>/g) ?? []).length, 1);
   assert.match(homeHtml, /<h1 id="home-title" class="home-title">I've been <br>thinking\.<\/h1>/);
   assert.match(homeHtml, /class="contents"/);
-  assert.match(homeHtml, /Start here<\/span>/);
+
   assert.match(homeHtml, /The Forever Shelf<\/span>/);
   assert.match(homeHtml, /Topics<\/span>/);
   assert.match(homeHtml, /Writing<\/span>/);
-  assert.equal((homeHtml.match(/class="home-lead"/g) ?? []).length, 1);
-  assert.equal((homeHtml.match(/class="next-start"/g) ?? []).length, 1);
-  assert.match(homeHtml, /href="\/writing\/the-social-media-mirror\/">The Social Media Mirror/);
-  assert.match(
-    homeHtml,
-    /href="\/writing\/notes-that-survive-the-week\/"[^>]*><span>Next<\/span>Notes that survive the week/,
-  );
+  assert.doesNotMatch(homeHtml, /Start here|Begin with the idea|class="home-lead"|class="next-start"/);
   assert.doesNotMatch(homeHtml, /Recent writing/);
   assert.doesNotMatch(homeHtml, /class="post-row"/);
 });
 
 test("the homepage reflects the essay and note model", () => {
-  assert.equal((homeHtml.match(/1 essay · 1 note/g) ?? []).length, 2);
+  assert.equal((homeHtml.match(/1 essay · 1 note/g) ?? []).length, 1);
   assert.match(homeHtml, /<span class="contents-count">3 books<\/span>/);
   assert.match(homeHtml, /<span class="contents-count">4 subjects<\/span>/);
   assert.match(homeHtml, /3 books with notes/);

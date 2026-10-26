@@ -468,172 +468,6 @@ main {
   font-size: 0.74rem;
 }
 
-.home-lead {
-  display: grid;
-  grid-template-columns: 1.35fr 0.65fr;
-  gap: 38px;
-  align-items: start;
-}
-
-.lead-copy {
-  min-width: 0;
-}
-
-.lead-kicker {
-  margin: 0 0 14px;
-  color: var(--accent);
-  font-family: var(--font-ui);
-  font-size: 0.72rem;
-  font-weight: 600;
-}
-
-.lead-title {
-  max-width: 18ch;
-  margin: 0;
-  font-family: var(--font-ui);
-  font-size: clamp(2.2rem, 3.5vw, 3.1rem);
-  font-weight: 600;
-  line-height: 1.02;
-  letter-spacing: -0.04em;
-  text-wrap: balance;
-}
-
-.lead-title a {
-  text-decoration: none;
-}
-
-.lead-title a:hover {
-  color: var(--accent);
-}
-
-.lead-description {
-  max-width: 52ch;
-  margin: 18px 0 0;
-  color: var(--muted);
-  font-size: 1.08rem;
-  line-height: 1.62;
-}
-
-.lead-meta {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px 18px;
-  margin: 22px 0 0;
-  padding: 0;
-  list-style: none;
-  color: var(--faint);
-  font-family: var(--font-ui);
-  font-size: 0.74rem;
-}
-
-.next-start {
-  display: inline-block;
-  margin-top: 18px;
-  padding-bottom: 2px;
-  border-bottom: 1px solid var(--rule);
-  color: var(--ink);
-  font-family: var(--font-ui);
-  font-size: 0.8rem;
-  text-decoration: none;
-}
-
-.next-start span {
-  margin-right: 8px;
-  color: var(--faint);
-}
-
-.next-start:hover {
-  border-color: var(--accent);
-  color: var(--accent);
-}
-
-.shelf-mini {
-  position: relative;
-  align-self: end;
-  margin: 0;
-  padding-bottom: 35px;
-}
-
-.shelf-mini::after {
-  content: "";
-  position: absolute;
-  right: 0;
-  bottom: 35px;
-  left: 0;
-  height: 5px;
-  background: var(--brass);
-  box-shadow: 0 2px 0 color-mix(in srgb, var(--ink) 16%, transparent);
-}
-
-.shelf-stack {
-  display: flex;
-  align-items: flex-end;
-  justify-content: flex-end;
-  padding-bottom: 12px;
-  text-decoration: none;
-}
-
-.shelf-stack .book-cover {
-  flex: 0 0 auto;
-  width: 82px;
-  height: auto;
-  aspect-ratio: 2 / 3;
-  object-fit: cover;
-  border: 1px solid color-mix(in srgb, var(--ink) 18%, transparent);
-  box-shadow: 3px 5px 0 color-mix(in srgb, var(--ink) 12%, transparent);
-  transition:
-    transform 180ms ease,
-    box-shadow 180ms ease;
-}
-
-.shelf-stack .book-cover + .book-cover {
-  margin-left: -18px;
-}
-
-.shelf-stack .book-cover:nth-child(1) {
-  z-index: 1;
-  transform: translateY(10px) translateX(12px) rotate(-3deg);
-}
-
-.shelf-stack .book-cover:nth-child(2) {
-  z-index: 2;
-  transform: translateY(2px) translateX(4px) rotate(1.5deg);
-}
-
-.shelf-stack .book-cover:nth-child(3) {
-  z-index: 3;
-  transform: translateY(6px) rotate(-1deg);
-}
-
-.shelf-stack:hover .book-cover:nth-child(1) {
-  transform: translateY(7px) translateX(9px) rotate(-4deg);
-}
-
-.shelf-stack:hover .book-cover:nth-child(2) {
-  transform: translateY(0) translateX(3px) rotate(2deg);
-}
-
-.shelf-stack:hover .book-cover:nth-child(3) {
-  transform: translateY(2px) rotate(-1.5deg);
-}
-
-.shelf-caption {
-  position: absolute;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  display: flex;
-  justify-content: space-between;
-  gap: 12px;
-  color: var(--faint);
-  font-family: var(--font-ui);
-  font-size: 0.72rem;
-}
-
-.shelf-caption span:first-child {
-  color: var(--ink);
-  font-weight: 600;
-}
 
 .more-link {
   display: inline-block;
@@ -1492,22 +1326,6 @@ main {
     font-size: clamp(4.2rem, 7.8vw, 6.4rem);
   }
 
-  .home-lead {
-    grid-template-columns: 1.3fr 0.7fr;
-    gap: 28px;
-  }
-
-  .shelf-stack .book-cover {
-    width: 72px;
-  }
-
-  .shelf-mini {
-    padding-bottom: 32px;
-  }
-
-  .shelf-mini::after {
-    bottom: 32px;
-  }
 
   .shelf-row {
     gap: 24px;
@@ -1635,27 +1453,6 @@ main {
     border-top: 0;
   }
 
-  .home-lead {
-    grid-template-columns: 1fr;
-    gap: 30px;
-  }
-
-  .shelf-mini {
-    max-width: 360px;
-    padding-bottom: 32px;
-  }
-
-  .shelf-mini::after {
-    bottom: 32px;
-  }
-
-  .shelf-stack {
-    justify-content: flex-start;
-  }
-
-  .shelf-stack .book-cover {
-    width: 96px;
-  }
 
   .page-intro {
     display: block;
@@ -1809,13 +1606,6 @@ main {
     font-size: 0.7rem;
   }
 
-  .lead-title {
-    font-size: clamp(1.8rem, 6vw, 2.4rem);
-  }
-
-  .shelf-stack .book-cover {
-    width: 84px;
-  }
 
   .post-row {
     grid-template-columns: 1fr;
@@ -1926,9 +1716,6 @@ main {
     gap: 8px;
   }
 
-  .shelf-stack .book-cover {
-    width: 72px;
-  }
 
   .book-entry h2 {
     font-size: 1.2rem;

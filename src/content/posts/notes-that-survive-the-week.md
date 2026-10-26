@@ -6,7 +6,6 @@ type: note
 tags:
   - tech
 draft: false
-startHereOrder: 2
 ---
 
 Projects tend to preserve their code and lose their reasoning. Months later, the implementation remains, but the constraints that shaped it have disappeared. The same is true of study notes: the first version is usually evidence that I encountered something, not evidence that I understood it.
