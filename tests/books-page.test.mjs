@@ -131,9 +131,9 @@ test("writing presents the essay and note as the two formats", () => {
   assert.doesNotMatch(writingHtml, /study-notes-that-survived-the-week/);
 });
 
-test("articles offer related, chronological, and archive continuation", () => {
+test("articles offer chronological and archive continuation", () => {
   assert.match(essayHtml, /<h2>Keep reading<\/h2>/);
-  assert.match(essayHtml, /Related writing/);
+  assert.doesNotMatch(essayHtml, /Related writing/);
   assert.match(
     essayHtml,
     /href="\/writing\/notes-that-survive-the-week\/"[^>]*>[\s\S]*?Notes that survive the week/,
@@ -143,7 +143,7 @@ test("articles offer related, chronological, and archive continuation", () => {
   assert.match(essayHtml, /class="all-writing-link" href="\/writing\/">View all writing/);
 
   assert.match(noteHtml, /<h2>Keep reading<\/h2>/);
-  assert.match(noteHtml, /Related writing/);
+  assert.doesNotMatch(noteHtml, /Related writing/);
   assert.match(
     noteHtml,
     /href="\/writing\/the-social-media-mirror\/"[^>]*>[\s\S]*?The Social Media Mirror/,

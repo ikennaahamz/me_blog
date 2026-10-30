@@ -58,6 +58,7 @@ export function getRelatedPost(post: Post, posts: Post[]): Post | undefined {
       post: candidate,
       score: getPostTopics(candidate).filter((topic) => topics.has(topic)).length,
     }))
+    .filter(({ score }) => score > 0)
     .sort(
       (left, right) =>
         right.score - left.score ||
