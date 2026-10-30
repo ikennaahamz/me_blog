@@ -1,16 +1,11 @@
 ---
-import { getCollection } from "astro:content";
 import PageIntro from "../../components/PageIntro.astro";
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import { getPublishedBooks, hasNote } from "../../lib/books";
 
-const books = await getCollection("books", ({ data }) => !data.draft);
-books.sort(
-  (left, right) =>
-    left.data.authorSort.localeCompare(right.data.authorSort) ||
-    left.data.title.localeCompare(right.data.title),
-);
+const books = await getPublishedBooks();
 
-const readingList = books.filter((book) => (book.body ?? "").trim().length === 0);
+const readingList = books.filter((book) => !hasNote(book));
 ---
 
 <BaseLayout

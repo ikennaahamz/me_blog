@@ -16,9 +16,9 @@ and `npm run preview` to serve the generated site locally.
 ## Publishing
 
 Posts live in `src/content/posts` as Markdown files. Each post uses frontmatter for its title,
-description, publication date, category, tags, draft status, and featured status. Obsidian remains
-the canonical writing environment; publish by exporting or copying finished Markdown into the post
-collection and committing it.
+description, publication date, optional update date, type (`essay` or `note`), subject tags, and
+draft status. Obsidian remains the canonical writing environment; publish by exporting or copying
+finished Markdown into the post collection and committing it.
 
 Pushes to `main` build and deploy the site to GitHub Pages through GitHub Actions. The custom domain
 is defined in `public/CNAME`.

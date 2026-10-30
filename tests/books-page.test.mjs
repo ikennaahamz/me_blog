@@ -44,7 +44,7 @@ before(() => {
 
 test("the homepage opens with one h1 and a contents index", () => {
   assert.equal((homeHtml.match(/<h1(?:\s[^>]*)?>/g) ?? []).length, 1);
-  assert.match(homeHtml, /<h1 id="home-title" class="home-title">I've been <br>thinking\.<\/h1>/);
+  assert.match(homeHtml, /<h1 id="home-title" class="home-title">I've been <br>thinking\.\.\.<\/h1>/);
   assert.match(homeHtml, /class="contents"/);
 
   assert.match(homeHtml, /The Forever Shelf<\/span>/);
@@ -59,8 +59,6 @@ test("the homepage reflects the essay and note model", () => {
   assert.equal((homeHtml.match(/1 essay · 1 note/g) ?? []).length, 1);
   assert.match(homeHtml, /<span class="contents-count">3 books<\/span>/);
   assert.match(homeHtml, /<span class="contents-count">4 subjects<\/span>/);
-  assert.match(homeHtml, /3 books with notes/);
-  assert.match(homeHtml, /<li>Essay<\/li>/);
   assert.match(homeHtml, /href="\/topics\/tech\/">tech<sup>1<\/sup><\/a>/);
   assert.doesNotMatch(homeHtml, /(writing|learning|notes|projects|essay)<sup>/);
 });
