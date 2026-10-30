@@ -1,18 +1,14 @@
 ---
-import { getCollection, render } from "astro:content";
+import { render } from "astro:content";
 import PageIntro from "../components/PageIntro.astro";
 import ShelfWall from "../components/ShelfWall.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
+import { getPublishedBooks, hasNote } from "../lib/books";
 
-const books = await getCollection("books", ({ data }) => !data.draft);
-books.sort(
-  (left, right) =>
-    left.data.authorSort.localeCompare(right.data.authorSort) ||
-    left.data.title.localeCompare(right.data.title),
-);
+const books = await getPublishedBooks();
 
-const notedBooks = books.filter((book) => (book.body ?? "").trim().length > 0);
-const readingList = books.filter((book) => (book.body ?? "").trim().length === 0);
+const notedBooks = books.filter(hasNote);
+const readingList = books.filter((book) => !hasNote(book));
 
 const shelf = await Promise.all(
   notedBooks.map(async (book, index) => ({

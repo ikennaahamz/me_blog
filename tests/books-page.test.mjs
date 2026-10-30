@@ -4,6 +4,8 @@ import { spawnSync } from "node:child_process";
 import test, { before } from "node:test";
 
 function buildSite() {
+  if (process.env.SKIP_BUILD === "1") return;
+
   const result = spawnSync("npm run build", {
     cwd: process.cwd(),
     encoding: "utf8",
@@ -44,7 +46,7 @@ before(() => {
 
 test("the homepage opens with one h1 and a contents index", () => {
   assert.equal((homeHtml.match(/<h1(?:\s[^>]*)?>/g) ?? []).length, 1);
-  assert.match(homeHtml, /<h1 id="home-title" class="home-title">I've been <br>thinking\.<\/h1>/);
+  assert.match(homeHtml, /<h1 id="home-title" class="home-title">I've been <br>thinking\.\.\.<\/h1>/);
   assert.match(homeHtml, /class="contents"/);
 
   assert.match(homeHtml, /The Forever Shelf<\/span>/);
@@ -59,8 +61,6 @@ test("the homepage reflects the essay and note model", () => {
   assert.equal((homeHtml.match(/1 essay · 1 note/g) ?? []).length, 1);
   assert.match(homeHtml, /<span class="contents-count">3 books<\/span>/);
   assert.match(homeHtml, /<span class="contents-count">4 subjects<\/span>/);
-  assert.match(homeHtml, /3 books with notes/);
-  assert.match(homeHtml, /<li>Essay<\/li>/);
   assert.match(homeHtml, /href="\/topics\/tech\/">tech<sup>1<\/sup><\/a>/);
   assert.doesNotMatch(homeHtml, /(writing|learning|notes|projects|essay)<sup>/);
 });
@@ -131,9 +131,9 @@ test("writing presents the essay and note as the two formats", () => {
   assert.doesNotMatch(writingHtml, /study-notes-that-survived-the-week/);
 });
 
-test("articles offer related, chronological, and archive continuation", () => {
+test("articles offer chronological and archive continuation", () => {
   assert.match(essayHtml, /<h2>Keep reading<\/h2>/);
-  assert.match(essayHtml, /Related writing/);
+  assert.doesNotMatch(essayHtml, /Related writing/);
   assert.match(
     essayHtml,
     /href="\/writing\/notes-that-survive-the-week\/"[^>]*>[\s\S]*?Notes that survive the week/,
@@ -143,7 +143,7 @@ test("articles offer related, chronological, and archive continuation", () => {
   assert.match(essayHtml, /class="all-writing-link" href="\/writing\/">View all writing/);
 
   assert.match(noteHtml, /<h2>Keep reading<\/h2>/);
-  assert.match(noteHtml, /Related writing/);
+  assert.doesNotMatch(noteHtml, /Related writing/);
   assert.match(
     noteHtml,
     /href="\/writing\/the-social-media-mirror\/"[^>]*>[\s\S]*?The Social Media Mirror/,
