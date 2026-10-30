@@ -4,6 +4,8 @@ import { spawnSync } from "node:child_process";
 import test, { before } from "node:test";
 
 function buildSite() {
+  if (process.env.SKIP_BUILD === "1") return;
+
   const result = spawnSync("npm run build", {
     cwd: process.cwd(),
     encoding: "utf8",
