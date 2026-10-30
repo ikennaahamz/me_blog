@@ -11,7 +11,7 @@ export async function getPublishedPosts(): Promise<Post[]> {
 }
 
 export function getPostTopics(post: Post): string[] {
-  return [...new Set(post.data.tags.map((tag) => tag.toLowerCase()))];
+  return post.data.tags;
 }
 
 export function getPostTypeLabel(post: Post): string {

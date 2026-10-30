@@ -10,7 +10,10 @@ const posts = defineCollection({
     publishedAt: z.coerce.date(),
     updatedAt: z.coerce.date().optional(),
     type: z.enum(["essay", "note"]),
-    tags: z.array(z.string()).default([]),
+    tags: z
+      .array(z.string().trim().min(1))
+      .default([])
+      .transform((tags) => [...new Set(tags.map((tag) => tag.toLowerCase()))]),
     draft: z.boolean().default(false),
   }),
 });
@@ -24,7 +27,7 @@ const books = defineCollection({
       authorSort: z.string(),
       isbn: z.string().optional(),
       summary: z.string().min(1).optional(),
-      cover: z.union([image(), z.string().url()]).optional(),
+      cover: z.union([image(), z.url()]).optional(),
       draft: z.boolean().default(false),
     }),
 });
