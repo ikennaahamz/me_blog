@@ -17,7 +17,6 @@ export interface CarouselBookMeta {
   spineTitle: string;
   author: string;
   shortAuthor: string;
-  isbn?: string;
   summary?: string;
   hasNote: boolean;
   group: "noted" | "reading";

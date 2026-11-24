@@ -85,10 +85,17 @@ test("the generated site includes The Forever Shelf carousel and noted catalogue
   assert.equal((booksHtml.match(/data-note-for="/g) ?? []).length, 3);
   assert.doesNotMatch(booksHtml, /class="book-cover-placeholder"/);
   assert.doesNotMatch(booksHtml, /covers\.openlibrary\.org/);
+  assert.doesNotMatch(booksHtml, /ISBN\s+978/);
+  assert.doesNotMatch(booksHtml, /"isbn":/);
   assert.match(booksHtml, /href="\/books\/reading-list\/">Reading list · 12 books<\/a>/);
+  assert.match(booksHtml, /<h2 id="full-list-title" class="book-catalogue-title">The Full List<\/h2>/);
 
   const catalogueHtml = booksHtml.slice(booksHtml.indexOf('<ol class="book-catalogue"'));
   assert.doesNotMatch(catalogueHtml, /Thinking in Systems/);
+  assert.match(
+    catalogueHtml,
+    /href="\/books\/reading-list\/">See more · Reading list \(12 books\) →<\/a>/,
+  );
 });
 
 test("the shelf renders the three book notes in author-surname order", () => {

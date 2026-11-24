@@ -503,7 +503,7 @@ const tapeCopies =
       }
       if (sheetTitle) sheetTitle.textContent = book.title;
       if (sheetAuthor) {
-        sheetAuthor.textContent = book.isbn ? `${book.author} · ISBN ${book.isbn}` : book.author;
+        sheetAuthor.textContent = book.author;
       }
 
       if (sheetSummary && sheetSummaryWrap) {

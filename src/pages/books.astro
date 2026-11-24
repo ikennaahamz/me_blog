@@ -45,7 +45,6 @@ const prepared = await Promise.all(
       spineTitle: getSpineTitle(book.data.title),
       author: book.data.author,
       shortAuthor: getShortAuthor(book.data),
-      isbn: book.data.isbn,
       summary: book.data.summary,
       hasNote: noted,
       group: noted ? "noted" : "reading",
@@ -87,25 +86,40 @@ const shelf = prepared
 
     <BookCarousel items={carouselItems} />
 
-    <ol class="book-catalogue" aria-label="Book notes">
-      {
-        shelf.map(({ book, index, Content }) => (
-          <li class="book-card" id={`book-${book.id}`}>
-            <p class="book-index">{String(index + 1).padStart(3, "0")}</p>
-            <article class="book-entry">
-              <h2>{book.data.title}</h2>
-              <p class="book-author">{book.data.author}</p>
-              {book.data.summary && <p class="book-summary">{book.data.summary}</p>}
-              <details class="book-details">
-                <summary>Read full note</summary>
-                <div class="book-note">
-                  <Content />
-                </div>
-              </details>
-            </article>
-          </li>
-        ))
-      }
-    </ol>
+    <section class="book-catalogue-section" aria-labelledby="full-list-title">
+      <header class="book-catalogue-header layout-grid">
+        <p class="section-label">Book notes</p>
+        <h2 id="full-list-title" class="book-catalogue-title">The Full List</h2>
+      </header>
+
+      <ol class="book-catalogue" aria-labelledby="full-list-title">
+        {
+          shelf.map(({ book, index, Content }) => (
+            <li class="book-card" id={`book-${book.id}`}>
+              <p class="book-index">{String(index + 1).padStart(3, "0")}</p>
+              <article class="book-entry">
+                <h2>{book.data.title}</h2>
+                <p class="book-author">{book.data.author}</p>
+                {book.data.summary && <p class="book-summary">{book.data.summary}</p>}
+                <details class="book-details">
+                  <summary>Read full note</summary>
+                  <div class="book-note">
+                    <Content />
+                  </div>
+                </details>
+              </article>
+            </li>
+          ))
+        }
+      </ol>
+
+      <div class="book-catalogue-footer layout-grid">
+        <div class="body-column">
+          <a class="more-link" href="/books/reading-list/">
+            See more · Reading list ({readingList.length} books) →
+          </a>
+        </div>
+      </div>
+    </section>
   </div>
 </BaseLayout>
