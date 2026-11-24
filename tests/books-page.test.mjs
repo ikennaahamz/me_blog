@@ -51,7 +51,7 @@ test("the homepage opens with one h1 and a contents index", () => {
 
   assert.match(homeHtml, /The Forever Shelf<\/span>/);
   assert.match(homeHtml, /Topics<\/span>/);
-  assert.match(homeHtml, /Writing<\/span>/);
+  assert.match(homeHtml, /href="\/writing\/"[\s\S]*?Writings<\/span>/);
   assert.doesNotMatch(homeHtml, /Start here|Begin with the idea|class="home-lead"|class="next-start"/);
   assert.doesNotMatch(homeHtml, /Recent writing/);
   assert.doesNotMatch(homeHtml, /class="post-row"/);
@@ -212,5 +212,5 @@ test("topics use subject tags and exclude activity labels", () => {
 test("primary navigation marks the current section", () => {
   assert.match(booksHtml, /<a href="\/books\/" aria-current="page">Books<\/a>/);
   assert.match(readingListHtml, /<a href="\/books\/" aria-current="page">Books<\/a>/);
-  assert.match(writingHtml, /<a href="\/writing\/" aria-current="page">Writing<\/a>/);
+  assert.match(writingHtml, /<a href="\/writing\/" aria-current="page">Writings<\/a>/);
 });
