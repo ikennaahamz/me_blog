@@ -1642,6 +1642,17 @@ main {
   padding: 4px 0 40px;
 }
 
+.book-catalogue-footer .body-column {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.book-catalogue-see-all {
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: -0.015em;
+}
+
 .book-card {
   display: grid;
   grid-template-columns: var(--margin-width) minmax(0, 1fr);

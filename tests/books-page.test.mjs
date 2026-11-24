@@ -94,7 +94,7 @@ test("the generated site includes The Forever Shelf carousel and noted catalogue
   assert.doesNotMatch(catalogueHtml, /Thinking in Systems/);
   assert.match(
     catalogueHtml,
-    /href="\/books\/reading-list\/">See more · Reading list \(12 books\) →<\/a>/,
+    /class="more-link book-catalogue-see-all" href="\/books\/reading-list\/">See all →<\/a>/,
   );
 });
 
