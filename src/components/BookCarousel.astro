@@ -1,0 +1,1071 @@
+---
+import type { render } from "astro:content";
+import type { CarouselBookMeta, SpinePalette } from "../lib/book-spine";
+
+export type RenderedBookContent = Awaited<ReturnType<typeof render>>["Content"];
+
+export interface CarouselBookItem extends CarouselBookMeta {
+  palette: SpinePalette;
+  Content?: RenderedBookContent;
+}
+
+interface Props {
+  items: CarouselBookItem[];
+}
+
+const { items } = Astro.props;
+const notedCount = items.filter((item) => item.hasNote).length;
+const readingCount = items.length - notedCount;
+const firstBook = items[0];
+
+const serializedBooks = JSON.stringify(
+  items.map(({ palette: _palette, Content: _content, ...meta }) => meta),
+).replace(/</g, "\\u003c");
+
+const tapeCopies =
+  items.length > 0
+    ? Array.from({ length: items.length * 3 }, (_, virtualIndex) => ({
+        virtualIndex,
+        book: items[virtualIndex % items.length],
+      }))
+    : [];
+---
+
+{
+  items.length > 0 && firstBook && (
+    <section class="book-carousel" aria-label="Interactive book shelf" data-book-carousel>
+      <script is:inline type="application/json" data-carousel-books set:html={serializedBooks} />
+
+      <div hidden data-book-notes>
+        {items
+          .filter((item) => item.Content)
+          .map((item) => {
+            const NoteContent = item.Content!;
+            return (
+              <template data-note-for={item.id}>
+                <NoteContent />
+              </template>
+            );
+          })}
+      </div>
+
+      <div class="carousel-pills" role="group" aria-label="Shelf sections" data-carousel-pills>
+        <span class="carousel-pill-ind" aria-hidden="true" data-pill-ind></span>
+        <button type="button" class="carousel-pill" data-filter="all" data-on aria-pressed="true">
+          All <span class="carousel-pill-count">{items.length}</span>
+        </button>
+        <button type="button" class="carousel-pill" data-filter="noted" aria-pressed="false">
+          Noted <span class="carousel-pill-count">{notedCount}</span>
+        </button>
+        <button type="button" class="carousel-pill" data-filter="reading" aria-pressed="false">
+          Reading list <span class="carousel-pill-count">{readingCount}</span>
+        </button>
+      </div>
+
+      <div class="carousel-fit">
+        <div class="carousel-shelf" data-carousel-shelf>
+          <div class="carousel-probe" aria-hidden="true" data-carousel-probe></div>
+          <div class="carousel-stage" data-carousel-stage>
+            {tapeCopies.map(({ virtualIndex, book }) => (
+              <div
+                data-v={virtualIndex}
+                data-group={book.group}
+                class="carousel-tape"
+                aria-hidden="true"
+                style={`--spine-bg:${book.palette.bg};--spine-fg:${book.palette.fg};--spine-band:${book.palette.band};--spine-band-fg:${book.palette.bandFg}`}
+              >
+                <div class="carousel-face carousel-spine">
+                  <i class="carousel-band">{String(book.index).padStart(2, "0")}</i>
+                  <span class="carousel-spine-title">{book.spineTitle}</span>
+                  <span class="carousel-spine-author">{book.shortAuthor}</span>
+                </div>
+                {book.coverUrl ? (
+                  <div
+                    class="carousel-face carousel-cover"
+                    style={`background-image:url("${book.coverUrl}")`}
+                  ></div>
+                ) : (
+                  <div class="carousel-face carousel-cover carousel-cover-placeholder">
+                    <span>{book.title}</span>
+                    <small>{book.author}</small>
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <div class="carousel-controls">
+        <p class="carousel-caption" data-carousel-caption>
+          <span class="carousel-caption-index">{String(firstBook.index).padStart(2, "0")}</span>
+          <strong class="carousel-caption-title">{firstBook.title}</strong>
+          <span class="carousel-caption-sep" aria-hidden="true">—</span>
+          <span class="carousel-caption-author">{firstBook.author}</span>
+          <span class="carousel-caption-badge">
+            {firstBook.hasNote ? "With note" : "Reading list"}
+          </span>
+        </p>
+
+        <div class="carousel-nav">
+          <button type="button" class="carousel-arrow" aria-label="Previous book" data-carousel-prev>
+            <svg viewBox="0 0 18 10" aria-hidden="true">
+              <path d="M5 1 L1 5 L5 9 M1 5 H17"></path>
+            </svg>
+          </button>
+          <button type="button" class="carousel-open-sr" data-carousel-open>
+            Open book
+          </button>
+          <button type="button" class="carousel-arrow" aria-label="Next book" data-carousel-next>
+            <svg viewBox="0 0 18 10" aria-hidden="true">
+              <path d="M13 1 L17 5 L13 9 M17 5 H1"></path>
+            </svg>
+          </button>
+        </div>
+
+        <p aria-live="polite" class="visually-hidden" data-carousel-live>
+          {firstBook.title}, {firstBook.author}. {firstBook.hasNote ? "With note" : "Reading list"}.
+        </p>
+      </div>
+
+      <div class="carousel-cursor" aria-hidden="true" data-carousel-cursor>
+        <span class="carousel-cursor-ring"></span>
+        <span class="carousel-cursor-dot"></span>
+        <span class="carousel-cursor-label">Open</span>
+      </div>
+
+      <div
+        class="book-sheet"
+        data-book-sheet
+        role="dialog"
+        aria-modal="true"
+        aria-label="Book details"
+      >
+        <button type="button" class="book-sheet-close" data-sheet-close>
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M18 6 6 18M6 6l12 12"></path>
+          </svg>
+          Close
+        </button>
+        <p class="book-sheet-top">The Forever Shelf</p>
+
+        <div class="book-sheet-body">
+          <div class="book-sheet-copy" data-sheet-copy>
+            <div class="book-sheet-rise" data-rise="head">
+              <span class="book-sheet-meta" data-sheet-meta></span>
+            </div>
+            <div class="book-sheet-rise book-sheet-title-wrap" data-rise="head">
+              <h2 data-sheet-title></h2>
+            </div>
+            <div class="book-sheet-rise" data-rise="head">
+              <p class="book-sheet-author" data-sheet-author></p>
+            </div>
+            <div class="book-sheet-rise" data-rise="head" data-sheet-summary-wrap>
+              <p class="book-sheet-summary" data-sheet-summary></p>
+            </div>
+            <div class="book-sheet-rise" data-rise="body">
+              <div class="book-sheet-note" data-sheet-note></div>
+            </div>
+            <div class="book-sheet-rise" data-rise="tail">
+              <div class="book-sheet-actions">
+                <a class="book-sheet-link" href="#book" data-sheet-catalogue-link>
+                  View in catalogue below ↓
+                </a>
+                <a class="book-sheet-link" href="/books/reading-list/" data-sheet-reading-link>
+                  View full reading list →
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div class="book-sheet-poster" data-sheet-poster>
+            <svg viewBox="0 0 474 680" role="img" aria-label="Book cover" data-sheet-svg>
+              <defs>
+                <filter
+                  id="shelf-ink-filter"
+                  filterUnits="userSpaceOnUse"
+                  x="-200"
+                  y="-200"
+                  width="874"
+                  height="1300"
+                >
+                  <feTurbulence
+                    type="fractalNoise"
+                    baseFrequency=".011"
+                    numOctaves="3"
+                    seed="7"
+                    result="n"
+                  />
+                  <feDisplacementMap
+                    in="SourceGraphic"
+                    in2="n"
+                    scale="120"
+                    xChannelSelector="R"
+                    yChannelSelector="G"
+                  />
+                </filter>
+                <mask
+                  id="shelf-ink-mask"
+                  maskUnits="userSpaceOnUse"
+                  x="-200"
+                  y="-200"
+                  width="874"
+                  height="1300"
+                >
+                  <g filter="url(#shelf-ink-filter)" fill="#fff" data-sheet-ink-group>
+                    <circle cx="150" cy="330" r="720" />
+                    <circle cx="340" cy="600" r="720" />
+                    <circle cx="250" cy="120" r="720" />
+                    <circle cx="90" cy="760" r="720" />
+                    <circle cx="400" cy="250" r="720" />
+                    <circle cx="260" cy="860" r="720" />
+                    <circle cx="230" cy="470" r="720" />
+                  </g>
+                </mask>
+                <clipPath id="shelf-poster-clip">
+                  <rect width="474" height="680" data-sheet-clip-rect />
+                </clipPath>
+              </defs>
+              <g clip-path="url(#shelf-poster-clip)">
+                <g mask="url(#shelf-ink-mask)">
+                  <image
+                    href=""
+                    x="0"
+                    y="0"
+                    width="474"
+                    height="680"
+                    preserveAspectRatio="xMidYMid slice"
+                    data-sheet-image
+                  />
+                </g>
+              </g>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+}
+
+<script>
+  import type { CarouselBookMeta } from "../lib/book-spine";
+  import {
+    computeSlotOffset,
+    computeSlotVisual,
+    interpolateWidth,
+    mod,
+    nearestTarget,
+    stepSmooth,
+    wrapDelta,
+  } from "../lib/carousel-math";
+
+  type FilterMode = "all" | "noted" | "reading";
+
+  const INK_DELAYS = [0, 120, 220, 300, 360, 420, 180];
+  const BASE_TITLE = document.title;
+
+  interface TapeNode {
+    el: HTMLElement;
+    sp: HTMLElement;
+    cv: HTMLElement;
+    lift: number;
+    vis: boolean;
+  }
+
+  function clipInsetFromRect(rect: DOMRect): string {
+    const top = Math.max(0, rect.top);
+    const right = Math.max(0, window.innerWidth - rect.right);
+    const bottom = Math.max(0, window.innerHeight - rect.bottom);
+    const left = Math.max(0, rect.left);
+    return `inset(${top}px ${right}px ${bottom}px ${left}px round 3px)`;
+  }
+
+  function initBookCarousel(root: HTMLElement) {
+    const jsonEl = root.querySelector<HTMLScriptElement>("[data-carousel-books]");
+    const shelf = root.querySelector<HTMLElement>("[data-carousel-shelf]");
+    const probe = root.querySelector<HTMLElement>("[data-carousel-probe]");
+    const stage = root.querySelector<HTMLElement>("[data-carousel-stage]");
+    const pillsWrap = root.querySelector<HTMLElement>("[data-carousel-pills]");
+    const pillInd = root.querySelector<HTMLElement>("[data-pill-ind]");
+    const captionEl = root.querySelector<HTMLElement>("[data-carousel-caption]");
+    const liveEl = root.querySelector<HTMLElement>("[data-carousel-live]");
+    const prevBtn = root.querySelector<HTMLButtonElement>("[data-carousel-prev]");
+    const nextBtn = root.querySelector<HTMLButtonElement>("[data-carousel-next]");
+    const openSrBtn = root.querySelector<HTMLButtonElement>("[data-carousel-open]");
+    const cursorEl = root.querySelector<HTMLElement>("[data-carousel-cursor]");
+    const sheet = root.querySelector<HTMLElement>("[data-book-sheet]");
+    const closeBtn = root.querySelector<HTMLButtonElement>("[data-sheet-close]");
+    const sheetCopy = root.querySelector<HTMLElement>("[data-sheet-copy]");
+    const sheetMeta = root.querySelector<HTMLElement>("[data-sheet-meta]");
+    const sheetTitle = root.querySelector<HTMLElement>("[data-sheet-title]");
+    const sheetAuthor = root.querySelector<HTMLElement>("[data-sheet-author]");
+    const sheetSummaryWrap = root.querySelector<HTMLElement>("[data-sheet-summary-wrap]");
+    const sheetSummary = root.querySelector<HTMLElement>("[data-sheet-summary]");
+    const sheetNote = root.querySelector<HTMLElement>("[data-sheet-note]");
+    const sheetCatLink = root.querySelector<HTMLAnchorElement>("[data-sheet-catalogue-link]");
+    const sheetReadLink = root.querySelector<HTMLAnchorElement>("[data-sheet-reading-link]");
+    const sheetPoster = root.querySelector<HTMLElement>("[data-sheet-poster]");
+    const sheetSvg = root.querySelector<SVGSVGElement>("[data-sheet-svg]");
+    const sheetInkGroup = root.querySelector<SVGGElement>("[data-sheet-ink-group]");
+    const sheetClipRect = root.querySelector<SVGRectElement>("[data-sheet-clip-rect]");
+    const sheetImage = root.querySelector<SVGImageElement>("[data-sheet-image]");
+
+    if (
+      !jsonEl ||
+      !shelf ||
+      !probe ||
+      !stage ||
+      !pillsWrap ||
+      !pillInd ||
+      !captionEl ||
+      !liveEl ||
+      !cursorEl ||
+      !sheet ||
+      !closeBtn ||
+      !sheetCopy
+    ) {
+      return;
+    }
+
+    const books = JSON.parse(jsonEl.textContent || "[]") as CarouselBookMeta[];
+    const count = books.length;
+    if (count === 0) return;
+
+    const totalTapes = count * 3;
+    const pillButtons = [...pillsWrap.querySelectorAll<HTMLButtonElement>("button[data-filter]")];
+    const tapes: TapeNode[] = [...stage.querySelectorAll<HTMLElement>("[data-v]")].map((el) => ({
+      el,
+      sp: el.children[0] as HTMLElement,
+      cv: el.children[1] as HTMLElement,
+      lift: 0,
+      vis: true,
+    }));
+
+    const noteTemplates = new Map<string, HTMLTemplateElement>();
+    root.querySelectorAll<HTMLTemplateElement>("template[data-note-for]").forEach((tpl) => {
+      const id = tpl.dataset.noteFor;
+      if (id) noteTemplates.set(id, tpl);
+    });
+
+    const firstNotedIdx = books.findIndex((b) => b.group === "noted");
+    const firstReadingIdx = books.findIndex((b) => b.group === "reading");
+
+    const initialBookId = new URLSearchParams(window.location.search).get("book");
+    const initialIdx = initialBookId ? books.findIndex((b) => b.id === initialBookId) : -1;
+
+    const state = {
+      s: count + (initialIdx >= 0 ? initialIdx : 0),
+      T: count + (initialIdx >= 0 ? initialIdx : 0),
+      active: -1,
+      filter: "all" as FilterMode,
+      H: 0,
+      ws: 0,
+      gap: 0,
+      dMax: 0,
+      dS: 0,
+      widths: [] as number[],
+      mx: -1,
+      my: -1,
+      cx: -1,
+      cy: -1,
+      tiltX: 0,
+      tiltY: 0,
+      hover: -1,
+      over: false,
+      onCover: false,
+      open: false,
+      closing: false,
+      pushed: false,
+      skipPop: false,
+      reopen: -1,
+      dragging: false,
+      down: false,
+      moved: false,
+      sx: 0,
+      T0: 0,
+      rm: matchMedia("(prefers-reduced-motion: reduce)").matches,
+      inkRaf: 0,
+      openBookIdx: null as number | null,
+    };
+
+    let inertSiblings: Element[] = [];
+    let savedOverflow = "";
+    let lastTrigger: HTMLElement | null = null;
+    let wheelSnapTimer = 0;
+    let cursorClassCache = "";
+    let readyApplied = false;
+    let rafId = 0;
+    let lastFrameTime = performance.now();
+
+    function lockPage(lock: boolean) {
+      if (lock) {
+        if (inertSiblings.length > 0) return;
+        savedOverflow = document.documentElement.style.overflow;
+        document.documentElement.style.overflow = "hidden";
+        const marked: Element[] = [];
+        for (let el: HTMLElement | null = sheet; el && el !== document.body; el = el.parentElement) {
+          for (const sibling of el.parentElement?.children ?? []) {
+            if (sibling === el || sibling.hasAttribute("inert") || sibling.tagName === "SCRIPT") {
+              continue;
+            }
+            sibling.setAttribute("inert", "");
+            marked.push(sibling);
+          }
+        }
+        inertSiblings = marked;
+      } else {
+        document.documentElement.style.overflow = savedOverflow;
+        inertSiblings.forEach((el) => el.removeAttribute("inert"));
+        inertSiblings = [];
+      }
+    }
+
+    function measure() {
+      state.H = probe!.getBoundingClientRect().height;
+      state.ws = 0.15 * state.H;
+      state.gap = 0.03 * state.H;
+      state.widths = books.map((b) => state.H * b.aspect);
+      state.dMax = Math.max(...state.widths, 0);
+      stage!.style.setProperty("--hpx", `${state.H}px`);
+      stage!.style.setProperty("--ws", `${state.ws}px`);
+      tapes.forEach((tape, idx) => {
+        tape.el.style.setProperty("--dd", `${state.widths[idx % count] ?? 0}px`);
+      });
+    }
+
+    function updateDimming() {
+      tapes.forEach((tape) => {
+        const group = tape.el.dataset.group;
+        const dim = state.filter !== "all" && group !== state.filter;
+        tape.el.toggleAttribute("data-dim", dim);
+      });
+    }
+
+    function updatePills() {
+      pillButtons.forEach((btn) => {
+        const active = btn.dataset.filter === state.filter;
+        btn.toggleAttribute("data-on", active);
+        btn.setAttribute("aria-pressed", String(active));
+        if (!active) return;
+
+        pillInd!.style.width = `${btn.offsetWidth}px`;
+        pillInd!.style.transform = `translateX(${btn.offsetLeft}px)`;
+
+        const parent = btn.parentElement;
+        if (
+          parent &&
+          (btn.offsetLeft < parent.scrollLeft ||
+            btn.offsetLeft + btn.offsetWidth > parent.scrollLeft + parent.clientWidth)
+        ) {
+          parent.scrollTo({
+            left: btn.offsetLeft - 4,
+            behavior: state.rm ? "auto" : "smooth",
+          });
+        }
+      });
+      updateDimming();
+    }
+
+    function updateCaption(book: CarouselBookMeta) {
+      const idxEl = captionEl!.querySelector(".carousel-caption-index");
+      const titleEl = captionEl!.querySelector(".carousel-caption-title");
+      const authorEl = captionEl!.querySelector(".carousel-caption-author");
+      const badgeEl = captionEl!.querySelector(".carousel-caption-badge");
+      if (idxEl) idxEl.textContent = String(book.index).padStart(2, "0");
+      if (titleEl) titleEl.textContent = book.title;
+      if (authorEl) authorEl.textContent = book.author;
+      if (badgeEl) badgeEl.textContent = book.hasNote ? "With note" : "Reading list";
+      liveEl!.textContent = `${book.title}, ${book.author}. ${
+        book.hasNote ? "With note" : "Reading list"
+      }.`;
+    }
+
+    function getCoverRect(): DOMRect {
+      let best = tapes[0];
+      let bestDist = Infinity;
+      tapes.forEach((tape, idx) => {
+        const dist = Math.abs(wrapDelta(idx, state.s, totalTapes));
+        if (dist < bestDist) {
+          bestDist = dist;
+          best = tape;
+        }
+      });
+      return best.cv.getBoundingClientRect();
+    }
+
+    function populateSheet(book: CarouselBookMeta) {
+      sheet!.setAttribute("aria-label", book.title);
+      if (sheetMeta) {
+        sheetMeta.textContent = `${String(book.index).padStart(2, "0")} / ${String(count).padStart(
+          2,
+          "0",
+        )} · ${book.hasNote ? "With note" : "Reading list"}`;
+      }
+      if (sheetTitle) sheetTitle.textContent = book.title;
+      if (sheetAuthor) {
+        sheetAuthor.textContent = book.isbn ? `${book.author} · ISBN ${book.isbn}` : book.author;
+      }
+
+      if (sheetSummary && sheetSummaryWrap) {
+        if (book.summary) {
+          sheetSummary.textContent = book.summary;
+          sheetSummaryWrap.hidden = false;
+        } else {
+          sheetSummary.textContent = "";
+          sheetSummaryWrap.hidden = true;
+        }
+      }
+
+      if (sheetNote) {
+        sheetNote.replaceChildren();
+        const tpl = noteTemplates.get(book.id);
+        if (tpl) {
+          sheetNote.appendChild(tpl.content.cloneNode(true));
+        } else {
+          const empty = document.createElement("p");
+          empty.className = "book-sheet-empty";
+          empty.textContent = "On the reading list — waiting for a note.";
+          sheetNote.appendChild(empty);
+        }
+      }
+
+      if (sheetCatLink) {
+        sheetCatLink.hidden = !book.hasNote;
+        sheetCatLink.href = `#book-${book.id}`;
+        sheetCatLink.dataset.targetBook = book.id;
+      }
+      if (sheetReadLink) {
+        sheetReadLink.hidden = book.hasNote;
+      }
+
+      const posterHeight = Math.round(474 / book.aspect);
+      if (sheetPoster && sheetSvg && sheetInkGroup && sheetClipRect && sheetImage) {
+        if (book.coverUrl) {
+          sheetPoster.hidden = false;
+          sheetSvg.setAttribute("viewBox", `0 0 474 ${posterHeight}`);
+          sheetSvg.style.aspectRatio = `474 / ${posterHeight}`;
+          sheetSvg.setAttribute("aria-label", `Cover of ${book.title}`);
+          sheetInkGroup.setAttribute("transform", `scale(1 ${posterHeight / 900})`);
+          sheetClipRect.setAttribute("height", String(posterHeight));
+          sheetImage.setAttribute("href", book.coverUrl);
+          sheetImage.setAttribute("height", String(posterHeight));
+        } else {
+          sheetPoster.hidden = true;
+        }
+      }
+    }
+
+    function runSheetEnterAnimations(animateMorph: boolean) {
+      const circles = [...sheet!.querySelectorAll<SVGCircleElement>("circle")];
+      sheet!.getAnimations({ subtree: true }).forEach((anim) => anim.cancel());
+      cancelAnimationFrame(state.inkRaf);
+
+      if (!animateMorph || state.rm) {
+        sheet!.style.visibility = "";
+        sheet!.style.transformOrigin = "";
+        circles.forEach((circle) => circle.setAttribute("r", "720"));
+        return;
+      }
+
+      const coverRect = getCoverRect();
+      sheet!.style.visibility = "";
+      sheet!.scrollTop = 0;
+      sheet!.style.transformOrigin = `${coverRect.left + coverRect.width / 2}px ${
+        coverRect.top + coverRect.height / 2
+      }px`;
+
+      sheet!.animate(
+        [
+          { clipPath: clipInsetFromRect(coverRect), transform: "rotate(-4.5deg)" },
+          { clipPath: "inset(0px 0px 0px 0px round 0px)", transform: "rotate(0deg)" },
+        ],
+        { duration: 950, easing: "cubic-bezier(.76,0,.18,1)", fill: "both" },
+      );
+
+      const rise = (el: Element, delay: number) =>
+        el.animate([{ transform: "translateY(110%)" }, { transform: "translateY(0)" }], {
+          duration: 850,
+          delay,
+          easing: "cubic-bezier(.2,.8,.2,1)",
+          fill: "both",
+        });
+
+      const headEls = [...sheetCopy!.querySelectorAll("[data-rise=head] > *")];
+      const bodyEls = [...sheetCopy!.querySelectorAll("[data-rise=body] > *")];
+      const tailEls = [...sheetCopy!.querySelectorAll("[data-rise=tail] > *")];
+
+      headEls.forEach((el, idx) => rise(el, 580 + 70 * idx));
+      bodyEls.forEach((el, idx) => rise(el, 580 + 70 * headEls.length + 40 * idx));
+      tailEls.forEach((el, idx) =>
+        rise(el, 580 + 70 * headEls.length + 40 * bodyEls.length + 40 + 60 * idx),
+      );
+
+      circles.forEach((circle) => circle.setAttribute("r", "0"));
+      const startTime = performance.now();
+      const inkStart = startTime + 520;
+      const tickInk = (now: number) => {
+        circles.forEach((circle, idx) => {
+          const t = Math.max(0, Math.min(1, (now - inkStart - (INK_DELAYS[idx] ?? 0)) / 1250));
+          const r = 720 * (1 - (1 - t) ** 3);
+          circle.setAttribute("r", String(r));
+        });
+        if (now - startTime < 2400 && state.open) {
+          state.inkRaf = requestAnimationFrame(tickInk);
+        }
+      };
+      state.inkRaf = requestAnimationFrame(tickInk);
+    }
+
+    function openSheet(pushHistory: boolean, animateMorph = true) {
+      if (state.open || state.closing) return;
+      lastTrigger =
+        document.activeElement instanceof HTMLElement ? document.activeElement : null;
+      state.open = true;
+      state.T = Math.round(state.s);
+      state.s = state.T;
+
+      const idx = mod(state.T, count);
+      const book = books[idx];
+      if (!book) {
+        state.open = false;
+        return;
+      }
+
+      if (pushHistory) {
+        const nextUrl = new URL(window.location.href);
+        nextUrl.searchParams.set("book", book.id);
+        nextUrl.hash = "";
+        window.history.pushState(null, "", nextUrl);
+        state.pushed = true;
+      }
+
+      state.openBookIdx = idx;
+      document.title = `${book.title} · The Forever Shelf`;
+      populateSheet(book);
+      sheet!.classList.add("is-shown");
+      lockPage(true);
+      runSheetEnterAnimations(animateMorph);
+      closeBtn!.focus({ preventScroll: true });
+    }
+
+    function closeSheet(
+      fromPopState: boolean,
+      options?: { skipFocusRestore?: boolean; afterClose?: () => void },
+    ) {
+      if (!state.open || state.closing) return;
+
+      if (!fromPopState) {
+        if (state.pushed && !options?.afterClose) {
+          state.pushed = false;
+          state.skipPop = true;
+          window.history.back();
+        } else {
+          state.pushed = false;
+          const cleanUrl = new URL(window.location.href);
+          cleanUrl.searchParams.delete("book");
+          window.history.replaceState(null, "", cleanUrl);
+        }
+      }
+
+      document.title = BASE_TITLE;
+      state.closing = true;
+      const coverRect = getCoverRect();
+      sheet!.getAnimations().forEach((anim) => anim.cancel());
+      sheet!.style.transformOrigin = `${coverRect.left + coverRect.width / 2}px ${
+        coverRect.top + coverRect.height / 2
+      }px`;
+
+      const anim = sheet!.animate(
+        [
+          { clipPath: "inset(0px 0px 0px 0px round 0px)", transform: "rotate(0deg)", opacity: 1 },
+          { opacity: 1, offset: 0.6 },
+          { clipPath: clipInsetFromRect(coverRect), transform: "rotate(-4.5deg)", opacity: 0 },
+        ],
+        {
+          duration: state.rm ? 1 : 750,
+          easing: "cubic-bezier(.22,1,.36,1)",
+          fill: "both",
+        },
+      );
+
+      anim.onfinish = () => {
+        sheet!.style.visibility = "hidden";
+        sheet!.classList.remove("is-shown");
+        sheet!.getAnimations({ subtree: true }).forEach((a) => a.cancel());
+        cancelAnimationFrame(state.inkRaf);
+        state.open = false;
+        state.closing = false;
+        state.openBookIdx = null;
+        lockPage(false);
+
+        if (state.reopen >= 0) {
+          const nextIdx = state.reopen;
+          state.reopen = -1;
+          state.T = nearestTarget(state.T, nextIdx, count);
+          state.s = state.T;
+          openSheet(false, true);
+          return;
+        }
+
+        if (options?.afterClose) {
+          options.afterClose();
+          return;
+        }
+
+        if (!options?.skipFocusRestore && lastTrigger && lastTrigger.isConnected) {
+          lastTrigger.focus({ preventScroll: true });
+        } else if (document.activeElement instanceof HTMLElement) {
+          document.activeElement.blur();
+        }
+      };
+    }
+
+    function onKeyDown(e: KeyboardEvent) {
+      if (e.metaKey || e.ctrlKey || e.altKey) return;
+      if (state.open) {
+        if (e.key === "Escape") {
+          e.preventDefault();
+          closeSheet(false);
+        }
+        return;
+      }
+
+      const activeEl = document.activeElement;
+      const isEditable =
+        activeEl instanceof HTMLElement &&
+        Boolean(activeEl.closest("input,textarea,select,[contenteditable]"));
+      const withinScope = !activeEl || activeEl === document.body || root.contains(activeEl);
+      if (isEditable || !withinScope) return;
+
+      if (e.key === "ArrowLeft") {
+        state.T = Math.round(state.T) - 1;
+        e.preventDefault();
+      } else if (e.key === "ArrowRight") {
+        state.T = Math.round(state.T) + 1;
+        e.preventDefault();
+      } else if (e.key === "Enter" && (!activeEl || activeEl === document.body)) {
+        e.preventDefault();
+        openSheet(true, true);
+      }
+    }
+
+    function onWheel(e: WheelEvent) {
+      if (state.open || e.ctrlKey) return;
+      const isHorizontal = Math.abs(e.deltaX) > Math.abs(e.deltaY);
+      if (!isHorizontal && !e.shiftKey) return;
+
+      e.preventDefault();
+      const delta = isHorizontal ? e.deltaX : e.deltaY;
+      state.T += (delta / Math.max(1, state.ws + state.gap)) * 0.5;
+      clearTimeout(wheelSnapTimer);
+      wheelSnapTimer = window.setTimeout(() => {
+        state.T = Math.round(state.T);
+      }, 160);
+    }
+
+    function onPointerDown(e: PointerEvent) {
+      if (e.button !== 0 || state.open) return;
+      state.down = true;
+      state.dragging = false;
+      state.moved = false;
+      state.sx = e.clientX;
+      state.T0 = state.T;
+    }
+
+    function onPointerMove(e: PointerEvent) {
+      state.mx = e.clientX;
+      state.my = e.clientY;
+      if (state.cx < 0) {
+        state.cx = state.mx;
+        state.cy = state.my;
+      }
+      if (!state.down) return;
+      const dx = e.clientX - state.sx;
+      if (!state.dragging && Math.abs(dx) > 5) {
+        state.dragging = true;
+        state.moved = true;
+      }
+      if (state.dragging) {
+        state.T = state.T0 - dx / Math.max(1, state.ws + state.gap);
+      }
+    }
+
+    function onPointerUp() {
+      if (state.dragging) {
+        state.T = Math.round(state.T);
+      }
+      state.dragging = false;
+      state.down = false;
+    }
+
+    function onPointerCancel() {
+      onPointerUp();
+      state.moved = false;
+    }
+
+    function onShelfClick(e: MouseEvent) {
+      const target = e.target as HTMLElement | null;
+      const tapeEl = target?.closest<HTMLElement>("[data-v]");
+      if (!tapeEl || state.moved || state.open) return;
+
+      const v = Number(tapeEl.dataset.v);
+      const delta = wrapDelta(v, state.s, totalTapes);
+      if (Math.abs(delta) < 0.5) {
+        openSheet(true, true);
+      } else {
+        state.T = Math.round(state.T + delta);
+      }
+    }
+
+    function onPointerOver(e: PointerEvent) {
+      const target = e.target as HTMLElement | null;
+      const tapeEl = target?.closest<HTMLElement>("[data-v]");
+      state.hover = tapeEl ? Number(tapeEl.dataset.v) : -1;
+    }
+
+    function onPointerEnter(e: PointerEvent) {
+      if (e.pointerType === "mouse") {
+        state.over = true;
+      }
+    }
+
+    function onPointerLeave() {
+      state.over = false;
+      state.hover = -1;
+    }
+
+    function onPopState() {
+      if (state.skipPop) {
+        state.skipPop = false;
+        return;
+      }
+      const bookId = new URLSearchParams(window.location.search).get("book");
+      const idx = bookId ? books.findIndex((b) => b.id === bookId) : -1;
+      if (idx < 0) {
+        state.pushed = false;
+        state.reopen = -1;
+        closeSheet(true);
+        return;
+      }
+
+      state.pushed = true;
+      if (state.closing) {
+        state.reopen = idx;
+        document.title = `${books[idx].title} · The Forever Shelf`;
+        return;
+      }
+
+      if (state.open) {
+        state.openBookIdx = idx;
+        document.title = `${books[idx].title} · The Forever Shelf`;
+        populateSheet(books[idx]);
+        return;
+      }
+
+      state.T = nearestTarget(state.T, idx, count);
+      state.s = state.T;
+      openSheet(false, true);
+    }
+
+    function onResize() {
+      measure();
+      updatePills();
+    }
+
+    pillButtons.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const filter = (btn.dataset.filter as FilterMode) || "all";
+        state.filter = filter;
+        const activeBook = books[mod(Math.round(state.s), count)];
+        if (filter === "all" && activeBook?.group === "reading") {
+          state.T = nearestTarget(state.T, 0, count);
+        } else if (filter === "noted" && activeBook?.group !== "noted" && firstNotedIdx >= 0) {
+          state.T = nearestTarget(state.T, firstNotedIdx, count);
+        } else if (filter === "reading" && activeBook?.group !== "reading" && firstReadingIdx >= 0) {
+          state.T = nearestTarget(state.T, firstReadingIdx, count);
+        }
+        updatePills();
+      });
+    });
+
+    prevBtn?.addEventListener("click", () => {
+      state.T = Math.round(state.T) - 1;
+    });
+    nextBtn?.addEventListener("click", () => {
+      state.T = Math.round(state.T) + 1;
+    });
+    openSrBtn?.addEventListener("click", () => openSheet(true, true));
+    closeBtn.addEventListener("click", () => closeSheet(false));
+
+    sheetCatLink?.addEventListener("click", (e) => {
+      e.preventDefault();
+      const targetId = sheetCatLink.dataset.targetBook;
+      closeSheet(false, {
+        skipFocusRestore: true,
+        afterClose: () => {
+          if (!targetId) return;
+          const card = document.getElementById(`book-${targetId}`);
+          if (card) {
+            window.location.hash = `book-${targetId}`;
+            card.scrollIntoView({ behavior: state.rm ? "auto" : "smooth" });
+          }
+        },
+      });
+    });
+
+    addEventListener("keydown", onKeyDown);
+    shelf.addEventListener("wheel", onWheel, { passive: false });
+    shelf.addEventListener("pointerdown", onPointerDown);
+    shelf.addEventListener("click", onShelfClick);
+    shelf.addEventListener("pointerover", onPointerOver);
+    shelf.addEventListener("pointerenter", onPointerEnter);
+    shelf.addEventListener("pointerleave", onPointerLeave);
+    addEventListener("pointermove", onPointerMove);
+    addEventListener("pointerup", onPointerUp);
+    addEventListener("pointercancel", onPointerCancel);
+    addEventListener("popstate", onPopState);
+    addEventListener("resize", onResize);
+
+    const resizeObserver = new ResizeObserver(onResize);
+    resizeObserver.observe(shelf);
+    document.fonts?.ready.then(onResize);
+
+    measure();
+    updatePills();
+
+    if (initialIdx >= 0) {
+      openSheet(false, false);
+    }
+
+    function tick(now: number) {
+      const dt = Math.min(0.05, Math.max(0, (now - lastFrameTime) / 1000));
+      lastFrameTime = now;
+
+      state.s = stepSmooth(state.s, state.T, dt, state.dragging, state.rm);
+
+      const recenterBound = 4 * totalTapes;
+      if (state.s > recenterBound || state.s < -recenterBound) {
+        const shift = Math.trunc(state.s / totalTapes) * totalTapes;
+        state.s -= shift;
+        state.T -= shift;
+        state.T0 -= shift;
+      }
+
+      state.dS = interpolateWidth(state.s, state.widths);
+
+      const activeIdx = mod(Math.round(state.s), count);
+      if (activeIdx !== state.active) {
+        state.active = activeIdx;
+        const activeBook = books[activeIdx];
+        if (activeBook) {
+          updateCaption(activeBook);
+          if (state.filter !== "all" && activeBook.group !== state.filter) {
+            state.filter = activeBook.group;
+            updatePills();
+          }
+        }
+      }
+
+      const shelfRect = shelf!.getBoundingClientRect();
+      const centerX = shelfRect.left + shelfRect.width / 2;
+      const centerY = shelfRect.top + shelfRect.height / 2;
+
+      state.onCover =
+        state.over &&
+        !state.open &&
+        Math.abs(state.mx - centerX) < 0.55 * state.dS &&
+        Math.abs(state.my - centerY) < 0.55 * state.H &&
+        Math.abs(state.T - state.s) < 0.3;
+
+      const targetTiltY = state.onCover
+        ? ((state.mx - centerX) / Math.max(1, 0.55 * state.dS)) * 9
+        : state.over
+          ? ((state.mx - centerX) / Math.max(1, shelfRect.width)) * 5
+          : 0;
+      const targetTiltX = state.onCover
+        ? (-(state.my - centerY) / Math.max(1, state.H / 2)) * 6
+        : 0;
+
+      const tiltLerp = state.rm ? 1 : 1 - Math.exp(-7 * dt);
+      state.tiltY += (targetTiltY - state.tiltY) * tiltLerp;
+      state.tiltX += (targetTiltX - state.tiltX) * tiltLerp;
+
+      const liftLerp = state.rm ? 1 : 1 - Math.exp(-12 * dt);
+      const cullBound = shelfRect.width / 2 + 1.5 * state.dMax;
+      const metrics = { ws: state.ws, gap: state.gap, dS: state.dS };
+
+      tapes.forEach((tape, idx) => {
+        const delta = wrapDelta(idx, state.s, totalTapes);
+        const offsetX = computeSlotOffset(delta, metrics);
+        const targetLift = state.hover === idx && Math.abs(delta) > 0.5 ? 1 : 0;
+        tape.lift += (targetLift - tape.lift) * liftLerp;
+
+        if (Math.abs(offsetX) > cullBound) {
+          if (tape.vis) {
+            tape.el.style.visibility = "hidden";
+            tape.vis = false;
+          }
+          return;
+        }
+
+        if (!tape.vis) {
+          tape.el.style.visibility = "";
+          tape.vis = true;
+        }
+
+        const visual = computeSlotVisual(delta, {
+          height: state.H,
+          offsetX,
+          tiltX: state.tiltX,
+          tiltY: state.tiltY,
+          lift: tape.lift,
+        });
+
+        tape.el.style.transform = visual.transform;
+        tape.el.style.zIndex = String(visual.zIndex);
+        tape.sp.style.setProperty("--shade", visual.spineShade);
+        tape.cv.style.setProperty("--shade", visual.coverShade);
+      });
+
+      if (!readyApplied) {
+        stage!.classList.add("is-ready");
+        readyApplied = true;
+      }
+
+      const cursorLerp = state.rm ? 1 : 1 - Math.exp(-16 * dt);
+      state.cx += (state.mx - state.cx) * cursorLerp;
+      state.cy += (state.my - state.cy) * cursorLerp;
+      cursorEl!.style.transform = `translate3d(${state.cx}px,${state.cy}px,0)`;
+
+      const nextCursorState =
+        state.over && !state.open
+          ? state.onCover
+            ? "is-on is-open"
+            : state.hover >= 0 && Math.abs(wrapDelta(state.hover, state.s, totalTapes)) > 0.5
+              ? "is-on is-spine"
+              : "is-on"
+          : "";
+
+      if (nextCursorState !== cursorClassCache) {
+        cursorEl!.className = nextCursorState ? `carousel-cursor ${nextCursorState}` : "carousel-cursor";
+        cursorClassCache = nextCursorState;
+      }
+
+      rafId = requestAnimationFrame(tick);
+    }
+
+    rafId = requestAnimationFrame((now) => {
+      lastFrameTime = now;
+      tick(now);
+    });
+
+    window.addEventListener("pagehide", () => {
+      cancelAnimationFrame(rafId);
+      cancelAnimationFrame(state.inkRaf);
+      clearTimeout(wheelSnapTimer);
+      resizeObserver.disconnect();
+    });
+  }
+
+  document.querySelectorAll<HTMLElement>("[data-book-carousel]").forEach(initBookCarousel);
+</script>

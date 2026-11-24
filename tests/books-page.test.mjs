@@ -65,18 +65,30 @@ test("the homepage reflects the essay and note model", () => {
   assert.doesNotMatch(homeHtml, /(writing|learning|notes|projects|essay)<sup>/);
 });
 
-test("the generated site includes The Forever Shelf with noted books only", () => {
+test("the generated site includes The Forever Shelf carousel and noted catalogue", () => {
   assert.match(booksHtml, /<h1>The Forever Shelf<\/h1>/);
   assert.match(booksHtml, /3 books with notes/);
-  assert.equal((booksHtml.match(/class="shelf-row"/g) ?? []).length, 1);
-  assert.equal((booksHtml.match(/class="shelf-book"/g) ?? []).length, 3);
+  assert.match(booksHtml, /class="book-carousel"/);
+  assert.match(booksHtml, /data-filter="all"[^>]*>[\s\S]*?All\s*<span class="carousel-pill-count">15<\/span>/);
+  assert.match(booksHtml, /data-filter="noted"[^>]*>[\s\S]*?Noted\s*<span class="carousel-pill-count">3<\/span>/);
+  assert.match(booksHtml, /data-filter="reading"[^>]*>[\s\S]*?Reading list\s*<span class="carousel-pill-count">12<\/span>/);
+  assert.equal((booksHtml.match(/class="carousel-tape"/g) ?? []).length, 45);
   assert.equal((booksHtml.match(/class="book-card"/g) ?? []).length, 3);
-  assert.equal((booksHtml.match(/class="book-cover"/g) ?? []).length, 3);
+  assert.match(booksHtml, /--spine-bg:#[0-9a-f]{6};--spine-fg:#[0-9a-f]{6};--spine-band:#[0-9a-f]{6};--spine-band-fg:#[0-9a-f]{6}/);
+  assert.match(booksHtml, /background-image:url\((?:&quot;|")\/_astro\/thinking-in-systems\.[^"&]+\.webp(?:&quot;|")\)/);
+  assert.match(booksHtml, /aria-label="Previous book"/);
+  assert.match(booksHtml, /aria-label="Next book"/);
+  assert.match(booksHtml, /class="carousel-open-sr"/);
+  assert.match(booksHtml, /data-book-sheet/);
+  assert.match(booksHtml, /id="shelf-ink-filter"/);
+  assert.match(booksHtml, /id="shelf-ink-mask"/);
+  assert.equal((booksHtml.match(/data-note-for="/g) ?? []).length, 3);
   assert.doesNotMatch(booksHtml, /class="book-cover-placeholder"/);
   assert.doesNotMatch(booksHtml, /covers\.openlibrary\.org/);
-  assert.match(booksHtml, /style="--shelf-columns: 3"/);
   assert.match(booksHtml, /href="\/books\/reading-list\/">Reading list · 12 books<\/a>/);
-  assert.doesNotMatch(booksHtml, /Thinking in Systems/);
+
+  const catalogueHtml = booksHtml.slice(booksHtml.indexOf('<ol class="book-catalogue"'));
+  assert.doesNotMatch(catalogueHtml, /Thinking in Systems/);
 });
 
 test("the shelf renders the three book notes in author-surname order", () => {

@@ -1,22 +1,72 @@
 ---
+import { getImage } from "astro:assets";
 import { render } from "astro:content";
+import BookCarousel, { type CarouselBookItem } from "../components/BookCarousel.astro";
 import PageIntro from "../components/PageIntro.astro";
-import ShelfWall from "../components/ShelfWall.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
-import { getPublishedBooks, hasNote } from "../lib/books";
+import {
+  getBookSpinePalette,
+  getPublishedBooks,
+  getShortAuthor,
+  getSpineTitle,
+  hasNote,
+} from "../lib/books";
 
 const books = await getPublishedBooks();
 
 const notedBooks = books.filter(hasNote);
 const readingList = books.filter((book) => !hasNote(book));
+const orderedBooks = [...notedBooks, ...readingList];
 
-const shelf = await Promise.all(
-  notedBooks.map(async (book, index) => ({
+const prepared = await Promise.all(
+  orderedBooks.map(async (book, index) => {
+    const noted = hasNote(book);
+    const cover = book.data.cover;
+    let coverUrl: string | null = null;
+    let aspect = 0.667;
+
+    if (cover) {
+      if (typeof cover === "string") {
+        coverUrl = cover;
+      } else {
+        const optimized = await getImage({ src: cover, width: 640, format: "webp" });
+        coverUrl = optimized.src;
+        aspect = cover.width / cover.height;
+      }
+    }
+
+    const palette = await getBookSpinePalette(book);
+    const Content = noted ? (await render(book)).Content : undefined;
+
+    const item: CarouselBookItem = {
+      id: book.id,
+      index: index + 1,
+      title: book.data.title,
+      spineTitle: getSpineTitle(book.data.title),
+      author: book.data.author,
+      shortAuthor: getShortAuthor(book.data),
+      isbn: book.data.isbn,
+      summary: book.data.summary,
+      hasNote: noted,
+      group: noted ? "noted" : "reading",
+      coverUrl,
+      aspect,
+      palette,
+      Content,
+    };
+
+    return { book, item };
+  }),
+);
+
+const carouselItems = prepared.map(({ item }) => item);
+const shelf = prepared
+  .filter(({ item }) => item.hasNote && item.Content)
+  .map(({ book, item }, index) => ({
     book,
     index,
-    Content: (await render(book)).Content,
-  })),
-);
+    Content: item.Content!,
+  }));
 ---
 
 <BaseLayout
@@ -27,7 +77,7 @@ const shelf = await Promise.all(
     <PageIntro
       label="Library"
       title="The Forever Shelf"
-      deck={`An unranked collection of books I return to. ${notedBooks.length} have notes; the rest are on the reading list.`}
+      deck={`An unranked collection of ${orderedBooks.length} books on my shelf. ${notedBooks.length} have notes; ${readingList.length} are on the reading list.`}
       note={`${notedBooks.length} books with notes`}
     >
       <a class="more-link" href="/books/reading-list/">
@@ -35,11 +85,7 @@ const shelf = await Promise.all(
       </a>
     </PageIntro>
 
-    {
-      notedBooks.length > 0 && (
-        <ShelfWall books={notedBooks} columns={Math.min(notedBooks.length, 5)} />
-      )
-    }
+    <BookCarousel items={carouselItems} />
 
     <ol class="book-catalogue" aria-label="Book notes">
       {
