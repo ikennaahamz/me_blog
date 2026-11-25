@@ -38,7 +38,7 @@ before(() => {
     "utf8",
   );
   noteHtml = readFileSync(
-    "dist/writing/notes-that-survive-the-week/index.html",
+    "dist/writing/the-archive-is-not-a-memory/index.html",
     "utf8",
   );
   aboutHtml = readFileSync("dist/about/index.html", "utf8");
@@ -152,17 +152,17 @@ test("writing presents the essay and note as the two formats", () => {
 
 test("articles offer chronological and archive continuation", () => {
   assert.match(essayHtml, /<h2>Keep reading<\/h2>/);
-  assert.doesNotMatch(essayHtml, /Related writing/);
+  assert.match(essayHtml, /Related writing/);
   assert.match(
     essayHtml,
-    /href="\/writing\/notes-that-survive-the-week\/"[^>]*>[\s\S]*?Notes that survive the week/,
+    /href="\/writing\/the-archive-is-not-a-memory\/"[^>]*>[\s\S]*?The Archive Is Not a Memory/,
   );
   assert.match(essayHtml, /class="article-pagination-link older"/);
   assert.doesNotMatch(essayHtml, /class="article-pagination-link newer"/);
   assert.match(essayHtml, /class="all-writing-link" href="\/writing\/">View all writing/);
 
   assert.match(noteHtml, /<h2>Keep reading<\/h2>/);
-  assert.doesNotMatch(noteHtml, /Related writing/);
+  assert.match(noteHtml, /Related writing/);
   assert.match(
     noteHtml,
     /href="\/writing\/the-social-media-mirror\/"[^>]*>[\s\S]*?The Social Media Mirror/,
@@ -177,7 +177,7 @@ test("articles show their format and written description", () => {
   assert.match(noteHtml, /<span class="article-type">Note<\/span>/);
   assert.match(essayHtml, /class="article-description"/);
   assert.match(noteHtml, /class="article-description"/);
-  assert.match(noteHtml, /A working note on recording decisions/);
+  assert.match(noteHtml, /Why saving something is not the same as understanding it/);
 });
 
 test("the About page carries the manifesto and current work", () => {
