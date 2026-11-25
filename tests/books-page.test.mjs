@@ -51,7 +51,7 @@ test("the homepage opens with one h1 and a contents index", () => {
 
   assert.match(homeHtml, /The Forever Shelf<\/span>/);
   assert.match(homeHtml, /Topics<\/span>/);
-  assert.match(homeHtml, /Writing<\/span>/);
+  assert.match(homeHtml, /href="\/writing\/"[\s\S]*?Writings<\/span>/);
   assert.doesNotMatch(homeHtml, /Start here|Begin with the idea|class="home-lead"|class="next-start"/);
   assert.doesNotMatch(homeHtml, /Recent writing/);
   assert.doesNotMatch(homeHtml, /class="post-row"/);
@@ -65,18 +65,37 @@ test("the homepage reflects the essay and note model", () => {
   assert.doesNotMatch(homeHtml, /(writing|learning|notes|projects|essay)<sup>/);
 });
 
-test("the generated site includes The Forever Shelf with noted books only", () => {
+test("the generated site includes The Forever Shelf carousel and noted catalogue", () => {
   assert.match(booksHtml, /<h1>The Forever Shelf<\/h1>/);
   assert.match(booksHtml, /3 books with notes/);
-  assert.equal((booksHtml.match(/class="shelf-row"/g) ?? []).length, 1);
-  assert.equal((booksHtml.match(/class="shelf-book"/g) ?? []).length, 3);
+  assert.match(booksHtml, /class="book-carousel"/);
+  assert.match(booksHtml, /data-filter="all"[^>]*>[\s\S]*?All\s*<span class="carousel-pill-count">15<\/span>/);
+  assert.match(booksHtml, /data-filter="noted"[^>]*>[\s\S]*?Noted\s*<span class="carousel-pill-count">3<\/span>/);
+  assert.match(booksHtml, /data-filter="reading"[^>]*>[\s\S]*?Reading list\s*<span class="carousel-pill-count">12<\/span>/);
+  assert.equal((booksHtml.match(/class="carousel-tape"/g) ?? []).length, 45);
   assert.equal((booksHtml.match(/class="book-card"/g) ?? []).length, 3);
-  assert.equal((booksHtml.match(/class="book-cover"/g) ?? []).length, 3);
+  assert.match(booksHtml, /--spine-bg:#[0-9a-f]{6};--spine-fg:#[0-9a-f]{6};--spine-band:#[0-9a-f]{6};--spine-band-fg:#[0-9a-f]{6}/);
+  assert.match(booksHtml, /background-image:url\((?:&quot;|")\/_astro\/thinking-in-systems\.[^"&]+\.webp(?:&quot;|")\)/);
+  assert.match(booksHtml, /aria-label="Previous book"/);
+  assert.match(booksHtml, /aria-label="Next book"/);
+  assert.match(booksHtml, /class="carousel-open-sr"/);
+  assert.match(booksHtml, /data-book-sheet/);
+  assert.match(booksHtml, /id="shelf-ink-filter"/);
+  assert.match(booksHtml, /id="shelf-ink-mask"/);
+  assert.equal((booksHtml.match(/data-note-for="/g) ?? []).length, 3);
   assert.doesNotMatch(booksHtml, /class="book-cover-placeholder"/);
   assert.doesNotMatch(booksHtml, /covers\.openlibrary\.org/);
-  assert.match(booksHtml, /style="--shelf-columns: 3"/);
+  assert.doesNotMatch(booksHtml, /ISBN\s+978/);
+  assert.doesNotMatch(booksHtml, /"isbn":/);
   assert.match(booksHtml, /href="\/books\/reading-list\/">Reading list · 12 books<\/a>/);
-  assert.doesNotMatch(booksHtml, /Thinking in Systems/);
+  assert.match(booksHtml, /<h2 id="full-list-title" class="book-catalogue-title">The Full List<\/h2>/);
+
+  const catalogueHtml = booksHtml.slice(booksHtml.indexOf('<ol class="book-catalogue"'));
+  assert.doesNotMatch(catalogueHtml, /Thinking in Systems/);
+  assert.match(
+    catalogueHtml,
+    /class="more-link book-catalogue-see-all" href="\/books\/reading-list\/">See all →<\/a>/,
+  );
 });
 
 test("the shelf renders the three book notes in author-surname order", () => {
@@ -193,5 +212,5 @@ test("topics use subject tags and exclude activity labels", () => {
 test("primary navigation marks the current section", () => {
   assert.match(booksHtml, /<a href="\/books\/" aria-current="page">Books<\/a>/);
   assert.match(readingListHtml, /<a href="\/books\/" aria-current="page">Books<\/a>/);
-  assert.match(writingHtml, /<a href="\/writing\/" aria-current="page">Writing<\/a>/);
+  assert.match(writingHtml, /<a href="\/writing\/" aria-current="page">Writings<\/a>/);
 });
